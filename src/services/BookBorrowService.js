@@ -17,6 +17,20 @@ class BookBorrowService
         )
     }
 
+    //method to get user's borrow requests
+    async getMyBorrowRequests( jwtToken )
+    {
+        return fetch(
+            `${config.urlPrefix}/requests/getMyBorrowRequests`,
+            {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${jwtToken}`
+                }
+            }
+        )
+    }
+
     //method to get all borrow requests on current user's books
     async getAllBorrowRequests( jwtToken )
     {
