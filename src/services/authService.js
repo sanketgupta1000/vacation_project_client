@@ -3,16 +3,18 @@ import config from "../config/config";
 class AuthService
 {
     // method to signup
-    async signup(email, password, fullName, phoneNumber)
+    async signup(email, password, fullName, phoneNumber, referrerId = null)
     {
 
         // get data as obj
-        const signupData = {
+        let signupData = {
             email,
             password,
             fullName,
-            phoneNumber
+            phoneNumber,
         }
+
+        if(referrerId) signupData.referrer.referrerId = referrerId
 
         // return the response promise
         return fetch(
