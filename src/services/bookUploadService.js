@@ -68,7 +68,7 @@ class BookUploadService
     // to get all the upload requests of the current user
     async getMyUploadRequests(jwt)
     {
-        return fetch(config.urlPrefix+"/getMyUploadRequests",
+        return fetch(config.urlPrefix+"/requests/getMyUploadRequests",
             {
                 //method
                 method:"GET",
