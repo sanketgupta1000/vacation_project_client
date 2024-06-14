@@ -3,16 +3,18 @@ import config from "../config/config";
 class BookUploadService
 {
     //parameter book and user
-    async upload_boook(bookTitle,authorName,pageCount,quantity,category,jwt)
+    async upload_boook(bookTitle,authorName,pageCount,quantity,categoryId,jwt)
     {
         const Book={
             bookTitle,
             authorName,
             pageCount,
             quantity,
-            category
+            category: {
+                id: categoryId
+            }
         }
-        return fetch(config.urlPrefix+"/uploadBook",
+        return fetch(config.urlPrefix+"/books/uploadBook",
             {
                 //method
                 method:"POST",
@@ -27,7 +29,7 @@ class BookUploadService
 
     async approveBookUploadRequest(bookId,jwt)
     {
-        return fetch(config.urlPrefix+"/bookUploadRequests/"+bookId+"/approve",
+        return fetch(config.urlPrefix+"/requests/bookUploadRequests/"+bookId+"/approve",
             {
                 //mehtod
                 method:"POST",
@@ -40,7 +42,7 @@ class BookUploadService
 
     async rejectBookUploadRequest(bookId,jwt)
     {
-        return fetch(config.urlPrefix+"/bookUploadRequests/"+bookId+"/reject"),
+        return fetch(config.urlPrefix+"/requests/bookUploadRequests/"+bookId+"/reject"),
         {
             //method
             method:"POST",
@@ -52,7 +54,7 @@ class BookUploadService
 
     async getAllBookUploadRequests(jwt)
     {
-        return fetch(config.urlPrefix+"/bookUploadRequests",
+        return fetch(config.urlPrefix+"/requests/bookUploadRequests",
             {
                 //method 
                 method:"GET",
@@ -63,9 +65,10 @@ class BookUploadService
         );
     }
 
-    async currentUserUploadedBook(jwt)
+    // to get all the upload requests of the current user
+    async getMyUploadRequests(jwt)
     {
-        return fetch(config.urlPrefix+"/getAllUploadedBooks",
+        return fetch(config.urlPrefix+"/getMyUploadRequests",
             {
                 //method
                 method:"GET",

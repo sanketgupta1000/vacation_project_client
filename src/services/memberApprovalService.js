@@ -4,7 +4,7 @@ class MemberApprovalService
 {
     async getAllMemberApprovalRequests(jwt)
     {
-        return fetch(config.urlPrefix+"/memberApprovalRequests",
+        return fetch(config.urlPrefix+"/requests/memberApprovalRequests",
             {
                 // method
                 method: "GET",
@@ -17,7 +17,7 @@ class MemberApprovalService
 
     async approveMemberApprovalRequestFromAdmin(request_id,jwt)
     {
-        return fetch(config.urlPrefix+"/memberApprovalRequests/"+request_id+"/approveFromAdmin",
+        return fetch(config.urlPrefix+"/requests/memberApprovalRequests/"+request_id+"/approveFromAdmin",
             {
                 //method 
                 method:"POST",
@@ -30,7 +30,7 @@ class MemberApprovalService
 
     async rejectMemberApprovalRequestFromAdmin(request_id,jwt)
     {
-        return fetch(config.urlPrefix+"/memberApprovalRequests/"+request_id+"/rejectFromAdmin",
+        return fetch(config.urlPrefix+"/requests/memberApprovalRequests/"+request_id+"/rejectFromAdmin",
             {
                 //method 
                 method:"POST",
@@ -43,7 +43,7 @@ class MemberApprovalService
 
     async approveMemberApprovalRequestFromReference(request_id,jwt)
     {
-        return fetch(config.urlPrefix+"/memberApprovalRequests/"+request_id+"/approveFromReference",
+        return fetch(config.urlPrefix+"/requests/memberApprovalRequests/"+request_id+"/approveFromReference",
             {
                 //method
                 method:"POST",
@@ -56,7 +56,7 @@ class MemberApprovalService
 
     async rejectMemberApprovalRequestFromReference(request_id,jwt)
     {
-        return fetch(config.urlPrefix+"/memberApprovalRequests/"+request_id+"/rejectFromReference",
+        return fetch(config.urlPrefix+"/requests/memberApprovalRequests/"+request_id+"/rejectFromReference",
             {
                 //method
                 method:"POST",
@@ -69,7 +69,7 @@ class MemberApprovalService
 
     async seeAllReferences(jwt)
     {
-        return fetch(config.urlPrefix+"/getAllreferences",
+        return fetch(config.urlPrefix+"/users/getAllreferences",
             {
                 //method 
                 method:"GET",
