@@ -1,7 +1,7 @@
 import { setLoading, setInfo } from "../slices";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
-import bookUploadService from "../services/bookUploadService";
+import {bookUploadService} from "../services";
 import {Button} from "./"
 
 // a general component to display a book in the form of card
@@ -101,34 +101,29 @@ function BookCard({
         }
 
         return (
-            <div>
+            <div className="max-w-sm rounded-xl overflow-hidden shadow-lg">
 
                 {/* book details */}
-                <div>
-                    <h1>{book.bookTitle}</h1>
-                    <p>by {book.bookAuthor}</p>
-                    <p>Category: {book.bookCategoryName}</p>
-                    <p>{book.bookPageCount} pages</p>
-                    <p>Quantity: {book.bookQuantity}</p>
-                </div>
+                <div className="px-6 py-4">
+                    <h1 class="font-bold text-xl mb-2">{book.bookTitle}</h1>
+                    <p className="text-gray-500 text-sm mb-4">by {book.bookAuthor}</p>
 
-                {/* owner */}
-                <div>
-                    <p>Owner: {book.bookOwnerName}</p>
-                </div>
-
-                {/* approval status */}
-                {showApprovalStatus && 
-                (
-                    <div>
-                        <p>Approval Status: {book.bookApprovalStatus}</p>
+                    <div className="flex flex-col">
+                        <p className="text-gray-700 text-base">Category: {book.bookCategoryName}</p>
+                        <p className="text-gray-700 text-base">Quantity: {book.bookQuantity}</p>
+                        <p className="text-gray-700 text-base">Owner: {book.bookOwnerName}</p>
+                        {
+                            showApprovalStatus && 
+                            <p className="text-gray-700 text-base">Approval Status: {book.bookApprovalStatus}</p>
+                        }
                     </div>
-                )}
+
+                </div>
 
                 {/* admin actions */}
                 {showAdminActions &&
                 (
-                    <div>
+                    <div className="px-6 py-4 flex justify-start">
 
                         <Button
                             bgColor="green"
@@ -171,3 +166,5 @@ function BookCard({
         />
     )
 }
+
+export default BookCard
