@@ -6,7 +6,9 @@ const initialState = {
         email: null,
         fullName: null,
         phoneNumber: null,
+        referrerId: null,
         referrerName: null,
+        referrerEmail: null,
         houseNo: null,
         street: null,
         landmark: null,
@@ -16,10 +18,10 @@ const initialState = {
         dateOfBirth: null
     },
     // get the token from localStorage, null if it does not exist
-    token: localStorage.getItem('token'),
+    token: localStorage.getItem( 'token' ),
 }
 
-export const userSlice = createSlice({
+export const userSlice = createSlice( {
     name: 'user',
     initialState,
     reducers: {
@@ -27,30 +29,30 @@ export const userSlice = createSlice({
         // methods to manipulate user data go here
 
         // to set email (an explicit method, since we will need email during otp verification)
-        setEmail: (state, action) => 
-            {
-                // set the email
-                state.user.email = action.payload;
-            },
+        setEmail: ( state, action ) => 
+        {
+            // set the email
+            state.user.email = action.payload;
+        },
 
         // to set the user data
-        setUser: (state, action) => 
-            {
-                // set the user data
-                state.user = action.payload;
-            },
+        setUser: ( state, action ) => 
+        {
+            // set the user data
+            state.user = action.payload;
+        },
 
         // to set the token
-        setToken: (state, action) => 
-            {
-                // set the token
-                state.token = action.payload;
-                // also set in localStorage
-                localStorage.setItem('token', action.payload);
-            }
+        setToken: ( state, action ) => 
+        {
+            // set the token
+            state.token = action.payload;
+            // also set in localStorage
+            localStorage.setItem( 'token', action.payload );
+        }
 
     }
-})
+} )
 
 export default userSlice.reducer;
 

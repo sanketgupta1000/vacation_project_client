@@ -42,24 +42,24 @@ const initialState = {
             bookOwnerId: null,
             bookOwnerName: null,
         }
-    ]
+    ],
 }
 
-export const bookApprovalSlice = createSlice({
+export const bookApprovalSlice = createSlice( {
     name: 'bookApproval',
     initialState,
     reducers: {
 
         // method to set all requests
-        setAll: (state, action) => 
-            {
-                state.newRequests = action.payload.unresponded;
-                state.approvedRequests = action.payload.approved;
-                state.rejectedRequests = action.payload.rejected;
-            }
+        setAll: ( state, action ) => 
+        {
+            state.newRequests = action.payload.unresponded
+            state.approvedRequests = action.payload.approved
+            state.rejectedRequests = action.payload.rejected
+        }
 
     }
-})
+} )
 
 export default bookApprovalSlice.reducer;
 
