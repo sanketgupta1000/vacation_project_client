@@ -27,6 +27,7 @@ const initialState = {
             adminApproval: null
         }
     ],
+
     rejectedRequests: [
         {
             memberApprovalRequestId: null,
@@ -42,7 +43,7 @@ const initialState = {
     ],
 }
 
-export const memberApprovalSlice = createSlice({
+export const memberApprovalSlice = createSlice( {
     name: 'memberApproval',
     initialState,
     reducers: {
@@ -50,12 +51,12 @@ export const memberApprovalSlice = createSlice({
         // methods to manipulate member approval data go here
 
         // method to set all requests
-        setAll: (state, action) => 
-            {
-                state.newRequests = action.payload.unresponded;
-                state.approvedRequests = action.payload.approved;
-                state.rejectedRequests = action.payload.rejected;
-            }
+        setAll: ( state, action ) => 
+        {
+            state.newRequests = action.payload.unresponded;
+            state.approvedRequests = action.payload.approved;
+            state.rejectedRequests = action.payload.rejected;
+        }
 
     }
-})
+} )
