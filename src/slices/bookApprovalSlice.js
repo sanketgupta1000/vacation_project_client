@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    newRequests: [
+    newBookApprovalRequests: [
         {
             bookId: null,
             bookTitle: null,
@@ -15,7 +15,7 @@ const initialState = {
             bookOwnerName: null,
         }
     ],
-    approvedRequests: [
+    approvedBookApprovalRequests: [
         {
             bookId: null,
             bookTitle: null,
@@ -29,7 +29,7 @@ const initialState = {
             bookOwnerName: null,
         }
     ],
-    rejectedRequests: [
+    rejectedBookApprovalRequests: [
         {
             bookId: null,
             bookTitle: null,
@@ -51,11 +51,11 @@ export const bookApprovalSlice = createSlice( {
     reducers: {
 
         // method to set all requests
-        setAll: ( state, action ) => 
+        setAllBookApprovalRequests: ( state, action ) => 
         {
-            state.newRequests = action.payload.unresponded
-            state.approvedRequests = action.payload.approved
-            state.rejectedRequests = action.payload.rejected
+            state.newBookApprovalRequests = action.payload.unresponded
+            state.approvedBookApprovalRequests = action.payload.approved
+            state.rejectedBookApprovalRequests = action.payload.rejected
         }
 
     }
@@ -63,4 +63,4 @@ export const bookApprovalSlice = createSlice( {
 
 export default bookApprovalSlice.reducer;
 
-export const { setAll } = bookApprovalSlice.actions;
+export const { setAllBookApprovalRequests } = bookApprovalSlice.actions;

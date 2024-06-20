@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 import {Button} from "./"
 import { bookBorrowService } from "../services";
 
-function BookCopyRow({bookCopiesDTO})
+function BookCopyRow({bookCopy})
 {
- let eligible=bookCopiesDTO.requestable
+ let eligible=bookCopy.requestable
  const jwt = useSelector(state=>state.userReducer.token)
   async function requestHandler()
   {
@@ -12,7 +12,7 @@ function BookCopyRow({bookCopiesDTO})
     try
             {
                 // call the service
-                const response = await bookBorrowService.requestForBorrow(bookCopiesDTO.bookId, jwt)
+                const response = await bookBorrowService.requestForBorrow(bookCopy.bookId, jwt)
 
                 // custom status exceptions
                 if(!response.ok)
@@ -41,17 +41,17 @@ function BookCopyRow({bookCopiesDTO})
    
     return(
         <>
-         <Link to = {`/bookCopies/${bookCopiesDTO.id}`}  >
+         <Link to = {`/bookCopies/${bookCopy.id}`}  >
         <div >
           <div>
-            <li>{bookCopiesDTO.bookCopyId}</li>
-            <li>{bookCopiesDTO.bookTitle}</li>
-            <li>{bookCopiesDTO.holderName}</li>
-            <li>{bookCopiesDTO.borrowerName}</li>
+            <li>{bookCopy.bookCopyId}</li>
+            <li>{bookCopy.bookTitle}</li>
+            <li>{bookCopy.holderName}</li>
+            <li>{bookCopy.borrowerName}</li>
           </div>
-          {eligible && ( <Button onClick={requestHandler}> request for borrow</Button>)}
+          {eligible && ( <Button onClick={requestHandler}> Request for Borrow</Button>)}
 
-          {!eligible && (  <Button> You have already requested for a book. </Button>)}
+          {!eligible && ( <Button disabled> Request for Borrow</Button>)}
         </div>
         </Link>
         </>

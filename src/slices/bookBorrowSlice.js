@@ -38,7 +38,7 @@ export const bookBorrowSlice = createSlice( {
     name: 'bookBorrow',
     initialState,
     reducers: {
-        setAll: ( state, action ) =>
+        setAllBorrowRequests: ( state, action ) =>
         {
             state.newBorrowRequests = action.payload.newBorrowRequests
             state.approvedBorrowRequests = action.payload.approvedBorrowRequests
@@ -48,4 +48,4 @@ export const bookBorrowSlice = createSlice( {
 } )
 
 export default bookBorrowSlice.reducer
-export const { setAll } = bookBorrowSlice.actions
+export const { setAllBorrowRequests } = bookBorrowSlice.actions
