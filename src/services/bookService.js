@@ -4,7 +4,7 @@ class BookService
 {
 
     // method to get all books
-    async getBooks(jwt)
+    async getBooks( jwt )
     {
         return fetch(
             config.urlPrefix + "/books",
@@ -18,7 +18,7 @@ class BookService
     }
 
     // method to get a book
-    async getBook(jwt, bookId)
+    async getBook( jwt, bookId )
     {
         return fetch(
             config.urlPrefix + "/books/" + bookId,
@@ -46,7 +46,7 @@ class BookService
     }
 
     // method to get all transactions for a book copy
-    async getBookCopyTransactions(jwt, bookCopyId)
+    async getBookCopyTransactions( jwt, bookCopyId )
     {
         return fetch(
             config.urlPrefix + "/books/" + bookCopyId + "/transactions",
@@ -60,7 +60,7 @@ class BookService
     }
 
     // method to get all the uploaded books of current user
-    async getUploadedBooks(jwt)
+    async getUploadedBooks( jwt )
     {
         return fetch(
             config.urlPrefix + "/books/myUploadedBooks",
@@ -74,7 +74,7 @@ class BookService
     }
 
     // method to get all the borrowed book copies of current user
-    async getBorrowedBookCopies(jwt)
+    async getBorrowedBookCopies( jwt )
     {
         return fetch(
             config.urlPrefix + "/books/myBorrowedBookCopies",
