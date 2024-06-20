@@ -3,7 +3,7 @@ import config from "../config/config";
 class BookUploadService
 {
     //parameter book and user
-    async upload_boook(bookTitle,authorName,pageCount,quantity,categoryId,jwt)
+    async uploadBook(bookTitle,authorName,pageCount,quantity,categoryId,jwt)
     {
         const Book={
             bookTitle,
@@ -14,7 +14,7 @@ class BookUploadService
                 id: categoryId
             }
         }
-        return fetch(config.urlPrefix+"/books/uploadBook",
+        return fetch(config.urlPrefix+"/books",
             {
                 //method
                 method:"POST",
@@ -68,7 +68,7 @@ class BookUploadService
     // to get all the upload requests of the current user
     async getMyUploadRequests(jwt)
     {
-        return fetch(config.urlPrefix+"/requests/getMyUploadRequests",
+        return fetch(config.urlPrefix+"/requests/myUploadRequests",
             {
                 //method
                 method:"GET",

@@ -36,7 +36,7 @@ class UserService
         )
 
         return fetch(
-            config.urlPrefix + "/users/profile-complete",
+            config.urlPrefix + "/users/completeProfile",
             {
                 method: "POST",
                 headers: {
@@ -52,7 +52,7 @@ class UserService
     async getUserDetails(jwt)
     {
         return fetch(
-            config.urlPrefix + "/users/getUserDetails",
+            config.urlPrefix + "/users",
             {
                 method: "GET",
                 headers: {
@@ -87,7 +87,7 @@ class UserService
         }
 
         return fetch(
-            config.urlPrefix + "/users/updateUserProfile",
+            config.urlPrefix + "/users/updateProfile",
             {
                 method: "PUT",
                 headers: {
@@ -99,18 +99,18 @@ class UserService
         )
     }
 
-    async deleteUser(jwt)
-    {
-        return fetch(
-            config.urlPrefix + "/users/deleteUserProfile",
-            {
-                method: "DELETE",
-                headers: {
-                    "Authorization": "Bearer "+ jwt
-                }
-            }
-        )
-    }
+    // async deleteUser(jwt)
+    // {
+    //     return fetch(
+    //         config.urlPrefix + "/users/deleteUserProfile",
+    //         {
+    //             method: "DELETE",
+    //             headers: {
+    //                 "Authorization": "Bearer "+ jwt
+    //             }
+    //         }
+    //     )
+    // }
 
 }
 
