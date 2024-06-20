@@ -42,7 +42,7 @@ class AuthService
         formData.append("otp", otp)
 
         return fetch(
-            config.urlPrefix + "/auth/verify-otp",
+            config.urlPrefix + "/auth/verifyOtp",
             {
                 method: "POST",
                 headers: {

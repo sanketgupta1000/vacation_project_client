@@ -7,7 +7,7 @@ class BookBorrowService
     async requestForBorrow( bookCopyId, jwtToken )
     {
         return fetch(
-            `${config.urlPrefix}/books/${bookCopyId}/borrow-request`,
+            `${config.urlPrefix}/books/${bookCopyId}/borrowRequest`,
             {
                 method: "POST",
                 headers: {
@@ -21,7 +21,7 @@ class BookBorrowService
     async getMyBorrowRequests( jwtToken )
     {
         return fetch(
-            `${config.urlPrefix}/requests/getMyBorrowRequests`,
+            `${config.urlPrefix}/requests/myBorrowRequests`,
             {
                 method: "GET",
                 headers: {
@@ -77,7 +77,7 @@ class BookBorrowService
     async initiateHandover( bookCopyId, jwtToken )
     {
         return fetch(
-            `${config.urlPrefix}/books/${bookCopyId}/initiate_handover`,
+            `${config.urlPrefix}/books/${bookCopyId}/initiateHandover`,
             {
                 method: "POST",
                 headers: {
