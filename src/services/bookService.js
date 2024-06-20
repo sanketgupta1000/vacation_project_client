@@ -7,7 +7,7 @@ class BookService
     async getBooks( jwt )
     {
         return fetch(
-            config.urlPrefix + "/books/getAllBooks",
+            config.urlPrefix + "/books",
             {
                 method: "GET",
                 headers: {
@@ -31,11 +31,11 @@ class BookService
         )
     }
 
-    // method to get all book copies for a book
-    async getBookCopies( jwt, bookId )
+    // method to get all book copies for a book, along with the book's data
+    async getBookCopies(jwt, bookId)
     {
         return fetch(
-            config.urlPrefix + "/books/" + bookId + "/view-copies",
+            config.urlPrefix + "/books/" + bookId + "/bookCopies",
             {
                 method: "GET",
                 headers: {
@@ -63,7 +63,7 @@ class BookService
     async getUploadedBooks( jwt )
     {
         return fetch(
-            config.urlPrefix + "/books/getMyUploadedBooks",
+            config.urlPrefix + "/books/myUploadedBooks",
             {
                 method: "GET",
                 headers: {
@@ -77,7 +77,7 @@ class BookService
     async getBorrowedBookCopies( jwt )
     {
         return fetch(
-            config.urlPrefix + "/books/getMyBorrowedBookCopies",
+            config.urlPrefix + "/books/myBorrowedBookCopies",
             {
                 method: "GET",
                 headers: {

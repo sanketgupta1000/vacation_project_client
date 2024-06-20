@@ -69,7 +69,7 @@ class MemberApprovalService
 
     async seeAllReferences(jwt)
     {
-        return fetch(config.urlPrefix+"/users/getAllreferences",
+        return fetch(config.urlPrefix+"/users/referrals",
             {
                 //method 
                 method:"GET",

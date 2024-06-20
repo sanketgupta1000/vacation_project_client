@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    newRequests: [
+    newMemberApprovalRequests: [
         {
             memberApprovalRequestId: null,
             membrrId: null,
@@ -14,7 +14,7 @@ const initialState = {
             adminApproval: null
         }
     ],
-    approvedRequests: [
+    approvedMemberApprovalRequests: [
         {
             memberApprovalRequestId: null,
             membrrId: null,
@@ -28,7 +28,7 @@ const initialState = {
         }
     ],
 
-    rejectedRequests: [
+    rejectedMemberApprovalRequests: [
         {
             memberApprovalRequestId: null,
             membrrId: null,
@@ -51,12 +51,16 @@ export const memberApprovalSlice = createSlice( {
         // methods to manipulate member approval data go here
 
         // method to set all requests
-        setAll: ( state, action ) => 
+        setAllMemberApprovalRequests: ( state, action ) => 
         {
-            state.newRequests = action.payload.unresponded;
-            state.approvedRequests = action.payload.approved;
-            state.rejectedRequests = action.payload.rejected;
+            state.newMemberApprovalRequests = action.payload.unresponded;
+            state.approvedMemberApprovalRequests = action.payload.approved;
+            state.rejectedMemberApprovalRequests = action.payload.rejected;
         }
 
     }
 } )
+
+export const { setAllMemberApprovalRequests } = memberApprovalSlice.actions
+
+export default memberApprovalSlice.reducer;
