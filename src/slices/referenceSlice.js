@@ -1,8 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { act } from "react"
 
 const initialState = {
-    newRequests: [
+    newReferenceRequests: [
         {
             memeberApprovalRequestId: null,
             requesterId: null,
@@ -10,7 +9,7 @@ const initialState = {
             requesterEmail: null,
         }
     ],
-    approvedRequests: [
+    approvedReferenceRequests: [
         {
             memeberApprovalRequestId: null,
             requesterId: null,
@@ -18,7 +17,7 @@ const initialState = {
             requesterEmail: null,
         }
     ],
-    rejectedRequests: [
+    rejectedReferenceRequests: [
         {
             memeberApprovalRequestId: null,
             requesterId: null,
@@ -41,11 +40,11 @@ export const referenceSlice = createSlice( {
     reducers: {
 
         //set all requests
-        setAllRequests: ( state, action ) =>
+        setAllReferenceRequests: ( state, action ) =>
         {
-            state.newRequests = action.payload.newRequests
-            state.approvedRequests = action.payload.approvedRequests
-            state.rejectedRequests = action.payload.rejectedRequests
+            state.newReferenceRequests = action.payload.newRequests
+            state.approvedReferenceRequests = action.payload.approvedRequests
+            state.rejectedReferenceRequests = action.payload.rejectedRequests
         },
 
         //set all referrers of current user
@@ -56,5 +55,5 @@ export const referenceSlice = createSlice( {
     }
 } )
 
-export const { setAllRequests, setReferrers } = referenceSlice.actions
+export const { setAllReferencesRequests, setReferrers } = referenceSlice.actions
 export default referenceSlice.reducer
