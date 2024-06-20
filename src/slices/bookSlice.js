@@ -77,6 +77,9 @@ const initialState = {
         bookCopyTransactions: [
             {
                 transactionId: null,
+                bookCopyId: null,
+                bookId: null,
+                bookTitle: null,
                 bookGiverId: null,
                 bookGiverFullName: null,
                 bookGiverEmail: null,

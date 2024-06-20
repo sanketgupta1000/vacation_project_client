@@ -44,7 +44,7 @@ function Book()
             // set data
             const data = await response.json()
             
-            setSingleBook(data)
+            dispatch(setSingleBook(data))
 
         }
         catch(error)
