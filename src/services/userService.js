@@ -4,13 +4,13 @@ class UserService
 {
 
     // method to let the user complete the profile
-    async completeProfile(jwt, dateOfBirth,
+    async completeProfile( jwt, { dateOfBirth,
         houseNo,
         street,
         landmark,
         city,
         state,
-        country
+        country }
     )
     {
         // creating address object
@@ -25,10 +25,10 @@ class UserService
 
         // creating form data
         const profileData = new FormData()
-        profileData.append("dateOfBirth", dateOfBirth)
-        profileData.append("address", 
+        profileData.append( "dateOfBirth", dateOfBirth )
+        profileData.append( "address",
             new Blob(
-                [JSON.stringify(address)],
+                [ JSON.stringify( address ) ],
                 {
                     type: "application/json"
                 }
@@ -41,7 +41,7 @@ class UserService
                 method: "POST",
                 headers: {
                     "Content-Type": "multipart/form-data",
-                    "Authorization": "Bearer "+ jwt
+                    "Authorization": "Bearer " + jwt
                 },
                 body: profileData
             }
@@ -49,21 +49,21 @@ class UserService
     }
 
     // method to get the current user details
-    async getUserDetails(jwt)
+    async getUserDetails( jwt )
     {
         return fetch(
             config.urlPrefix + "/users",
             {
                 method: "GET",
                 headers: {
-                    "Authorization": "Bearer "+ jwt
+                    "Authorization": "Bearer " + jwt
                 }
             }
         )
     }
 
     // method to update the user details
-    async updateUserDetails(jwt, fullName, phoneNumer, dateOfBirth,
+    async updateUserDetails( jwt, fullName, phoneNumer, dateOfBirth,
         houseNo,
         street,
         landmark,
@@ -92,9 +92,9 @@ class UserService
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer "+ jwt
+                    "Authorization": "Bearer " + jwt
                 },
-                body: JSON.stringify(requestObj)
+                body: JSON.stringify( requestObj )
             }
         )
     }
