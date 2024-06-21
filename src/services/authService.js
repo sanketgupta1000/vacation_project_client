@@ -14,7 +14,12 @@ class AuthService
             phoneNumber,
         }
 
-        if(referrerId) signupData.referrer.referrerId = referrerId
+        if(referrerId)
+        {
+            signupData.referrer = {}
+            signupData.referrer.id = referrerId
+            console.log("referrer id sent: "+signupData.referrer.id)
+        }
 
         // return the response promise
         return fetch(
