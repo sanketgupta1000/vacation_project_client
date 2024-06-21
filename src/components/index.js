@@ -7,8 +7,11 @@ import BookCopyRow from "./BookCopyRow";
 import Book from "./Book";
 import BookTransactionRow from "./BookTransactionRow";
 import Logo from "./Logo";
+import Login from './Login';
+import ProfileComplete from './ProfileComplete';
 
-export {
+export
+{
     Button,
     InputField,
     MemberApprovalRequestCard,
@@ -17,5 +20,7 @@ export {
     BookCopyRow,
     Book,
     BookTransactionRow,
-    Logo
+    Logo,
+    Login,
+    ProfileComplete
 }
