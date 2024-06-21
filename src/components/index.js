@@ -6,6 +6,7 @@ import BookCard from "./BookCard";
 import BookCopyRow from "./BookCopyRow";
 import Book from "./Book";
 import BookTransactionRow from "./BookTransactionRow";
+import Logo from "./Logo";
 
 export {
     Button,
@@ -15,5 +16,6 @@ export {
     BookCard,
     BookCopyRow,
     Book,
-    BookTransactionRow
+    BookTransactionRow,
+    Logo
 }
