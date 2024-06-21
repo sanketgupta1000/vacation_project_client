@@ -3,7 +3,7 @@ import config from "../config/config";
 class AuthService
 {
     // method to signup
-    async signup(email, password, fullName, phoneNumber, referrerId = null)
+    async signup( email, password, fullName, phoneNumber, referrerId = null )
     {
 
         // get data as obj
@@ -14,7 +14,7 @@ class AuthService
             phoneNumber,
         }
 
-        if(referrerId) signupData.referrer.referrerId = referrerId
+        if ( referrerId ) signupData.referrer.referrerId = referrerId
 
         // return the response promise
         return fetch(
@@ -27,19 +27,19 @@ class AuthService
                     "Content-Type": "application/json"
                 },
                 // request body
-                body: JSON.stringify(signupData)
+                body: JSON.stringify( signupData )
             }
         )
     }
 
     // method to verify otp
-    async verifyOtp(email, otp)
+    async verifyOtp( email, otp )
     {
 
         // first creating a form data
         const formData = new FormData()
-        formData.append("email", email)
-        formData.append("otp", otp)
+        formData.append( "email", email )
+        formData.append( "otp", otp )
 
         return fetch(
             config.urlPrefix + "/auth/verifyOtp",
@@ -54,7 +54,7 @@ class AuthService
     }
 
     // method to login
-    async login(email, password)
+    async login( { email, password } )
     {
 
         // data object
@@ -71,10 +71,10 @@ class AuthService
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify(loginData)
+                body: JSON.stringify( loginData )
             }
         )
-        
+
     }
 
 
