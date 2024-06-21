@@ -7,23 +7,28 @@ function Button({
     children,
     // the type of button
     type="button",
-    className="",
+    color="blue",
     bgColor="blue",
-    textColor="white",
     // optional click handler
     handleClick,
+    className="",
     ...props
 
 })
 {
 
+    const colorVariants = {
+        blue: "bg-blue-500 hover:bg-blue-600 focus:ring-blue-400",
+        red: "bg-red-500 hover:bg-red-600 focus:ring-red-400",
+        green: "bg-green-500 hover:bg-green-600 focus:ring-green-400",
+    }
 
     return (
 
 
         <button
             type={type}
-            className={`px-6 py-2 font-medium tracking-wide text-${textColor} capitalize transition-colors duration-300 transform bg-${bgColor}-600 rounded-lg hover:bg-${bgColor}-500 focus:outline-none focus:ring focus:ring-${bgColor}-300 focus:ring-opacity-80 ${className}`}
+            className={`${colorVariants[color]} px-6 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform rounded-lg focus:outline-none focus:ring focus:ring-opacity-80 ${className}`}
             onClick={(e) => handleClick && handleClick(e)}
             {...props}
         >

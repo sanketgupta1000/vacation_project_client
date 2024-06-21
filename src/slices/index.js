@@ -3,7 +3,7 @@ import {setAllBookApprovalRequests} from "./bookApprovalSlice"
 import bookApprovalReducer from "./bookApprovalSlice"
 
 // import from bookBorrowSlice.js
-import {setAllBorrowRequests} from "./bookBorrowSlice"
+import {setAllReceiverBorrowRequests, setAllSenderBorrowRequests} from "./bookBorrowSlice"
 import bookBorrowReducer from "./bookBorrowSlice"
 
 // import from bookSlice.js
@@ -36,7 +36,8 @@ export {
     setAllBookApprovalRequests,
     bookApprovalReducer,
 
-    setAllBorrowRequests,
+    setAllReceiverBorrowRequests,
+    setAllSenderBorrowRequests,
     bookBorrowReducer,
 
     setAvailableBooks,

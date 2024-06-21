@@ -32,20 +32,47 @@ const initialState = {
             status: null,
         }
     ],
+
+    // for sender
+    currentBorrowRequest: {
+        borrowRequestId: null,
+        bookCopyId: null,
+        bookCopyName: null,
+        requesterId: null,
+        requesterName: null,
+        status: null,
+    },
+    pastBorrowRequests: [
+        {
+            borrowRequestId: null,
+            bookCopyId: null,
+            bookCopyName: null,
+            requesterId: null,
+            requesterName: null,
+            status: null,
+        }
+    ]
 }
 
 export const bookBorrowSlice = createSlice( {
     name: 'bookBorrow',
     initialState,
     reducers: {
-        setAllBorrowRequests: ( state, action ) =>
+        setAllReceiverBorrowRequests: ( state, action ) =>
         {
             state.newBorrowRequests = action.payload.newBorrowRequests
             state.approvedBorrowRequests = action.payload.approvedBorrowRequests
             state.rejectedBorrowRequests = action.payload.rejectedBorrowRequests
         },
+
+        setAllSenderBorrowRequests: ( state, action ) =>
+        {
+            state.currentBorrowRequest = action.payload.currentBorrowRequest
+            state.pastBorrowRequests = action.payload.pastBorrowRequests
+        
+        }
     }
 } )
 
 export default bookBorrowSlice.reducer
-export const { setAllBorrowRequests } = bookBorrowSlice.actions
+export const { setAllReceiverBorrowRequests, setAllSenderBorrowRequests } = bookBorrowSlice.actions
