@@ -1,9 +1,9 @@
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
 import { useForm } from "react-hook-form"
 import {InputField, Button} from "."
 import { userService } from "../services"
-import { setLoading, setInfo } from "../slices"
+import { setLoading, setInfo, setToken } from "../slices"
 
 
 
@@ -12,20 +12,22 @@ const ProfileComplete = ()=>{
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const {register, handleSubmit, formState: { errors }} = useForm
-
-    const jwt = useSelector(state=>state.userReducer.token)
+    const {register, handleSubmit, formState: { errors }} = useForm()
+    const jwtToken = useSelector((state)=>state.user.token)
 
     const handleProfileComplete = async(data)=>{
         dispatch(setLoading({isLoading: true, loadingMsg: "Loading book data..."}))
-
         try
         {
-            const response = await userService.completeProfile(jwt, data)
+            const response = await userService.completeProfile(jwtToken, data)
 
             if(!response.ok){
-                throw new Error(await response.json())
+                throw new Error((await response.json()).message)
             }
+
+            const jwt = await response.text()
+            dispatch(setToken(jwt))
+            console.log("Success")
         }
         catch(error)
         {
@@ -54,7 +56,7 @@ const ProfileComplete = ()=>{
                 <div>
                     {
                         errors.dateOfBirth &&
-                        <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
+                        <span className="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
                             {errors.dateOfBirth.message}
                         </span>
                     }
@@ -74,7 +76,7 @@ const ProfileComplete = ()=>{
                 <div>
                     {
                         errors.houseNo &&
-                        <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
+                        <span className="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
                             {errors.houseNo.message}
                         </span>
                     }
@@ -94,7 +96,7 @@ const ProfileComplete = ()=>{
                 <div>
                     {
                         errors.street &&
-                        <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
+                        <span className="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
                             {errors.street.message}
                         </span>
                     }
@@ -114,7 +116,7 @@ const ProfileComplete = ()=>{
                 <div>
                     {
                         errors.landmark &&
-                        <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
+                        <span className="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
                             {errors.landmark.message}
                         </span>
                     }
@@ -134,7 +136,7 @@ const ProfileComplete = ()=>{
                 <div>
                     {
                         errors.city &&
-                        <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
+                        <span className="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
                             {errors.city.message}
                         </span>
                     }
@@ -154,7 +156,7 @@ const ProfileComplete = ()=>{
                 <div>
                     {
                         errors.state &&
-                        <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
+                        <span className="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
                             {errors.state.message}
                         </span>
                     }
@@ -174,7 +176,7 @@ const ProfileComplete = ()=>{
                 <div>
                     {
                         errors.country &&
-                        <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
+                        <span className="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
                             {errors.country.message}
                         </span>
                     }
@@ -204,3 +206,5 @@ const ProfileComplete = ()=>{
     </div>
     )
 }
+
+export default ProfileComplete

@@ -23,24 +23,20 @@ class UserService
             country
         }
 
+        const [ year, month, day ] = dateOfBirth.split( '-' )
+        dateOfBirth = `${day}-${month}-${year}`
+        console.log( dateOfBirth )
+
         // creating form data
         const profileData = new FormData()
         profileData.append( "dateOfBirth", dateOfBirth )
-        profileData.append( "address",
-            new Blob(
-                [ JSON.stringify( address ) ],
-                {
-                    type: "application/json"
-                }
-            )
-        )
+        profileData.append( "address", JSON.stringify( address ) )
 
         return fetch(
             config.urlPrefix + "/users/completeProfile",
             {
                 method: "POST",
                 headers: {
-                    "Content-Type": "multipart/form-data",
                     "Authorization": "Bearer " + jwt
                 },
                 body: profileData

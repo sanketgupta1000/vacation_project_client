@@ -10,7 +10,7 @@ const Login = ({})=>
 {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const {register, handleSubmit, formState: { errors }} = useForm
+    const {register, handleSubmit, formState: { errors }} = useForm()
 
     const handleLogin = async(data)=>{
         dispatch(setLoading({ loading: true, loadingMsg: "Logging in..." }))
@@ -19,12 +19,14 @@ const Login = ({})=>
             const response = await authService.login(data)
 
             if(!response.ok){
-                throw new Error(await response.json())
+                const errorMsg = response.status == 401 ? "Invlaid Email or Password" : (await response.json()).message 
+                throw new Error(errorMsg)
             }
 
             const jwt = await response.text()
 
             dispatch(setToken(jwt))
+            console.log("Success")
         }
         catch(error)
         {
@@ -54,7 +56,7 @@ const Login = ({})=>
                 <div>
                     {
                         errors.email &&
-                        <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
+                        <span className="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
                             {errors.email.message}
                         </span>
                     }
@@ -79,7 +81,7 @@ const Login = ({})=>
                 <div>
                     {
                         errors.password &&
-                        <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
+                        <span className="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
                             {errors.password.message}
                         </span>
                     }
@@ -117,3 +119,5 @@ const Login = ({})=>
     </div>
     )
 }
+
+export default Login
