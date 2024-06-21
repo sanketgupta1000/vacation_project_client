@@ -1,5 +1,5 @@
 const config = {
-    urlPrefix: "localhost:8080"
+    urlPrefix: "http://localhost:8080"
 }
 
 export default config

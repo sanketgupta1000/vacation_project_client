@@ -55,5 +55,5 @@ export const referenceSlice = createSlice( {
     }
 } )
 
-export const { setAllReferencesRequests, setReferrers } = referenceSlice.actions
+export const { setAllReferenceRequests, setReferrers } = referenceSlice.actions
 export default referenceSlice.reducer
