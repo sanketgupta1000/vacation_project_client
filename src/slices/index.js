@@ -23,7 +23,7 @@ import { setAllMemberApprovalRequests } from "./memberApprovalSlice";
 import memberApprovalReducer from "./memberApprovalSlice";
 
 // import from referenceSlice.js
-import { setAllReferences, setReferrers } from "./referenceSlice";
+import { setAllReferenceRequests, setReferrers } from "./referenceSlice";
 import referenceReducer from "./referenceSlice";
 
 // import from userSlice.js
@@ -49,7 +49,7 @@ export {
     setAllMemberApprovalRequests,
     memberApprovalReducer,
     
-    setAllReferences,
+    setAllReferenceRequests,
     setReferrers,
     referenceReducer,
 
