@@ -11,7 +11,7 @@ function Signup()
 {
 
     // useForm to include react hook form
-    const { register, handleSubmit} = useForm()
+    const { register, handleSubmit, formState: {errors}} = useForm()
 
     const dispatch = useDispatch()
     // const navigate = useNavigate()
@@ -84,49 +84,95 @@ function Signup()
                 <form onSubmit={handleSubmit(handleSignup)}>
                     <div className='space-y-5'>
 
-                        <InputField
-                            label="Full Name"
-                            placeholder="Enter your Full Name"
+                        <div>
+                            {
+                                errors.fullName &&
+                                <span className="flex items-center  tracking-wide text-red-500 mt-1 ml-1">
+                                    {errors.fullName.message}
+                                </span>
+                            }
+                            <InputField
+                                label="Full Name"
+                                placeholder="Enter your Full Name"
 
-                            // integrating react-hook-form
-                            {...register("fullName", {
-                                // validation rules
-                                minLength: 5,
-                                required: true,
-                            })}
-                        />
+                                // integrating react-hook-form
+                                {...register("fullName", {
+                                    // validation rules
+                                    minLength: {
+                                        value: 5,
+                                        message: "Full Name should be at least 5 characters long."
+                                    },
+                                    required: "Full Name is required.",
+                                })}
+                            />
+                        </div>
 
-                        <InputField
-                            label="Email: "
-                            placeholder="Enter your Email"
-                            type="email"
-                            {...register("email",
-                                {
-                                    required: true,
-                                    pattern: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g,
-                                }
-                            )}
-                        />
+                        <div>
 
-                        <InputField
-                            label="Password: "
-                            type="password"
-                            placeholder="Enter your Password"
-                            {...register("password", {
-                                minLength: 8,
-                                required: true,
-                            })}
-                        />
+                            {
+                                errors.email &&
+                                <span className="flex items-center  tracking-wide text-red-500 mt-1 ml-1">
+                                    {errors.email.message}
+                                </span>
+                            }
 
-                        <InputField
-                            label="Phone Number: "
-                            placeholder="Enter your Phone Number"
-                            type="tel"
-                            {...register("phoneNumber", {
-                                required: true,
-                                pattern: /^[0-9]{10}$/g,
-                            })}
-                        />
+                            <InputField
+                                label="Email: "
+                                placeholder="Enter your Email"
+                                type="email"
+                                {...register("email",
+                                    {
+                                        required: "Email is required.",
+                                        pattern:{
+                                            value: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g,
+                                            message: "Please enter a valid email address."
+                                        }
+                                    }
+                                )}
+                            />
+                        </div>
+
+                        <div>
+                            {
+                                errors.password &&
+                                <span className="flex items-center  tracking-wide text-red-500 mt-1 ml-1">
+                                    {errors.password.message}
+                                </span>
+                            }
+                            <InputField
+                                label="Password: "
+                                type="password"
+                                placeholder="Enter your Password"
+                                {...register("password", {
+                                    minLength: {
+                                        value: 8,
+                                        message: "Password should be at least 8 characters long."
+                                    },
+                                    required: "Password is required.",
+                                })}
+                            />
+                        </div>
+
+                        <div>
+                            {
+                                errors.phoneNumber &&
+                                <span className="flex items-center  tracking-wide text-red-500 mt-1 ml-1">
+                                    {errors.phoneNumber.message}
+                                </span>
+                            }
+                            <InputField
+                                label="Phone Number: "
+                                placeholder="Enter your Phone Number"
+                                type="tel"
+                                {...register("phoneNumber", {
+                                    required: "Phone Number is required.",
+                                    pattern: {
+                                        value: /^[0-9]{10}$/g,
+                                        message: "Please enter a valid 10 digit phone number."
+                                    }
+                                })}
+                            />
+                        </div>
 
                         {/* referrer id */}
                         {/* TODO: create a searchable drop down of users for this */}
@@ -146,7 +192,7 @@ function Signup()
                     Already have an account?&nbsp;
                     <a
                         href="/login"
-                        className="font-medium text-primary transition-all duration-200 hover:underline"
+                        className=" text-primary transition-all duration-200 hover:underline"
                     >
                         Login
                     </a>
