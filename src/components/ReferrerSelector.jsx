@@ -60,7 +60,7 @@ const ReferrerSelector = React.forwardRef(
         // debouncing the callback
         const debouncedFetchReferrers = React.useMemo(()=>{
             return debounce(fetchReferrers, 500)
-        }, [fetchReferrers])
+        }, [])
     
         return (
     
