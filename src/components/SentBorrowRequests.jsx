@@ -1,34 +1,37 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import { bookBorrowService, bookService, userService } from "../services";
-import { setAllBorrowRequests, setLoading } from "../slices";
+import { setAllSenderBorrowRequests, setLoading } from "../slices";
 
 function SentBorrowRequests()
 {
+    // to see current borrow request status
+    const dispatch = useDispatch()
     const[currentBorrowRequestStatus, setcurrentBorrowRequestStatus]=useState(false);
     const[pastBorrowRequestsHistory,setpastBorrowRequestsHistory]=useState(false);
-    const [pastBorrowRequest,setpastBorrowRequest]=useState({});
-    const[currentBorrowRequest,setcurrentBorrowRequest]=useState({});
- 
-    const jwt = useSelector(state=>state.userReducer.token);
+   const jwt = useSelector(state=>state.user.token);
+    const pastHistory=useSelector(state=>state.bookBorrow.pastBorrowRequests);
+    const currentRequest=useSelector(state=>state.bookBorrow.currentBorrowRequest);
+
     // const user=userService.getUserDetails(jwt);
 
-    async function getPastHistory()
+    async function getPastBorrowHistory()
     {
         dispatch(setLoading({isLoading: true, loadingMsg: "Loading your borrow history..."}))
         try{
            
-            const pastBorrowRequests=await bookService.getBorrowedBookCopies(jwt);
+            const pastBorrowRequests=await bookService.getBorrowedRequestHistory(jwt);
 
             if(!pastBorrowRequests.ok)
             {
                 const error=await pastBorrowRequests.json()
-                throw new Error(error)
+                throw new Error(error.message)
              }
             const data=await pastBorrowRequests.json();
-            //question : where i should set all past borrow requests
-            setpastBorrowRequest(data);
-            dispatch(setAllBorrowRequests(data));
+           
+            // setpastBorrowRequest(data);
+            //question: what about current detail?
+            dispatch(setAllSenderBorrowRequests(data));
         }
         catch(error)
         {
@@ -44,10 +47,10 @@ function SentBorrowRequests()
                 dispatch(setLoading({isLoading: false, loadingMsg: ""}))
             }
         }
-    }
+    
     useEffect(()=>{
             try{
-                getPastHistory();
+                getPastBorrowHistory();
             }
             catch(error)
             {
@@ -63,11 +66,12 @@ function SentBorrowRequests()
             if(!response.ok)
                 {
                     const error=response.json();
-                    throw new Error(error);
+                    throw new Error(error.message);
                 }
 
             const myRequest=response.json();
-            setcurrentBorrowRequest(myRequest);
+          
+            dispatch(setAllSenderBorrowRequests(myRequest));
         }
         catch(error)
         {
@@ -101,8 +105,8 @@ function SentBorrowRequests()
         <>
         
         {/* side nav bar for 2 states */}
-        <div>
-            <button onClick={()=>{
+        <div className="bg-green-500">
+            <button className="mx-5" onClick={()=>{
                 setcurrentBorrowRequestStatus(true);
                 setpastBorrowRequestsHistory(false);
             }}>Current borrow request status</button>
@@ -114,14 +118,14 @@ function SentBorrowRequests()
         </div>
 
             { currentBorrowRequestStatus && 
-            <div>
-            {currentBorrowRequest}
-            </div>
+          
+            currentRequest?.map((row)=>{row})
+       
             }
 
             { pastBorrowRequestsHistory && 
           
-                pastBorrowRequest?.map((row)=>{
+          pastHistory?.map((row)=>{
                     {row}
                 })
            
@@ -130,5 +134,6 @@ function SentBorrowRequests()
         
         </>
     );
+}
 
 export default SentBorrowRequests;
