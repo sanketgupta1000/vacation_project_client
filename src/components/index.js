@@ -11,6 +11,9 @@ import Login from './Login';
 import ProfileComplete from './ProfileComplete';
 import MemberApprovalRequestForAdmin from "./MemberApprovalRequestsForAdmin";
 import Tab from './Tab'
+import Signup from "./Signup";
+import SendOtp from "./SendOtp";
+import EmailVerification from "./EmailVerification";
 
 export
 {
@@ -27,4 +30,7 @@ export
     ProfileComplete,
     MemberApprovalRequestForAdmin,
     Tab,
+    Signup,
+    SendOtp,
+    EmailVerification
 }
