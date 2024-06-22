@@ -1,14 +1,16 @@
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import { bookBorrowService, userService } from "../services";
 import { useEffect, useState } from "react";
-import { setLoading ,setAllBorrowRequests} from "../slices";
+import { setLoading ,setAllReceiverBorrowRequests} from "../slices";
+import Button from "./Button";
 
 function ReceviedBorrowRequests()
 {
-    const jwt = useSelector(state=>state.userReducer.token)
-
+    // const jwt = useSelector(state=>state.userReducer.token)
+    const jwt = useSelector((state)=>state.user.token)
+    const dispatch = useDispatch()
     
-    async function getdata(jwt)
+    async function getdata()
     {
         dispatch(setLoading({isLoading: true, loadingMsg: "Loading data..."}))
         try{
@@ -22,7 +24,7 @@ function ReceviedBorrowRequests()
             // we got the object
 
             const borrow_requests_object=await borrow_requests.json();
-            dispatch(setAllBorrowRequests(borrow_requests_object));
+            dispatch(setAllReceiverBorrowRequests(borrow_requests_object));
             return borrow_requests_object;
 
         }
@@ -46,16 +48,17 @@ function ReceviedBorrowRequests()
 
     },[])
   
-    const unresponed_request_object = useSelector(state=>state.bookBorrowReducer.newBorrowRequests)
-    const accepted_request_object=useSelector(state=>state.bookBorrowReducer.approvedBorrowRequests)
-    const rejected_request_object=useSelector(state=>state.bookBorrowReducer.rejectedBorrowRequests)
+    const unresponed_request_object = useSelector(state=>state.bookBorrow.newBorrowRequests)
+    const accepted_request_object=useSelector(state=>state.bookBorrow.approvedBorrowRequests)
+    const rejected_request_object=useSelector(state=>state.bookBorrow.rejectedBorrowRequests)
     const [UnrespondedRequest,setUnrespondedRequest]=useState(true);
     const [rejectedRequest,setrejectedRequest]=useState(false);
     const [acceptedRequest,setacceptedRequest]=useState(false);
     const[ borrowRequest, setborrowRequest]=useState({});
     
-
-   
+    // console.log(unresponed_request_object)
+//    console.log(accepted_request_object)
+//    console.log(rejected_request_object)
     return(
         <>
 
