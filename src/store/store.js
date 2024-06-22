@@ -1,12 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { bookApprovalReducer,
-            bookBorrowReducer,
-            bookReducer,
-            infoReducer,
-            loadingReducer,
-            memberApprovalReducer,
-            referenceReducer,
-            userReducer } from "../slices";
+import
+{
+    bookApprovalReducer,
+    bookBorrowReducer,
+    bookReducer,
+    infoReducer,
+    loadingReducer,
+    memberApprovalReducer,
+    referenceReducer,
+    userReducer
+} from "../slices";
 
 // create store
 const store = configureStore( {

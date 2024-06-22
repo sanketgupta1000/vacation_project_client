@@ -9,6 +9,8 @@ import BookTransactionRow from "./BookTransactionRow";
 import Logo from "./Logo";
 import Login from './Login';
 import ProfileComplete from './ProfileComplete';
+import MemberApprovalRequestForAdmin from "./MemberApprovalRequestsForAdmin";
+import Tab from './Tab'
 
 export
 {
@@ -22,5 +24,7 @@ export
     BookTransactionRow,
     Logo,
     Login,
-    ProfileComplete
+    ProfileComplete,
+    MemberApprovalRequestForAdmin,
+    Tab,
 }
