@@ -2,9 +2,10 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 import { setLoading, setInfo, setEmail } from '../slices'
 import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { authService } from '../services'
 import { InputField, Button, Logo } from './'
+import ReferrerSelector from './ReferrerSelector'
 
 
 function Signup()
@@ -14,7 +15,7 @@ function Signup()
     const { register, handleSubmit, formState: {errors}} = useForm()
 
     const dispatch = useDispatch()
-    // const navigate = useNavigate()
+    const navigate = useNavigate()
 
     // signup submit handler
     async function handleSignup(data)
@@ -24,13 +25,16 @@ function Signup()
 
         try
         {
+
+            // console.log(Number(data.referrerId))
+
             // signup
             const response = await authService.signup(
                 data.email,
                 data.password,
                 data.fullName,
                 data.phoneNumber,
-                (data.referrerId!="") ? Number(data.referrerId) : null
+                (data.referrerId!=="no-referrer") ? Number(data.referrerId) : null
             )
 
             // custom status exceptions
@@ -47,8 +51,7 @@ function Signup()
             dispatch(setEmail(data.email))
 
             // navigate to verify email
-            // navigate("/verifyEmail")
-            console.log("Signup successful")
+            navigate("/verifyEmail")
 
         }
         catch(error)
@@ -174,12 +177,9 @@ function Signup()
                             />
                         </div>
 
-                        {/* referrer id */}
-                        {/* TODO: create a searchable drop down of users for this */}
-                        <InputField
-                            label="Referrer ID: "
-                            placeholder="Enter Referrer ID"
-                            {...register("referrerId")}
+                        {/* referrer */}
+                        <ReferrerSelector
+                            {...register("referrerId", {})}
                         />
 
                         <Button type="submit" className="w-full">
@@ -189,13 +189,23 @@ function Signup()
                 </form>
 
                 <p className="mt-2 text-center text-base text-black/60">
-                    Already have an account?&nbsp;
-                    <a
-                        href="/login"
+                    Already a member?&nbsp;
+                    <Link
+                        to="/login"
                         className=" text-primary transition-all duration-200 hover:underline"
                     >
                         Login
-                    </a>
+                    </Link>
+                </p>
+
+                <p className="mt-2 text-center text-base text-black/60">
+                    Already signed up?&nbsp;
+                    <Link
+                        to="/sendOtp"
+                        className=" text-primary transition-all duration-200 hover:underline"
+                    >
+                        Verify Email
+                    </Link>
                 </p>
 
             </div>
