@@ -36,6 +36,23 @@ class AuthService
         )
     }
 
+    // method to send otp
+    async sendOtp( email )
+    {
+
+        // first creating a form data
+        const formData = new FormData()
+        formData.append( "email", email )
+
+        return fetch(
+            config.urlPrefix + "/auth/sendOtp",
+            {
+                method: "POST",
+                body: formData
+            }
+        )
+    }
+
     // method to verify otp
     async verifyOtp( email, otp )
     {
@@ -49,9 +66,6 @@ class AuthService
             config.urlPrefix + "/auth/verifyOtp",
             {
                 method: "POST",
-                headers: {
-                    "Content-Type": "multipart/form-data"
-                },
                 body: formData
             }
         )

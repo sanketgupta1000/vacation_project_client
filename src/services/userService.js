@@ -108,6 +108,17 @@ class UserService
     //     )
     // }
 
+    // method to search for users by name or email
+    async getUsersByNameOrEmail( searchValue )
+    {
+        return fetch(
+            config.urlPrefix + `/users/members/search?searchStr=${searchValue}`,
+            {
+                method: "GET"
+            }
+        )
+    }
+
 }
 
 const userService = new UserService();
