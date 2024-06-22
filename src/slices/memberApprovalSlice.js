@@ -4,7 +4,7 @@ const initialState = {
     newMemberApprovalRequests: [
         {
             memberApprovalRequestId: null,
-            membrrId: null,
+            memberId: null,
             memberFullName: null,
             memberEmail: null,
             memberReferrerId: null,

@@ -16,7 +16,7 @@ const BookCopy = ()=>
     // token
     const jwt = useSelector(state=>state.userReducer.token)
 
-    const singleBookCopy = useSelector((state)=>state.bookCopyReducer.singleBookCopy)
+    const singleBookCopy = useSelector((state)=>state.book.singleBookCopy)
 
     
     useEffect(()=>{
@@ -25,13 +25,15 @@ const BookCopy = ()=>
 
             if(!response.ok)
             {
-                throw new Error(await response.json())
+                const errorObj = await response.json()
+                throw new Error(errorObj.message)
             }
 
             const singleBookCopy = await response.json()
 
             dispatch(setSingleBookCopy(singleBookCopy))
-        }    
+        }
+            
         dispatch(setLoading({isLoading: true, loadingMsg: 'Loading data...'}))
         try
         {   
