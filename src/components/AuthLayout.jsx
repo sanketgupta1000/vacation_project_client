@@ -6,26 +6,35 @@ import { setLoading } from '../slices'
 const AuthLayout = (
     {
         children,
-        authentication = 'all'
+        authentication = false,
+        allowedUserTypes = []
     }
 ) => 
 {
     const navigate = useNavigate()
     const isLoggedIn = useSelector(state => state.user.isLoggedIn)
+    const userType = useSelector(state => state.user.userType)
 
     useEffect(()=>
         {
             // set loading state
             dispatch(setLoading({isLoading: true, loadingMsg: 'Loading data...'}))
-
-            // if authentication is required and user is not logged in
-            if(authentication=='authenticated' && !isLoggedIn)
+            
+            if(authentication)
             {
-                // redirect to login page
-                navigate("/login")
+                if(!isLoggedIn)
+                {
+                    // authentication required but user is not logged in
+                    navigate("/login")
+                }
+                else if(!allowedUserTypes.includes(userType))
+                {
+                    // user is logged in but not of allowed user type
+                    navigate("/")
+                }
             }
             // if authentication is not required and user is logged in
-            else if(authentication=='unauthenticated' && isLoggedIn)
+            else if(!authentication && isLoggedIn)
             {
                 // redirect to home page
                 navigate("/")

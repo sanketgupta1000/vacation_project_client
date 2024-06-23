@@ -13,7 +13,7 @@ const router = createBrowserRouter( [
             {
                 path: "/signup",
                 element:(
-                    <AuthLayout authentication='unauthenticated'>
+                    <AuthLayout authentication={false}>
                         <SignupPage/>
                     </AuthLayout>
                 )
@@ -21,7 +21,7 @@ const router = createBrowserRouter( [
             {
                 path: "/Login",
                 element:(
-                    <AuthLayout authentication='unauthenticated'>
+                    <AuthLayout authentication={false}>
                         <LoginPage/>
                     </AuthLayout>
                 )
@@ -29,7 +29,7 @@ const router = createBrowserRouter( [
             {
                 path: "/verifyEmail",
                 element:(
-                    <AuthLayout authentication='unauthenticated'>
+                    <AuthLayout authentication={false}>
                         <EmailVerificationPage/>
                     </AuthLayout>
                 )
@@ -37,7 +37,7 @@ const router = createBrowserRouter( [
             {
                 path: "/sendOtp",
                 element:(
-                    <AuthLayout authentication='unauthenticated'>
+                    <AuthLayout authentication={false}>
                         <SendOtpPage/>
                     </AuthLayout>
                 )
@@ -45,7 +45,7 @@ const router = createBrowserRouter( [
             {
                 path: "/completeProfile",
                 element:(
-                    <AuthLayout authentication='authenticated'>
+                    <AuthLayout authentication={true} allowedUserTypes={["NEW_MEMBER"]}>
                         <ProfileCompletePage/>
                     </AuthLayout>
                 )
