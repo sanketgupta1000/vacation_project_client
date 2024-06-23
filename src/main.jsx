@@ -9,14 +9,15 @@ import ReceviedBorrowRequests from './components/ReceviedBorrowRequests.jsx'
 import Book from './components/Book.jsx'
 import SentBorrowRequests from './components/SentBorrowRequests.jsx'
 
+import { RouterProvider } from 'react-router-dom'
+
+import router from './router.js'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
 
     <Provider store={store}>
-     {/* <Login/>  */}
-     {/* <ReceviedBorrowRequests/>   */}
-     <SentBorrowRequests/>
+      <RouterProvider router={router}/>
     </Provider>
 
   </React.StrictMode>,
