@@ -14,6 +14,8 @@ function BookCard({
     showAdminActions = false,
     // should the card be displayed in a link
     isLink = false,
+    // should the borrow button be displayed
+    showBorrowButton = false
 })
 {
     // will make a wrapped component, useful to display the book details
@@ -141,7 +143,7 @@ function BookCard({
                     </div>
                 )}
 
-                {isLink && 
+                {showBorrowButton && 
 
                     <div className="px-6 py-4 flex justify-start">
                         <Button

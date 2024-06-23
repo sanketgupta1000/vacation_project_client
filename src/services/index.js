@@ -4,6 +4,7 @@ import bookBorrowService from "./bookBorrowService";
 import bookService from "./bookService";
 import userService from "./userService";
 import bookUploadService from "./bookUploadService";
+import categoryService from "./categoryService";
 
 export {
     memberApprovalService,
@@ -11,5 +12,6 @@ export {
     bookBorrowService,
     bookService,
     userService,
-    bookUploadService
+    bookUploadService,
+    categoryService
 }
