@@ -2,14 +2,16 @@ import { useSelector,useDispatch } from "react-redux";
 import { bookBorrowService, userService } from "../services";
 import { useEffect, useState } from "react";
 import { setLoading ,setAllReceiverBorrowRequests} from "../slices";
-import Button from "./Button";
+import {Button,Tab} from "./Button";
+import { BorrowRequestCard } from ".";
 
 function ReceviedBorrowRequests()
 {
     // const jwt = useSelector(state=>state.userReducer.token)
     const jwt = useSelector((state)=>state.user.token)
     const dispatch = useDispatch()
-    
+    const [tab,setTab]=useState('unresponded');
+
     async function getdata()
     {
         dispatch(setLoading({isLoading: true, loadingMsg: "Loading data..."}))
@@ -25,7 +27,6 @@ function ReceviedBorrowRequests()
 
             const borrow_requests_object=await borrow_requests.json();
             dispatch(setAllReceiverBorrowRequests(borrow_requests_object));
-            return borrow_requests_object;
 
         }
         catch(error)
@@ -37,85 +38,56 @@ function ReceviedBorrowRequests()
    
     useEffect(()=>{
        
-        try{
-            setborrowRequest(getdata());
-        }
-        catch(error)
-        {
-            dispatch(setInfo({shouldShow: true, isfoMag: error.message, infoType: 'error'}))
-        }
+        getdata()
        
 
     },[])
   
-    const unresponed_request_object = useSelector(state=>state.bookBorrow.newBorrowRequests)
-    const accepted_request_object=useSelector(state=>state.bookBorrow.approvedBorrowRequests)
-    const rejected_request_object=useSelector(state=>state.bookBorrow.rejectedBorrowRequests)
-    const [UnrespondedRequest,setUnrespondedRequest]=useState(true);
-    const [rejectedRequest,setrejectedRequest]=useState(false);
-    const [acceptedRequest,setacceptedRequest]=useState(false);
-    const[ borrowRequest, setborrowRequest]=useState({});
+    const requests={
+         'unresponded' : useSelector(state=>state.bookBorrow.newBorrowRequests),
+        ' approved':useSelector(state=>state.bookBorrow.approvedBorrowRequests),
+         'rejected':useSelector(state=>state.bookBorrow.rejectedBorrowRequests)
+       
+    }
     
-    // console.log(unresponed_request_object)
-//    console.log(accepted_request_object)
-//    console.log(rejected_request_object)
     return(
         <>
 
         {/* remaining: filter by book */}
 
         {/* side nav bar for three states */}
-        <div>
-            <button onClick={()=>{
-                setUnrespondedRequest(true);
-                setrejectedRequest(false);
-                setacceptedRequest(false);
-            }}>
-                Unresponded Request</button>
+        <div className="flex overflow-x-auto overflow-y-hidden border-b border-gray-200 whitespace-nowrap">
+            <Tab active={tab==='unresponded'} onClick={()=>setTab('unresponded')}
+            >
+                Unresponded requests
+            </Tab>
 
-            <button onClick={()=>{
-                setacceptedRequest(true);
-                setrejectedRequest(false);
-                setUnrespondedRequest(false);
-            }}>Accepted request </button>
+            <Tab active={tab==='approved'} onClick={()=>setTab('approved')}
+            >
+                Approved requests
+            </Tab>
 
-            <button onClick={()=>{
-                setrejectedRequest(true);
-                setacceptedRequest(false);
-                setUnrespondedRequest(false);
-            }}>Rejected request</button>
+            <Tab active={tab==='rejected'} onClick={()=>setTab('rejected')}
+            >
+                Rejected requests
+            </Tab>
         </div>
-
-
-
-        {/* to display all borrow requests */}
-        { UnrespondedRequest &&
-     
-     unresponed_request_object ?.map((row)=>{
-            {row}
-            <div>
-            <Button bgColor="green" handleClick={()=>{bookBorrowService.approveBorrowRequest(bookid,jwt)}}>Accept request</Button>
-
-            <Button bgColor="red"  handleClick={()=>{bookBorrowService.rejectBorrowRequest(bookid,jwt)}}>Reject request</Button>
-            </div>
-            
-        })
       
-    }
-        {rejectedRequest && 
-            rejected_request_object?.map((row)=>{
-                {row}
-            })
-        }
 
+        
+        <div>
+            {requests[tab].map((request)=>(
+                
+                <BorrowRequestCard
+                    key={request.borrowRequestId}
+                    borrowRequest={request}
+                    showRequesterInfo
+                    showOwnerActions={tab==='unresponded'}
+                />
 
-        {acceptedRequest && 
+            ))}
+        </div>
     
-           accepted_request_object?.map((row)=>{
-            {row}
-           })
-    
-        }
         </>
     );
 

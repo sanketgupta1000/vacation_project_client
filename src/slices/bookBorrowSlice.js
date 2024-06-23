@@ -34,14 +34,16 @@ const initialState = {
     ],
 
     // for sender
-    currentBorrowRequest: {
-        borrowRequestId: null,
-        bookCopyId: null,
-        bookCopyName: null,
-        requesterId: null,
-        requesterName: null,
-        status: null,
-    },
+    currentBorrowRequests: [
+        {
+            borrowRequestId: null,
+            bookCopyId: null,
+            bookCopyName: null,
+            requesterId: null,
+            requesterName: null,
+            status: null,
+        }
+    ],
     pastBorrowRequests: [
         {
             borrowRequestId: null,
@@ -67,7 +69,7 @@ export const bookBorrowSlice = createSlice( {
 
         setAllSenderBorrowRequests: ( state, action ) =>
         {
-            state.currentBorrowRequest = action.payload.currentBorrowRequest
+            state.currentBorrowRequests = action.payload.currentBorrowRequests
             state.pastBorrowRequests = action.payload.pastBorrowRequests
         
         }

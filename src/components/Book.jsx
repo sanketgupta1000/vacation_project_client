@@ -23,8 +23,25 @@ function Book()
     // using singleBook from the store
     const singleBook = useSelector(state=>state.bookReducer.singleBook)
 
+    // function to fetch data
+    async function fetchBook()
+    {
+        const response = await bookService.getBookCopies(jwt, bookId)
+
+        // custom status exceptions
+        if(!response.ok)
+        {
+            throw new Error(await response.json())
+        }
+
+        // set data
+        const data = await response.json()
+
+        dispatch(setSingleBook(data))
+    }
+
     // useEffect to fetch data on component mount
-    useEffect(async ()=>
+    useEffect(()=>
     {
 
         // set loading to true
@@ -33,18 +50,7 @@ function Book()
         // fetch
         try
         {
-            const response = await bookService.getBookCopies(jwt, bookId)
-
-            // custom status exceptions
-            if(!response.ok)
-            {
-                throw new Error(await response.json())
-            }
-
-            // set data
-            const data = await response.json()
-            
-            dispatch(setSingleBook(data))
+            fetchBook()
 
         }
         catch(error)
