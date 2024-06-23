@@ -204,16 +204,14 @@ function MemberApprovalRequestCard({
             {showAdminActions && (
                 <div>
                     <Button
-                        bgColor="green"
-                        textColor="white"
+                        color='green'
                         handleClick={handleAdminAccept}
                     >
                         Accept
                     </Button>
 
                     <Button
-                        bgColor="red"
-                        textColor="white"
+                        color='red'
                         handleClick={handleAdminReject}
                     >
                         Reject
@@ -225,16 +223,14 @@ function MemberApprovalRequestCard({
             {showReferrerActions && (
                 <div>
                     <Button
-                        bgColor="green"
-                        textColor="white"
+                        color='green'
                         handleClick={handleReferrerAccept}
                     >
                         Accept
                     </Button>
 
                     <Button
-                        bgColor="red"
-                        textColor="white"
+                        color='red'
                         handleClick={handleReferrerReject}
                     >
                         Reject
