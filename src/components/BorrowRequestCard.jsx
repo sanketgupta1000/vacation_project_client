@@ -115,16 +115,14 @@ function BorrowRequestCard({
             {showOwnerActions && (
                 <div>
                     <Button
-                        bgColor="green"
-                        textColor="white"
+                        color='green'
                         handleClick={handleApproveBorrowRequest}
                     >
                         Approve
                     </Button>
 
                     <Button
-                        bgColor="red"
-                        textColor="white"
+                        color='red'
                         handleClick={handleRejectBorrowRequest}
                     >
                         Reject
