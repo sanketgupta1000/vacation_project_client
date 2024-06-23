@@ -1,9 +1,10 @@
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
 
-import { bookService } from "../services"
+import { bookBorrowService, bookService } from "../services"
 import { setInfo, setLoading, setSingleBookCopy } from "../slices"
 import { useEffect } from "react"
+import {BookTransactionRow, Button} from "./"
 
 const BookCopy = ()=>
 {
@@ -38,17 +39,46 @@ const BookCopy = ()=>
         try
         {   
             fetchData()
+        }
+        catch(error)
+        {
+            dispatch(setInfo({shouldShow: true, infoMsg: error.message, infoType: 'error'}))
+            navigate("/")
+        }
+        finally
+        {
+            dispatch(setLoading({isLoading: false, loadingMsg: ''}))
+        }
+    },[])
+
+    async function handleRequestBorrow()
+    {
+        // set loading
+        dispatch(setLoading({isLoading: true, loadingMsg: "Requesting for borrow..."}))
+
+        try
+        {
+            const response = await bookBorrowService.requestForBorrow(bookCopyId, jwt)
+
+            if(!response.ok)
+            {
+                throw new Error((await response.json()).message)
+            }
+
+            // successfully requested
+            dispatch(setInfo({shouldShow: true, infoMsg: await response.text(), infoType: "success"}))
+
             navigate("/")
         }
         catch(error)
         {
-            dispatch(setInfo({shouldShow: true, isfoMag: error.message, infoType: 'error'}))
+            dispatch(setInfo({shouldShow: true, infoMsg: error.message, infoType: "error"}))
         }
         finally
         {
-            dispatch(setLoading({isLoading: false, loadingMsg: 'Loading data...'}))
+            dispatch(setLoading({isLoading: false, loadingMsg: ""}))
         }
-    },[])
+    }
 
     return(
         <div>
@@ -71,6 +101,17 @@ const BookCopy = ()=>
                         <span className="text-gray-700">{singleBookCopy.borrowerName}</span>
                     </div>
                 </div>
+
+                {/* request for borrow button */}
+                {singleBookCopy.requestable && 
+                (
+                    <Button
+                        handleClick={handleRequestBorrow}
+                    >
+                        Request for Borrow
+                    </Button>
+                )}
+
             </div>
             {/* all copies of the book */}
             <div>
@@ -89,3 +130,5 @@ const BookCopy = ()=>
     )
 
 }
+
+export default BookCopy

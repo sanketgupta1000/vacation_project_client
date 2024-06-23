@@ -1,12 +1,9 @@
 import { useDispatch, useSelector } from "react-redux"
-import { Link, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { useForm } from "react-hook-form"
 import {InputField, Button} from "."
 import { userService } from "../services"
 import { setLoading, setInfo, setToken } from "../slices"
-
-
-
 
 const ProfileComplete = ()=>{
 
@@ -16,7 +13,7 @@ const ProfileComplete = ()=>{
     const jwtToken = useSelector((state)=>state.user.token)
 
     const handleProfileComplete = async(data)=>{
-        dispatch(setLoading({isLoading: true, loadingMsg: "Loading book data..."}))
+        dispatch(setLoading({isLoading: true, loadingMsg: "Completing profile..."}))
         try
         {
             const response = await userService.completeProfile(jwtToken, data)
@@ -27,7 +24,8 @@ const ProfileComplete = ()=>{
 
             const jwt = await response.text()
             dispatch(setToken(jwt))
-            console.log("Success")
+            // navigate to home
+            navigate("/")
         }
         catch(error)
         {
