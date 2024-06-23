@@ -21,6 +21,9 @@ import SentBorrowRequests from "./SentBorrowRequests";
 import ReferrerSelector from "./ReferrerSelector";
 import BorrowRequestCard from "./BorrowRequestCard";
 import AuthLayout from "./AuthLayout";
+import BookUpload from "./BookUpload";
+import BookApprovalRequestsForAdmin from "./BookApprovalRequestsForAdmin";
+import BookApprovalRequestsForMember from "./BookApprovalRequestsForMember";
 
 export
 {
@@ -47,4 +50,7 @@ export
     ReferrerSelector,
     BorrowRequestCard,
     AuthLayout,
+    BookUpload,
+    BookApprovalRequestsForAdmin,
+    BookApprovalRequestsForMember
 }
