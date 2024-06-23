@@ -2,63 +2,20 @@ import { useEffect, useState } from "react";
 import { useSelector,useDispatch } from "react-redux";
 import { bookBorrowService, bookService, userService } from "../services";
 import { setAllSenderBorrowRequests, setLoading } from "../slices";
-
+import {Tab} from "."
 function SentBorrowRequests()
 {
-    // to see current borrow request status
+    
     const dispatch = useDispatch()
-    const[currentBorrowRequestStatus, setcurrentBorrowRequestStatus]=useState(false);
-    const[pastBorrowRequestsHistory,setpastBorrowRequestsHistory]=useState(false);
-   const jwt = useSelector(state=>state.user.token);
-    const pastHistory=useSelector(state=>state.bookBorrow.pastBorrowRequests);
-    const currentRequest=useSelector(state=>state.bookBorrow.currentBorrowRequest);
-
-    // const user=userService.getUserDetails(jwt);
-
-    async function getPastBorrowHistory()
-    {
-        dispatch(setLoading({isLoading: true, loadingMsg: "Loading your borrow history..."}))
-        try{
-           
-            const pastBorrowRequests=await bookService.getBorrowedRequestHistory(jwt);
-
-            if(!pastBorrowRequests.ok)
-            {
-                const error=await pastBorrowRequests.json()
-                throw new Error(error.message)
-             }
-            const data=await pastBorrowRequests.json();
-           
-            // setpastBorrowRequest(data);
-            //question: what about current detail?
-            dispatch(setAllSenderBorrowRequests(data));
-        }
-        catch(error)
-        {
-                // show error
-                dispatch(setInfo({shouldShow: true, infoMsg: error.message, infoType: "error"}))
-    
-                // navigate
-                navigate("/")
-            }
-            finally
-            {
-                // stop loading
-                dispatch(setLoading({isLoading: false, loadingMsg: ""}))
-            }
-        }
-    
-    useEffect(()=>{
-            try{
-                getPastBorrowHistory();
-            }
-            catch(error)
-            {
-                dispatch(setInfo({shouldShow: true, isfoMag: error.message, infoType: 'error'}))
-            }
-    },[])
-
-    async function getMyrequest()
+    const[tab,setTab]=useState('currentRequest')
+   
+    const borrowRequest={
+        'pastHistory':useSelector(state=>state.bookBorrow.pastBorrowRequests),
+        'currentRequest':useSelector(state=>state.bookBorrow.currentBorrowRequest)
+    }
+    const jwt = useSelector(state=>state.user.token);
+   
+    async function getrequests()
     {
         dispatch(setLoading({isLoading:true,loadingMsg: "Loading your request..."}))
         try{
@@ -91,7 +48,7 @@ function SentBorrowRequests()
         useEffect(()=>{
             try
             {
-                getMyrequest();
+                getrequests();
             }
             catch(error)
             {
@@ -105,31 +62,21 @@ function SentBorrowRequests()
         <>
         
         {/* side nav bar for 2 states */}
-        <div className="bg-green-500">
-            <button className="mx-5" onClick={()=>{
-                setcurrentBorrowRequestStatus(true);
-                setpastBorrowRequestsHistory(false);
-            }}>Current borrow request status</button>
+        <Tab active={tab==='pastHistory'} onClick={()=>setTab('pastHistory')}
+            >
+                Past Borrowed History
+            </Tab>
 
-            <button onClick={()=>{
-                setpastBorrowRequestsHistory(true);
-                setcurrentBorrowRequestStatus(false);
-            }}>View borrowed history</button>
+            <Tab active={tab==='currentRequest'} onClick={()=>setTab('currentRequest')}
+            >
+                Current Request Status
+            </Tab>
+
+       <div>
+        {/* request is the row of past borrowed book request if tab is pastHistory */}
+        {/* request is current borrow request status is tab is currentStatus */}
+        {borrowRequest[tab].map((request)=>{request})}
         </div>
-
-            { currentBorrowRequestStatus && 
-          
-            currentRequest?.map((row)=>{row})
-       
-            }
-
-            { pastBorrowRequestsHistory && 
-          
-          pastHistory?.map((row)=>{
-                    {row}
-                })
-           
-                }
                
         
         </>
