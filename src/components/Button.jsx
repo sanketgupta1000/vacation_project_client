@@ -8,7 +8,6 @@ function Button({
     // the type of button
     type="button",
     color="blue",
-    bgColor="blue",
     // optional click handler
     handleClick,
     className="",

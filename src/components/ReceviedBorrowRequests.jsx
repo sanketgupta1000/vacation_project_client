@@ -3,6 +3,7 @@ import { bookBorrowService, userService } from "../services";
 import { useEffect, useState } from "react";
 import { setLoading ,setAllReceiverBorrowRequests} from "../slices";
 import {Button,Tab} from "./Button";
+import { BorrowRequestCard } from ".";
 
 function ReceviedBorrowRequests()
 {
@@ -26,7 +27,6 @@ function ReceviedBorrowRequests()
 
             const borrow_requests_object=await borrow_requests.json();
             dispatch(setAllReceiverBorrowRequests(borrow_requests_object));
-            return borrow_requests_object;
 
         }
         catch(error)
@@ -38,21 +38,15 @@ function ReceviedBorrowRequests()
    
     useEffect(()=>{
        
-        try{
-            getdata();
-        }
-        catch(error)
-        {
-            dispatch(setInfo({shouldShow: true, isfoMag: error.message, infoType: 'error'}))
-        }
+        getdata()
        
 
     },[])
   
     const requests={
-         'unresponed_request_object' : useSelector(state=>state.bookBorrow.newBorrowRequests),
-        ' accepted_request_object':useSelector(state=>state.bookBorrow.approvedBorrowRequests),
-         'rejected_request_object':useSelector(state=>state.bookBorrow.rejectedBorrowRequests)
+         'unresponded' : useSelector(state=>state.bookBorrow.newBorrowRequests),
+        ' approved':useSelector(state=>state.bookBorrow.approvedBorrowRequests),
+         'rejected':useSelector(state=>state.bookBorrow.rejectedBorrowRequests)
        
     }
     
@@ -80,21 +74,19 @@ function ReceviedBorrowRequests()
         </div>
       
 
-        {Tab==='unresponded' ? <div>{requests[tab].map((request)=>{
-            {request}
-            <div>
-            <Button bgColor="green" handleClick={()=>{bookBorrowService.approveBorrowRequest(request.borrowRequestId,jwt)}}>Accept request</Button>
-
-            <Button bgColor="red"  handleClick={()=>{bookBorrowService.rejectBorrowRequest(request.borrowRequestId,jwt)}}>Reject request</Button>
-            </div>
-        })}
-        </div>
-        :
+        
         <div>
-            {requests[tab].map((request)=>{
-                {request}
-            })}
-            </div>}
+            {requests[tab].map((request)=>(
+                
+                <BorrowRequestCard
+                    key={request.borrowRequestId}
+                    borrowRequest={request}
+                    showRequesterInfo
+                    showOwnerActions={tab==='unresponded'}
+                />
+
+            ))}
+        </div>
     
         </>
     );

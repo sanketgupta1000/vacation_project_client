@@ -126,20 +126,32 @@ function BookCard({
                     <div className="px-6 py-4 flex justify-start">
 
                         <Button
-                            bgColor="green"
+                            color="green"
                             handleClick={handleAdminApprove}
                         >
                             Approve
                         </Button>
 
                         <Button
-                            bgColor="red"
+                            color="red"
                             handleClick={handleAdminReject}
                         >
                             Reject
                         </Button>
                     </div>
                 )}
+
+                {isLink && 
+
+                    <div className="px-6 py-4 flex justify-start">
+                        <Button
+                            color="blue"
+                            handleClick={()=>{navigate("/books/"+book.bookId)}}
+                        >
+                            Borrow
+                        </Button>
+                    </div>
+                }
 
             </div>
         )
