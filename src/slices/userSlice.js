@@ -20,6 +20,7 @@ const initialState = {
     // get the token from localStorage, null if it does not exist
     token: localStorage.getItem( 'token' ),
     isLoggedIn: false,
+    userType: null
 }
 
 export const userSlice = createSlice( {
@@ -55,6 +56,11 @@ export const userSlice = createSlice( {
         setIsLoggedIn: ( state, action ) =>
         {
             state.isLoggedIn = action.payload.isLoggedIn
+        },
+
+        setUserType: ( state, action ) =>
+        {
+            state.userType = action.payload.userType
         }
 
     }
@@ -62,4 +68,4 @@ export const userSlice = createSlice( {
 
 export default userSlice.reducer;
 
-export const { setEmail, setUser, setToken, setIsLoggedIn } = userSlice.actions;
+export const { setEmail, setUser, setToken, setIsLoggedIn, setUserType } = userSlice.actions;
