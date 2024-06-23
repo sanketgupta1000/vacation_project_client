@@ -3,13 +3,13 @@ import { useDispatch } from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
 import {InputField, Button} from "."
 import { authService } from "../services"
-import { setToken, setLoading, setInfo } from "../slices"
+import { setToken, setLoading, setInfo, setIsLoggedIn } from "../slices"
 
 
 const Login = ({})=>
 {
     const dispatch = useDispatch()
-    // const navigate = useNavigate()
+    const navigate = useNavigate()
     const {register, handleSubmit, formState: { errors }} = useForm()
 
     const handleLogin = async(data)=>{
@@ -26,7 +26,7 @@ const Login = ({})=>
             const jwt = await response.text()
 
             dispatch(setToken(jwt))
-            console.log("Success")
+            dispatch(setIsLoggedIn({isLoggedIn: true}))
         }
         catch(error)
         {
@@ -111,9 +111,9 @@ const Login = ({})=>
 
             <p className="mt-10 text-center text-sm text-gray-500">
             Not a member?{' '}
-            {/* <Link to="/signup" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+            <Link to="/signup" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
                 Request Membership here
-            </Link> */}
+            </Link>
             </p>
         </div>
     </div>
