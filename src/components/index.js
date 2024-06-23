@@ -20,6 +20,7 @@ import ReceviedBorrowRequests from "./ReceviedBorrowRequests";
 import SentBorrowRequests from "./SentBorrowRequests";
 import ReferrerSelector from "./ReferrerSelector";
 import BorrowRequestCard from "./BorrowRequestCard";
+import AuthLayout from "./AuthLayout";
 
 export
 {
@@ -44,5 +45,6 @@ export
     ReceviedBorrowRequests,
     SentBorrowRequests,
     ReferrerSelector,
-    BorrowRequestCard
+    BorrowRequestCard,
+    AuthLayout,
 }

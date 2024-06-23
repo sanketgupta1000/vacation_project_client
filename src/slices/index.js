@@ -1,13 +1,13 @@
 // import from bookApprovalSlice.js
-import {setAllBookApprovalRequests} from "./bookApprovalSlice"
+import { setAllBookApprovalRequests } from "./bookApprovalSlice"
 import bookApprovalReducer from "./bookApprovalSlice"
 
 // import from bookBorrowSlice.js
-import {setAllReceiverBorrowRequests, setAllSenderBorrowRequests} from "./bookBorrowSlice"
+import { setAllReceiverBorrowRequests, setAllSenderBorrowRequests } from "./bookBorrowSlice"
 import bookBorrowReducer from "./bookBorrowSlice"
 
 // import from bookSlice.js
-import {setAvailableBooks, setUploadedBooks, setBorrowedBooks, setSingleBook, setSingleBookCopy} from "./bookSlice"
+import { setAvailableBooks, setUploadedBooks, setBorrowedBooks, setSingleBook, setSingleBookCopy } from "./bookSlice"
 import bookReducer from "./bookSlice"
 
 // import from infoSlice.js
@@ -27,11 +27,12 @@ import { setAllReferenceRequests, setReferrers } from "./referenceSlice";
 import referenceReducer from "./referenceSlice";
 
 // import from userSlice.js
-import { setEmail, setUser, setToken } from "./userSlice"
+import { setEmail, setUser, setToken, setIsLoggedIn } from "./userSlice"
 import userReducer from "./userSlice"
 
 // export all reducers
-export {
+export
+{
 
     setAllBookApprovalRequests,
     bookApprovalReducer,
@@ -49,7 +50,7 @@ export {
 
     setAllMemberApprovalRequests,
     memberApprovalReducer,
-    
+
     setAllReferenceRequests,
     setReferrers,
     referenceReducer,
@@ -57,6 +58,7 @@ export {
     setEmail,
     setUser,
     setToken,
+    setIsLoggedIn,
     userReducer,
 
     setLoading,
