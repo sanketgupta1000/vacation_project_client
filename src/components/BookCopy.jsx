@@ -3,8 +3,10 @@ import { useParams } from "react-router-dom"
 
 import { bookBorrowService, bookService } from "../services"
 import { setInfo, setLoading, setSingleBookCopy } from "../slices"
-import { useEffect } from "react"
-import {BookTransactionRow, Button} from "./"
+import { useEffect, useState } from "react"
+import {BookTransactionRow, Button, InputField} from "./"
+import Modal from "react-responsive-modal"
+import { useForm } from "react-hook-form"
 
 const BookCopy = ()=>
 {
@@ -18,6 +20,12 @@ const BookCopy = ()=>
     const jwt = useSelector(state=>state.userReducer.token)
 
     const singleBookCopy = useSelector((state)=>state.book.singleBookCopy)
+
+    // state for controlling modal
+    const [showModal, setShowModal] = useState(false)
+
+    // useForm hook
+    const {register, handleSubmit, formState: {errors}} = useForm()
 
     
     useEffect(()=>{
@@ -80,6 +88,72 @@ const BookCopy = ()=>
         }
     }
 
+    async function handleInitiateHandover()
+    {
+        // start loading
+        dispatch(setLoading({isLoading: true, loadingMsg: "Initiating handover..."}))
+
+        try
+        {
+            // call the service
+            const response = await bookBorrowService.initiateHandover(bookCopyId, jwt)
+
+            // custom status exceptions
+            if(!response.ok)
+            {
+                throw new Error((await response.json()).message)
+            }
+
+            // all good, otp sent to the borrower
+            // open the modal
+            setShowModal(true)
+        }
+        catch(error)
+        {
+            // show error
+            dispatch(setInfo({shouldShow: true, infoMsg: error.message, infoType: "error"}))
+        }
+        finally
+        {
+            // stop loading
+            dispatch(setLoading({isLoading: false, loadingMsg: ""}))
+        }
+    }
+
+    async function handleHandover(data)
+    {
+        // hide the modal
+        setShowModal(false)
+
+        // start loading
+        dispatch(setLoading({isLoading: true, loadingMsg: "Verifying handover..."}))
+
+        try
+        {
+            const response = bookBorrowService.handoverBookCopy(bookCopyId, data.otp, jwt)
+
+            if(!response.ok)
+            {
+                throw new Error((await response.json()).message)
+            }
+
+            // show success message
+            dispatch(setInfo({shouldShow: true, infoMsg: await response.text(), infoType: "success"}))
+
+            // navigate
+            navigate("/")
+        }
+        catch(error)
+        {
+            dispatch(setInfo({shouldShow: true, infoMsg: error.message, infoType: "error"}))
+        }
+        finally
+        {
+            // stop loading
+            dispatch(setLoading({isLoading: false, loadingMsg: ""}))
+        }
+    }
+
     return(
         <div>
 
@@ -112,6 +186,17 @@ const BookCopy = ()=>
                     </Button>
                 )}
 
+                {/* handover button */}
+                {singleBookCopy.canHandover &&
+                (
+                    <Button
+                        color="green"
+                        handleClick={handleInitiateHandover}
+                    >
+                        Handover
+                    </Button>
+                )}
+
             </div>
             {/* all copies of the book */}
             <div>
@@ -125,6 +210,54 @@ const BookCopy = ()=>
                 ))}
 
             </div>
+
+            {/* modal */}
+            <Modal
+                open={showModal}
+                onClose={()=>setShowModal(false)}
+                center
+            >
+
+                <div className="flex items-center justify-center">
+                    <div className={`mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10`}>
+
+                        {/* heading */}
+                        <h2 className="text-center text-2xl font-bold leading-tight">Verify Handover</h2>
+
+                        {/* form */}
+                        <form onSubmit={handleSubmit(handleHandover)}>
+                            <div className='space-y-5'>
+
+                                <div>
+                                    {
+                                        errors.otp &&
+                                        <span className="flex items-center  tracking-wide text-red-500 mt-1 ml-1">
+                                            {errors.otp.message}
+                                        </span>
+                                    }
+                                    <InputField
+                                        label="OTP"
+                                        placeholder="Enter OTP sent to the borrower's email"
+
+                                        // integrating react-hook-form
+                                        {...register("otp", {
+                                            required: "OTP is required.",
+                                        })}
+                                    />
+                                </div>
+
+                                <Button type="submit" className="w-full">
+                                    Verify
+                                </Button>
+                            </div>
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </Modal>
+            
 
         </div>
     )
