@@ -27,6 +27,9 @@ import UserProfile from "./UserProfile";
 import Header from './Header'
 import Footer from './Footer'
 import UserAvatar from "./UserAvatar";
+import ReferenceRequests from "./ReferenceRequests";
+import AllBooks from "./AllBooks";
+
 
 export
 {
@@ -59,4 +62,6 @@ export
     Header,
     Footer,
     UserAvatar
+    ReferenceRequests,
+    AllBooks
 }
