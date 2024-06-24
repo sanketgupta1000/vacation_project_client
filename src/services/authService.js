@@ -14,7 +14,7 @@ class AuthService
             phoneNumber,
         }
 
-        if(referrerId)
+        if ( referrerId )
         {
             signupData.referrer = {}
             signupData.referrer.id = referrerId
@@ -93,6 +93,19 @@ class AuthService
             }
         )
 
+    }
+
+    async getAuthDetails( jwt )
+    {
+        return fetch(
+            `${config.urlPrefix}/auth`,
+            {
+                method: "GET",
+                headers: {
+                    "Authorization": "Bearer " + jwt
+                }
+            }
+        )
     }
 
 

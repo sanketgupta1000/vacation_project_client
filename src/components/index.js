@@ -15,7 +15,6 @@ import Signup from "./Signup";
 import SendOtp from "./SendOtp";
 import EmailVerification from "./EmailVerification";
 import BookCopy from "./BookCopy";
-import ProfileComplete from "./ProfileComplete";
 import ReceviedBorrowRequests from "./ReceviedBorrowRequests";
 import SentBorrowRequests from "./SentBorrowRequests";
 import ReferrerSelector from "./ReferrerSelector";
@@ -24,8 +23,13 @@ import AuthLayout from "./AuthLayout";
 import BookUpload from "./BookUpload";
 import BookApprovalRequestsForAdmin from "./BookApprovalRequestsForAdmin";
 import BookApprovalRequestsForMember from "./BookApprovalRequestsForMember";
+import UserProfile from "./UserProfile";
+import Header from './Header'
+import Footer from './Footer'
+import UserAvatar from "./UserAvatar";
 import ReferenceRequests from "./ReferenceRequests";
 import AllBooks from "./AllBooks";
+
 
 export
 {
@@ -40,7 +44,6 @@ export
     BookTransactionRow,
     Logo,
     Login,
-    ProfileComplete,
     MemberApprovalRequestForAdmin,
     Tab,
     Signup,
@@ -55,6 +58,10 @@ export
     BookUpload,
     BookApprovalRequestsForAdmin,
     BookApprovalRequestsForMember,
+    UserProfile,
+    Header,
+    Footer,
+    UserAvatar
     ReferenceRequests,
     AllBooks
 }

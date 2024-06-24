@@ -16,7 +16,7 @@ const MemberApprovalRequestForAdmin = ({})=>
         'rejected': useSelector((state)=>state.memberApproval.rejectedMemberApprovalRequests) || [],
     } 
 
-    const jwt = useSelector((state)=>state.user.token)
+    const jwt = useSelector((state)=>reastate.auth.token)
 
     useEffect(()=>
     {

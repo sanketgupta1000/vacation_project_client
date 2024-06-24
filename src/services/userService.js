@@ -23,10 +23,6 @@ class UserService
             country
         }
 
-        const [ year, month, day ] = dateOfBirth.split( '-' )
-        dateOfBirth = `${day}-${month}-${year}`
-        console.log( dateOfBirth )
-
         // creating form data
         const profileData = new FormData()
         profileData.append( "dateOfBirth", dateOfBirth )
@@ -45,10 +41,10 @@ class UserService
     }
 
     // method to get the current user details
-    async getUserDetails( jwt )
+    async getUserDetails( jwt, userId )
     {
         return fetch(
-            config.urlPrefix + "/users",
+            `${config.urlPrefix}/users/${userId}`,
             {
                 method: "GET",
                 headers: {
@@ -59,38 +55,39 @@ class UserService
     }
 
     // method to update the user details
-    async updateUserDetails( jwt, fullName, phoneNumer, dateOfBirth,
+    async updateUserDetails( jwt, { fullName, phoneNumber, dateOfBirth,
         houseNo,
         street,
         landmark,
         city,
         state,
-        country
+        country }
     )
     {
-        const requestObj = {
-            fullName,
-            phoneNumer,
-            dateOfBirth,
-            address: {
-                houseNo,
-                street,
-                landmark,
-                city,
-                state,
-                country
-            }
+        const address = {
+            houseNo,
+            street,
+            landmark,
+            city,
+            state,
+            country
         }
+
+        // creating form data
+        const profileData = new FormData()
+        profileData.append( "fullName", fullName )
+        profileData.append( "phoneNumber", phoneNumber )
+        profileData.append( "address", JSON.stringify( address ) )
+        profileData.append( "dateOfBirth", dateOfBirth )
 
         return fetch(
             config.urlPrefix + "/users/updateProfile",
             {
                 method: "PUT",
                 headers: {
-                    "Content-Type": "application/json",
                     "Authorization": "Bearer " + jwt
                 },
-                body: JSON.stringify( requestObj )
+                body: profileData,
             }
         )
     }

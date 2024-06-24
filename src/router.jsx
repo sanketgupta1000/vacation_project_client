@@ -1,6 +1,6 @@
 import App from "./App"
 
-import { SignupPage, LoginPage, ProfileCompletePage, SendOtpPage, EmailVerificationPage } from './pages'
+import { SignupPage, LoginPage, ProfileCompletePage, SendOtpPage, EmailVerificationPage, UserProfilePage } from './pages'
 import { AuthLayout } from "./components"
 
 import { createBrowserRouter } from "react-router-dom"
@@ -50,6 +50,16 @@ const router = createBrowserRouter( [
                     </AuthLayout>
                 )
             },
+            {
+                path: "/users/:userId",
+                element:(
+                    <AuthLayout authentication={true} allowedUserTypes={['MEMBER', 'ADMIN']}>
+                        <UserProfilePage/>
+                    </AuthLayout>
+                )
+            }
         ],
     },
 ] )
+
+export default router

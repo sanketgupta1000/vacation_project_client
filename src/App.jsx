@@ -1,9 +1,10 @@
 import { useSelector, useDispatch } from "react-redux"
-import { userService } from "./services"
-import { setIsLoggedIn, setUserType, setLoading, setInfo, setUser } from "./slices"
+import { authService } from "./services"
+import {setAuthDetails, setLoading, setInfo,  } from "./slices"
 import { useEffect } from "react"
-import {Header, Footer} from "./components"
+import {Header, Footer, Login, UserProfile} from "./components"
 import { Outlet } from "react-router-dom"
+
 
 
 function App()
@@ -11,7 +12,7 @@ function App()
     
     const dispatch = useDispatch()
 
-    const jwt = useSelector(state=>state.user.token)
+    const jwt = useSelector(state=>state.auth.token)
 
     const isLoading = useSelector(state=>state.loading.isLoading)
 
@@ -27,14 +28,18 @@ function App()
             
             try
             {
-                const response = await userService.getUserDetails(jwt)
+                const response = await authService.getAuthDetails(jwt)
 
                 if(response.ok)
                 {
                     const userDetails = await response.json()
                     // set user type and is logged in
-                    dispatch(setIsLoggedIn({isLoggedIn: true}))
-                    dispatch(setUserType({userType: userDetails.userType}))
+                    dispatch(setAuthDetails({
+                        isLoggedIn: true,
+                        id: userDetails.id,
+                        userType: userDetails.userType,
+                    }))
+                    console.log('Set Auth details')
                 }
 
             }
@@ -55,7 +60,7 @@ function App()
 
     return (
         <>
-            <Header/>
+            {/* <Header/> */}
 
             {/* error displaying component goes here */}
 
@@ -66,7 +71,7 @@ function App()
                 "Loading..."
             }
 
-            <Footer/>
+            {/* <Footer/> */}
         </>
     )
 }

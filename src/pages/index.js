@@ -3,6 +3,7 @@ import LoginPage from './LoginPage/LoginPage'
 import ProfileCompletePage from './ProfileCompletePage/ProfileCompletePage'
 import SendOtpPage from './SendOtpPage/SendOtpPage'
 import SignupPage from './SignupPage/SignupPage'
+import UserProfilePage from './UserProfilePage/UserProfilePage'
 
 export 
 {
@@ -11,4 +12,5 @@ export
     ProfileCompletePage,
     SendOtpPage,
     SignupPage,
+    UserProfilePage
 }

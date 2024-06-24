@@ -27,8 +27,11 @@ import { setAllReferenceRequests, setReferrers } from "./referenceSlice";
 import referenceReducer from "./referenceSlice";
 
 // import from userSlice.js
-import { setEmail, setUser, setToken, setIsLoggedIn, setUserType } from "./userSlice"
+import { setUser } from "./userSlice"
 import userReducer from "./userSlice"
+
+import { setToken, setEmail, setAuthDetails } from './authSlice'
+import authReducer from './authSlice'
 
 // export all reducers
 export
@@ -55,11 +58,12 @@ export
     setReferrers,
     referenceReducer,
 
-    setEmail,
-    setUser,
     setToken,
-    setIsLoggedIn,
-    setUserType,
+    setEmail,
+    setAuthDetails,
+    authReducer,
+
+    setUser,
     userReducer,
 
     setLoading,

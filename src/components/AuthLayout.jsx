@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {useSelector} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {useNavigate} from 'react-router-dom'
 import { setLoading } from '../slices'
 
@@ -12,8 +12,9 @@ const AuthLayout = (
 ) => 
 {
     const navigate = useNavigate()
-    const isLoggedIn = useSelector(state => state.user.isLoggedIn)
-    const userType = useSelector(state => state.user.userType)
+    const isLoggedIn = useSelector(state => state.auth.authDetails.isLoggedIn)
+    const userType = useSelector(state => state.auth.authDetails.userType)
+    const dispatch = useDispatch()
 
     useEffect(()=>
         {

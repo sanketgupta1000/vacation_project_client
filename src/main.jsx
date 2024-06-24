@@ -11,14 +11,17 @@ import SentBorrowRequests from './components/SentBorrowRequests.jsx'
 
 import { RouterProvider } from 'react-router-dom'
 
-import router from './router.js'
+import router from './router.jsx'
+import UserProfile from './components/UserProfile.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+  // <React.StrictMode>
 
     <Provider store={store}>
+      
       <RouterProvider router={router}/>
+  
     </Provider>
 
-  </React.StrictMode>,
+  // </React.StrictMode>,
 )
