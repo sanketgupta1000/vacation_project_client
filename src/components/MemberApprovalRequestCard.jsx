@@ -5,7 +5,6 @@ import { setLoading } from '../slices'
 import { setInfo } from '../slices/infoSlice'
 import { useNavigate } from 'react-router-dom'
 import { memberApprovalService } from '../services'
-import { info } from 'autoprefixer'
 
 // a general card component to display a member approval request
 // will be used on MemberApprovalRequestsPage, as well as ReferralsPage

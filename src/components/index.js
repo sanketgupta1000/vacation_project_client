@@ -24,6 +24,7 @@ import AuthLayout from "./AuthLayout";
 import BookUpload from "./BookUpload";
 import BookApprovalRequestsForAdmin from "./BookApprovalRequestsForAdmin";
 import BookApprovalRequestsForMember from "./BookApprovalRequestsForMember";
+import ReferenceRequests from "./ReferenceRequests";
 import AllBooks from "./AllBooks";
 
 export
@@ -54,5 +55,6 @@ export
     BookUpload,
     BookApprovalRequestsForAdmin,
     BookApprovalRequestsForMember,
+    ReferenceRequests,
     AllBooks
 }
