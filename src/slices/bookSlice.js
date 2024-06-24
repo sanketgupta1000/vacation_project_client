@@ -74,6 +74,7 @@ const initialState = {
         borrowerId: null,
         borrowerName: null,
         requestable: null,
+        canHandover: null,
         bookCopyTransactions: [
             {
                 transactionId: null,
