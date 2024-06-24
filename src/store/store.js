@@ -8,7 +8,8 @@ import
     loadingReducer,
     memberApprovalReducer,
     referenceReducer,
-    userReducer
+    userReducer,
+    authReducer,
 } from "../slices";
 
 // create store
@@ -22,6 +23,7 @@ const store = configureStore( {
         memberApproval: memberApprovalReducer,
         reference: referenceReducer,
         user: userReducer,
+        auth: authReducer,
     }
 } )
 

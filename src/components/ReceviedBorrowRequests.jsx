@@ -2,13 +2,13 @@ import { useSelector,useDispatch } from "react-redux";
 import { bookBorrowService, userService } from "../services";
 import { useEffect, useState } from "react";
 import { setLoading ,setAllReceiverBorrowRequests} from "../slices";
-import {Button,Tab} from "./Button";
+import {Button,Tab} from ".";
 import { BorrowRequestCard } from ".";
 
 function ReceviedBorrowRequests()
 {
     // const jwt = useSelector(state=>state.userReducer.token)
-    const jwt = useSelector((state)=>state.user.token)
+    const jwt = useSelector((state)=>reastate.auth.token)
     const dispatch = useDispatch()
     const [tab,setTab]=useState('unresponded');
 

@@ -12,7 +12,7 @@ function SentBorrowRequests() {
         'pastHistory': useSelector(state => state.bookBorrow.pastBorrowRequests),
         'currentRequest': useSelector(state => state.bookBorrow.currentBorrowRequests)
     }
-    const jwt = useSelector(state => state.user.token);
+    const jwt = useSelector(state => reastate.auth.token);
 
     async function getrequests() {
         dispatch(setLoading({ isLoading: true, loadingMsg: "Loading your request..." }))
