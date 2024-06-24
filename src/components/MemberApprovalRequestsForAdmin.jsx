@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 
 import {MemberApprovalRequestCard, Tab} from "."
 import { memberApprovalService } from "../services"
-import { setAllMemberApprovalRequests, setLoading } from "../slices"
+import { setAllMemberApprovalRequests, setLoading, setInfo } from "../slices"
 
 const MemberApprovalRequestForAdmin = ({})=>
 {
@@ -82,7 +82,7 @@ const MemberApprovalRequestForAdmin = ({})=>
                     key={request.memberApprovalRequestId}
                         memberApprovalRequest={request}
                         showReferrerInfo
-                        showAdminApproval
+                        showAdminApproval={tab==='unresponded'}
                         showAdminActions
                     />
                 )
