@@ -16,7 +16,7 @@ function App()
 
     const jwt = useSelector(state=>state.auth.token)
 
-    const isLoading = useSelector(state=>state.loading.isLoading)
+    // const isLoading = useSelector(state=>state.loading.isLoading)
 
     async function checkUser()
     {
@@ -66,11 +66,11 @@ function App()
 
             {/* error displaying component goes here */}
 
-            {!isLoading?
+            {/* {!isLoading? */}
                 <Outlet />
-                :
+                {/* : */}
                 <Loader/>
-            }
+            {/* } */}
 
             <Footer/>
 

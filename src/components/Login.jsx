@@ -13,7 +13,7 @@ const Login = ({})=>
     const {register, handleSubmit, formState: { errors }} = useForm()
 
     const handleLogin = async(data)=>{
-        dispatch(setLoading({ loading: true, loadingMsg: "Logging in..." }))
+        dispatch(setLoading({ isLoading: true, loadingMsg: "Logging in..." }))
         try
         {
             const response = await authService.login(data)
