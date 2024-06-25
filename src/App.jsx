@@ -5,6 +5,7 @@ import { useEffect } from "react"
 import {Header, Footer, Login, UserProfile, Loader} from "./components"
 import { Outlet } from "react-router-dom"
 import { ToastContainer } from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
