@@ -29,6 +29,7 @@ import Footer from './Footer'
 import UserAvatar from "./UserAvatar";
 import ReferenceRequests from "./ReferenceRequests";
 import AllBooks from "./AllBooks";
+import Loader from "./Loader";
 
 
 export
@@ -61,7 +62,8 @@ export
     UserProfile,
     Header,
     Footer,
-    UserAvatar
+    UserAvatar,
     ReferenceRequests,
-    AllBooks
+    AllBooks,
+    Loader
 }

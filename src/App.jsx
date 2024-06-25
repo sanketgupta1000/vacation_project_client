@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { authService } from "./services"
 import {setAuthDetails, setLoading, setInfo,  } from "./slices"
 import { useEffect } from "react"
-import {Header, Footer, Login, UserProfile} from "./components"
+import {Header, Footer, Login, UserProfile, Loader} from "./components"
 import { Outlet } from "react-router-dom"
 
 
@@ -67,8 +67,7 @@ function App()
             {!isLoading?
                 <Outlet />
                 :
-                // loading component goes here
-                "Loading..."
+                <Loader/>
             }
 
             {/* <Footer/> */}
