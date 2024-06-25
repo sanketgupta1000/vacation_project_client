@@ -2,13 +2,12 @@ import { useDispatch, useSelector } from "react-redux";
 import {Logo, Button } from "./"
 import { Link, NavLink } from "react-router-dom";
 import { setAuthDetails, setToken } from "../slices";
-import { useId } from "react";
 
 function Header()
 {
 
-    const isLoggedIn = useSelector(state=>state.auth.isLoggedIn)
-    const userType = useSelector(state=>state.auth.userType)
+    const isLoggedIn = useSelector(state=>state.auth.authDetails.isLoggedIn)
+    const userType = useSelector(state=>state.auth.authDetails.userType)
 
     const dispatch = useDispatch()
 
@@ -109,7 +108,7 @@ function Header()
                                 navLink.active?
                                 
                                 <NavLink
-                                    key={useId()}
+                                    key={navLink.title}
                                     to={navLink.path}
                                     className={({isActive})=>`mt-2 transition-colors duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900 dark:hover:text-gray-200 ${isActive?"text-gray-900 dark:text-gray-200":""}`}
                                 >
