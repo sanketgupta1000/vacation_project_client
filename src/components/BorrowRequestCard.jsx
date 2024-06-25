@@ -15,7 +15,7 @@ function BorrowRequestCard({
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const jwt = useSelector(state=>state.user.token)
+    const jwt = useSelector(state=>reastate.auth.token)
 
     async function handleApproveBorrowRequest()
     {

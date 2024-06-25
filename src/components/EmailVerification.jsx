@@ -13,7 +13,7 @@ function EmailVerification()
     const {register, handleSubmit, formState: {errors}} = useForm()
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const email = useSelector(state=>state.user.email)
+    const email = useSelector(state=>state.auth.email)
 
     async function handleVerification(data)
     {
