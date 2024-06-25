@@ -8,7 +8,7 @@ import { BorrowRequestCard } from ".";
 function ReceviedBorrowRequests()
 {
     // const jwt = useSelector(state=>state.userReducer.token)
-    const jwt = useSelector((state)=>reastate.auth.token)
+    const jwt = useSelector((state)=>state.auth.token)
     const dispatch = useDispatch()
     const [tab,setTab]=useState('unresponded');
 
@@ -44,10 +44,9 @@ function ReceviedBorrowRequests()
     },[])
   
     const requests={
-         'unresponded' : useSelector(state=>state.bookBorrow.newBorrowRequests),
-        ' approved':useSelector(state=>state.bookBorrow.approvedBorrowRequests),
-         'rejected':useSelector(state=>state.bookBorrow.rejectedBorrowRequests)
-       
+        'unresponded' : useSelector(state=>state.bookBorrow.newBorrowRequests) || [],
+        'approved':useSelector(state=>state.bookBorrow.approvedBorrowRequests) || [],
+        'rejected':useSelector(state=>state.bookBorrow.rejectedBorrowRequests) || []
     }
     
     return(

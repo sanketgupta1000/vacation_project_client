@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { BookCard } from '.'
 import { useSelector, useDispatch } from 'react-redux'
 import { setInfo, setLoading, setAvailableBooks } from '../slices'
@@ -9,7 +9,7 @@ function AllBooks()
 {
 
     const dispatch = useDispatch()
-    const jwt = useSelector(state => state.user.token)
+    const jwt = useSelector(state => state.auth.token)
     const availableBooks = useSelector(state => state.book.availableBooks)
 
     // fetch all available books
@@ -19,7 +19,7 @@ function AllBooks()
 
         try
         {
-            const response = await bookService.getAllBooks(jwt)
+            const response = await bookService.getBooks(jwt)
 
             if (!response.ok)
             {

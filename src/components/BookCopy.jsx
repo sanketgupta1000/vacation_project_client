@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 
 import { bookBorrowService, bookService } from "../services"
 import { setInfo, setLoading, setSingleBookCopy } from "../slices"
@@ -12,12 +12,13 @@ const BookCopy = ()=>
 {
     // dispatch
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     // bookId from the url
     const {bookCopyId} = useParams()
 
     // token
-    const jwt = useSelector(state=>state.userReducer.token)
+    const jwt = useSelector(state=>state.auth.token)
 
     const singleBookCopy = useSelector((state)=>state.book.singleBookCopy)
 
@@ -30,33 +31,31 @@ const BookCopy = ()=>
     
     useEffect(()=>{
         const fetchData = async ()=>{
-            const response = bookService.getBookCopyTransactions(jwt, bookCopyId)
-
-            if(!response.ok)
+            dispatch(setLoading({isLoading: true, loadingMsg: 'Loading data...'}))
+            try
             {
-                const errorObj = await response.json()
-                throw new Error(errorObj.message)
+                const response = await bookService.getBookCopyTransactions(jwt, bookCopyId)
+                if(!response.ok)
+                {
+                    const errorObj = await response.json()
+                    throw new Error(errorObj.message)
+                }
+    
+                const singleBookCopy = await response.json()
+    
+                dispatch(setSingleBookCopy(singleBookCopy))
             }
-
-            const singleBookCopy = await response.json()
-
-            dispatch(setSingleBookCopy(singleBookCopy))
+            catch(error)
+            {
+                dispatch(setInfo({shouldShow: true, infoMsg: error.message, infoType: 'error'}))
+                navigate("/")
+            }
+            finally
+            {
+                dispatch(setLoading({isLoading: false, loadingMsg: ''}))
+            }
         }
-            
-        dispatch(setLoading({isLoading: true, loadingMsg: 'Loading data...'}))
-        try
-        {   
-            fetchData()
-        }
-        catch(error)
-        {
-            dispatch(setInfo({shouldShow: true, infoMsg: error.message, infoType: 'error'}))
-            navigate("/")
-        }
-        finally
-        {
-            dispatch(setLoading({isLoading: false, loadingMsg: ''}))
-        }
+        fetchData()
     },[])
 
     async function handleRequestBorrow()
@@ -205,7 +204,7 @@ const BookCopy = ()=>
                 (
                     <BookTransactionRow
                         key={transaction.transactionId}
-                        transaction={transaction}
+                        BookTransactionDTO={transaction}
                     />
                 ))}
 

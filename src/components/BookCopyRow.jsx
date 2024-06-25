@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import {Button} from "./"
 import { bookBorrowService } from "../services";
@@ -5,7 +6,7 @@ import { bookBorrowService } from "../services";
 function BookCopyRow({bookCopy})
 {
  let eligible=bookCopy.requestable
- const jwt = useSelector(state=>state.userReducer.token)
+ const jwt = useSelector(state=>state.auth.token)
   async function requestHandler()
   {
     dispatch(setLoading({isLoading: true, loadingMsg: "request for borrow is sending."}))
@@ -41,7 +42,7 @@ function BookCopyRow({bookCopy})
    
     return(
         <>
-         <Link to = {`/bookCopies/${bookCopy.id}`}  >
+         <Link to = {`/bookCopies/${bookCopy.bookCopyId}`}  >
         <div >
           <div>
             <li>{bookCopy.bookCopyId}</li>

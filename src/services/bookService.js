@@ -17,7 +17,7 @@ class BookService
         )
     }
 
-    // method to get a book
+    // method to get only data of a book
     async getBook( jwt, bookId )
     {
         return fetch(
@@ -32,7 +32,7 @@ class BookService
     }
 
     // method to get all book copies for a book, along with the book's data
-    async getBookCopies(jwt, bookId)
+    async getBookCopies( jwt, bookId )
     {
         return fetch(
             config.urlPrefix + "/books/" + bookId + "/bookCopies",

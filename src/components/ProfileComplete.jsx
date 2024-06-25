@@ -10,7 +10,7 @@ const ProfileComplete = ()=>{
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const {register, handleSubmit, formState: { errors }} = useForm()
-    const jwtToken = useSelector((state)=>reastate.auth.token)
+    const jwtToken = useSelector((state)=>state.auth.token)
 
     const handleProfileComplete = async(data)=>{
         dispatch(setLoading({isLoading: true, loadingMsg: "Completing profile..."}))

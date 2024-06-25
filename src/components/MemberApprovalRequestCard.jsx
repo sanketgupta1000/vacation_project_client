@@ -28,7 +28,7 @@ function MemberApprovalRequestCard({
     const navigate = useNavigate()
 
     // jwt token
-    const jwt = useSelector(state=>state.userReducer.token)
+    const jwt = useSelector(state=>state.auth.token)
 
     // handle admin accept
     async function handleAdminAccept()
