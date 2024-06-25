@@ -4,6 +4,7 @@ import {setAuthDetails, setLoading, setInfo,  } from "./slices"
 import { useEffect } from "react"
 import {Header, Footer, Login, UserProfile, Loader} from "./components"
 import { Outlet } from "react-router-dom"
+import { ToastContainer } from "react-toastify"
 
 
 
@@ -71,6 +72,9 @@ function App()
             }
 
             {/* <Footer/> */}
+
+            {/* toaster */}
+            <ToastContainer/>
         </>
     )
 }

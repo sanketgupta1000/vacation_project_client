@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 
 // to represent the information to display in the app
 // can be either success or error
@@ -17,6 +18,19 @@ export const infoSlice = createSlice({
             state.shouldShow = action.payload.shouldShow
             state.infoMsg = action.payload.infoMsg
             state.infoType = action.payload.infoType
+
+            // show the toast
+            if(action.payload.shouldShow)
+            {
+                if(action.payload.infoType==="error")
+                {
+                    toast.error(action.payload.infoMsg)
+                }
+                else
+                {
+                    toast.success(action.payload.infoMsg)
+                }
+            }
         }
     }
 })
