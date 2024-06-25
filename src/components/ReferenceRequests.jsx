@@ -19,7 +19,7 @@ const ReferenceRequests = ({})=>
         'rejected': useSelector((state)=>state.reference.rejectedReferenceRequests) || [],
     } 
 
-    const jwt = useSelector((state)=>state.user.token)
+    const jwt = useSelector((state)=>state.auth.token)
 
     useEffect(()=>
     {

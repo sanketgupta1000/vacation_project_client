@@ -120,12 +120,12 @@ export const bookSlice = createSlice( {
         //set data for a single book 
         setSingleBook: ( state, action ) => 
         {
-            state.singleBook = action.payload.singleBook
+            state.singleBook = action.payload
         },
 
         setSingleBookCopy: ( state, action ) =>
         {
-            state.singleBookCopy = action.payload.singleBookCopy
+            state.singleBookCopy = action.payload
         },
     }
 } )

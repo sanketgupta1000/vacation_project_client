@@ -27,7 +27,7 @@ function BookCard({
     {
         const navigate = useNavigate()
         const dispatch = useDispatch()
-        const jwt = useSelector(state=>state.userReducer.token)
+        const jwt = useSelector(state=>state.auth.token)
 
         // handle admin approve
         async function handleAdminApprove()
@@ -107,7 +107,7 @@ function BookCard({
 
                 {/* book details */}
                 <div className="px-6 py-4">
-                    <h1 class="font-bold text-xl mb-2">{book.bookTitle}</h1>
+                    <h1 className="font-bold text-xl mb-2">{book.bookTitle}</h1>
                     <p className="text-gray-500 text-sm mb-4">by {book.bookAuthor}</p>
 
                     <div className="flex flex-col">

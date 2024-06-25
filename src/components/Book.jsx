@@ -18,10 +18,10 @@ function Book()
     const {bookId} = useParams()
 
     // token
-    const jwt = useSelector(state=>state.userReducer.token)
+    const jwt = useSelector(state=>state.auth.token)
 
     // using singleBook from the store
-    const singleBook = useSelector(state=>state.bookReducer.singleBook)
+    const singleBook = useSelector(state=>state.book.singleBook)
 
     // function to fetch data
     async function fetchBook()

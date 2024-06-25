@@ -9,10 +9,10 @@ function SentBorrowRequests() {
     const [tab, setTab] = useState('currentRequest')
 
     const borrowRequest = {
-        'pastHistory': useSelector(state => state.bookBorrow.pastBorrowRequests),
-        'currentRequest': useSelector(state => state.bookBorrow.currentBorrowRequests)
+        'pastHistory': useSelector(state => state.bookBorrow.pastBorrowRequests) || [],
+        'currentRequest': useSelector(state => state.bookBorrow.currentBorrowRequests) || []
     }
-    const jwt = useSelector(state => reastate.auth.token);
+    const jwt = useSelector(state => state.auth.token);
 
     async function getrequests() {
         dispatch(setLoading({ isLoading: true, loadingMsg: "Loading your request..." }))

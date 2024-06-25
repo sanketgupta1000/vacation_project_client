@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { setAllBookApprovalRequests, setInfo, setLoading } from '../slices'
 import { bookUploadService } from '../services'
@@ -13,7 +13,7 @@ function BookApprovalRequestsForMember()
     const [tab, setTab] = useState("unresponded")
 
     // jwt token
-    const jwt = useSelector((state)=>reastate.auth.token)
+    const jwt = useSelector((state)=>state.auth.token)
 
     // requests from store
     const requests = {
@@ -81,7 +81,7 @@ function BookApprovalRequestsForMember()
                 </Tab>
             </div>
 
-            <div>
+            <div className='my-10'>
                 {
                     requests[tab].map((request)=>
                         

@@ -3,14 +3,14 @@ import config from "../config/config";
 class CategoryService
 {
     // Get all categories
-    async getAllCategories(jwt)
+    async getAllCategories( jwt )
     {
         return fetch(
-            config.urlPrefix+"/categories",
+            config.urlPrefix + "/categories",
             {
                 method: "GET",
                 headers: {
-                    "Authorization:": "Bearer "+jwt
+                    "Authorization": "Bearer " + jwt
                 }
             }
         )

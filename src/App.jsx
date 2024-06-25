@@ -61,7 +61,7 @@ function App()
 
     return (
         <>
-            {/* <Header/> */}
+            <Header/>
 
             {/* error displaying component goes here */}
 
@@ -71,7 +71,7 @@ function App()
                 <Loader/>
             }
 
-            {/* <Footer/> */}
+            <Footer/>
 
             {/* toaster */}
             <ToastContainer/>

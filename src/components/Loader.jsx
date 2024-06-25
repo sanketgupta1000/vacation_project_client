@@ -6,7 +6,7 @@ function Loader()
 {
 
     // get loading message from store
-    const loadingMsg = useSelector(state.loading.loadingMsg)
+    const loadingMsg = useSelector((state)=>state.loading.loadingMsg)
 
     return (
 

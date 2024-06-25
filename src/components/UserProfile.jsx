@@ -155,10 +155,15 @@ const UserProfile = ()=>
                         type="text" value={`${userData.houseNo}, ${userData.street}, near ${userData.landmark}, ${userData.city}, ${userData.state}, ${userData.country}`}  readOnly/>
                 </div>
                  <div className="flex ">
-                    <span className="text-sm  font-bold uppercase border-2 rounded-l px-4 py-2 bg-gray-50 whitespace-no-wrap w-2/6">Reference:</span>
-                    <Link to={`/users/${userData.referrerId}`}>
-                        <UserAvatar user={{id:userData.referrerId, name: userData.referrerName, email: userData.referrerEmail}} />
-                    </Link>
+                     <span className="text-sm  font-bold uppercase border-2 rounded-l px-4 py-2 bg-gray-50 whitespace-no-wrap w-2/6">Reference:</span>
+                    {userData.referrerId ?
+                        <Link to={`/users/${userData.referrerId}`}>
+                            <UserAvatar user={{id:userData.referrerId, name: userData.referrerName, email: userData.referrerEmail}} />
+                        </Link>
+                        :
+                        <p className="px-4 border-l-0 cursor-default border-gray-300 focus:outline-none  rounded-md rounded-l-none shadow-sm -ml-1 w-4/6"> 
+                            No reference 
+                        </p>}
                 </div>
                 {
                     isUpdatable ? 

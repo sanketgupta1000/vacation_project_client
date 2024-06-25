@@ -12,7 +12,7 @@ function BookUpload()
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-    const jwt = useSelector(state => reastate.auth.token)
+    const jwt = useSelector(state => state.auth.token)
 
     const [categories, setCategories] = useState([])
 
