@@ -81,7 +81,8 @@ function BookCard({
                 // custom status exceptions
                 if(!response.ok)
                 {
-                    throw new Error(await response.json())
+                    throw new Error((await response.json()).message)
+                    
                 }
 
                 // show success message

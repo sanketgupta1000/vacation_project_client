@@ -55,7 +55,7 @@ function Header()
         },
         {
             title: "My Book Uploads",
-            path: "/books/myBookApprovalRequests",
+            path: "/requests/myBookApprovalRequests",
             active: isLoggedIn && ((userType === "MEMBER")||(userType === "ADMIN"))
         },
         {
