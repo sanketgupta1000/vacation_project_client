@@ -1,9 +1,9 @@
 import React from 'react'
-import {InputField, Button} from '.'
+import {InputField, Button, Logo} from '.'
 import { useNavigate, Link } from 'react-router-dom'
 import { authService } from '../services'
 import { useDispatch } from 'react-redux'
-import { setEmail, setLoading } from '../slices'
+import { setEmail, setLoading, setInfo } from '../slices'
 import { useForm } from 'react-hook-form'
 
 function SendOtp()
@@ -15,7 +15,7 @@ function SendOtp()
 
     async function handleSendOtp(data)
     {
-        setLoading({isLoading: true, loadingMsg: "Sending OTP..."})
+        dispatch(setLoading({isLoading: true, loadingMsg: "Sending OTP..."}))
 
         try
         {
@@ -27,6 +27,9 @@ function SendOtp()
             }
 
             dispatch(setEmail(data.email))
+
+            // show success message
+            dispatch(setInfo({shouldShow: true, infoMsg: await response.text(), infoType: "success"}))
 
             navigate("/verifyEmail")
         }

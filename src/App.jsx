@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux"
 import { authService } from "./services"
-import {setAuthDetails, setLoading, setInfo,  } from "./slices"
-import { useEffect } from "react"
+import {setAuthDetails, setLoading, setInfo, setUser,  } from "./slices"
+import { useEffect, useState } from "react"
 import {Header, Footer, Login, UserProfile, Loader} from "./components"
 import { Outlet } from "react-router-dom"
 import { ToastContainer } from "react-toastify"
@@ -15,6 +15,8 @@ function App()
     const dispatch = useDispatch()
 
     const jwt = useSelector(state=>state.auth.token)
+
+    const [isUserChecked, setUserChecked] = useState(false)
 
     // const isLoading = useSelector(state=>state.loading.isLoading)
 
@@ -52,6 +54,9 @@ function App()
         }
 
         dispatch(setLoading({isLoading: false, loadingMsg: ""}))
+
+        // set user checked
+        setUserChecked(true)
     }
 
     // user logged in check after first opening app, and when jwt changes
@@ -64,14 +69,14 @@ function App()
         <>
             <Header/>
 
-            {/* error displaying component goes here */}
+            {/* display outlet only when user checked */}
+            {isUserChecked &&
 
-            {/* {!isLoading? */}
                 <Outlet />
-                {/* : */}
-                <Loader/>
-            {/* } */}
+            }
 
+                <Loader/>
+            
             <Footer/>
 
             {/* toaster */}

@@ -16,6 +16,8 @@ const AuthLayout = (
     const userType = useSelector(state => state.auth.authDetails.userType)
     const dispatch = useDispatch()
 
+    const [isAccessChecked, setAccessChecked] = useState(false)
+
     useEffect(()=>
         {
             // set loading state
@@ -43,11 +45,17 @@ const AuthLayout = (
             
             // set loading state
             dispatch(setLoading({isLoading: false, loadingMsg: ''}))
+
+            // set access checked
+            setAccessChecked(true)
     
         }, [isLoggedIn])
   return(
     <>
-        {children}
+        {/* display children only if access is checked */}
+        {isAccessChecked && 
+            children
+        }
     </>
   )
 }

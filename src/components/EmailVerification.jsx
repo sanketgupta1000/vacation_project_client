@@ -50,8 +50,9 @@ function EmailVerification()
 
     }
 
-    async function handleResendOtp()
+    async function handleResendOtp(e)
     {
+        e.preventDefault()
         // set loading
         dispatch(setLoading({isLoading: true, loadingMsg: "Resending OTP..."}))
 
@@ -124,14 +125,16 @@ function EmailVerification()
                         <Button type="submit" className="w-full">
                             Verify
                         </Button>
+                        {/* resend otp */}
+                        <Button
+                            className='w-full'
+                            handleClick={handleResendOtp}
+                        >
+                            Resend OTP
+                        </Button>
                     </div>
                 </form>
 
-                {/* resend otp */}
-                <Button
-                    className='w-full'
-                    handleClick={handleResendOtp}
-                />
 
             </div>
 
