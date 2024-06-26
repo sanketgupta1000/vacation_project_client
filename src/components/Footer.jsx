@@ -1,13 +1,18 @@
+import Logo from "./Logo";
+
 function Footer()
 {
     return(
-    <footer className="bg-white dark:bg-gray-900 mt-5">
-    <div className="container p-6 mx-auto ">
+    <footer className="bg-white dark:bg-gray-900 ">
+    <div className="container p-6 mx-auto 
+             inset-x-0 
+             bottom-0 
+             ">
         <div className="lg:flex ">
             <div className="w-full -mx-6 lg:w-2/5">
                 <div className="px-6">
                     <a href="#">
-                        {/* <Logo/>  */}
+                         <Logo/>  
                     </a>
 
                     <p className="max-w-sm mt-2 text-gray-500 dark:text-gray-400">Join the Community of Readers and enhance your power through reading.</p>

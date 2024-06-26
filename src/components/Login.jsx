@@ -19,7 +19,7 @@ const Login = ({})=>
             const response = await authService.login(data)
 
             if(!response.ok){
-                const errorMsg = response.status == 401 ? "Invlaid Email or Password" : (await response.json()).message 
+                const errorMsg = response.status == 401 ? "Invalid Email or Password" : (await response.json()).message 
                 throw new Error(errorMsg)
             }
 
@@ -27,6 +27,7 @@ const Login = ({})=>
 
             dispatch(setToken(jwt))
             console.log('success')
+            dispatch(setInfo({shouldShow:true,infoMsg:"login successfully",infoType:"success"}))
         }
         catch(error)
         {

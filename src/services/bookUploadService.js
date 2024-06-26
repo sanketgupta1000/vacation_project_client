@@ -42,7 +42,8 @@ class BookUploadService
 
     async rejectBookUploadRequest(bookId,jwt)
     {
-        return fetch(config.urlPrefix+"/requests/bookUploadRequests/"+bookId+"/reject"),
+        // console.log(bookId)
+        return fetch(config.urlPrefix+"/requests/bookUploadRequests/"+bookId+"/reject",
         {
             //method
             method:"POST",
@@ -50,6 +51,8 @@ class BookUploadService
                 "Authorization":"Bearer "+jwt
             },
         }
+    );
+    
     }
 
     async getAllBookUploadRequests(jwt)
