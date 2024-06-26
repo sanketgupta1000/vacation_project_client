@@ -26,9 +26,14 @@ const Login = ({})=>
             const jwt = await response.text()
 
             dispatch(setToken(jwt))
-            console.log('success')
+//             console.log('success')
+          
+            dispatch(setInfo({shouldShow:true,infoMsg:"Logged in successfully",infoType:"success"}))
+          
             // navigate to home
             navigate('/')
+          
+          
         }
         catch(error)
         {

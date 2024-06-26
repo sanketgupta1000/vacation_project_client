@@ -76,6 +76,7 @@ function BookUpload()
 
             // all good
             // set info
+            // console.log(await response.text())
             dispatch(setInfo({shouldShow: true, infoMsg: await response.text(), infoType: "success"}))
             // navigate to home
             navigate("/")
