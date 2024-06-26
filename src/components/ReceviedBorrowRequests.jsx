@@ -15,19 +15,19 @@ function ReceviedBorrowRequests()
     async function getdata()
     {
         dispatch(setLoading({isLoading: true, loadingMsg: "Loading data..."}))
-        try{
+        try
+        {
             //getting all borrow requests
             const borrow_requests=await bookBorrowService.getAllBorrowRequests(jwt)
             
             if(!borrow_requests.ok)
             {
-                    throw new Error(await response.json())
-                }
+                throw new Error(await response.json())
+            }
             // we got the object
 
             const borrow_requests_object=await borrow_requests.json();
-            dispatch(setAllReceiverBorrowRequests(borrow_requests_object));
-
+            dispatch(setAllReceiverBorrowRequests(borrow_requests_object))
         }
         catch(error)
         {

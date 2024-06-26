@@ -19,11 +19,11 @@ function SentBorrowRequests() {
         try {
             const response = await bookBorrowService.getMyBorrowRequests(jwt);
             if (!response.ok) {
-                const error = response.json();
+                const error = await response.json();
                 throw new Error(error.message);
             }
 
-            const myRequest = response.json();
+            const myRequest = await response.json();
 
             dispatch(setAllSenderBorrowRequests(myRequest));
         }
