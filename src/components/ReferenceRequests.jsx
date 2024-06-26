@@ -21,40 +21,46 @@ const ReferenceRequests = ({})=>
 
     const jwt = useSelector((state)=>state.auth.token)
 
+    const fetchData = async()=>
+    {
+
+        dispatch(setLoading({isLoading: true, loadingMsg:'Loading data...'}))
+
+        try
+        {
+            const response = await memberApprovalService.seeAllReferences(jwt)
+
+            if(!response.ok)
+            {
+                const errorObj = await response.json()
+                throw new Error(errorObj.message)
+            }
+            
+            const memberApprovalRequests = await response.json()
+
+            dispatch(setAllReferenceRequests(
+                {
+                    newRequests: memberApprovalRequests.unresponded,
+                    approvedRequests: memberApprovalRequests.approved,
+                    rejectedRequests: memberApprovalRequests.rejected
+                }
+            ))
+
+            console.log('Success')
+        }
+        catch(error)
+        {
+            dispatch(setInfo({shouldShow: true, isfoMag: error.message, infoType: 'error'}))
+            navigate('/')
+        }
+        finally
+        {
+            dispatch(setLoading({isLoading: false, loadingMsg: ''}))
+        }
+
+    }   
     useEffect(()=>
     {
-        const fetchData = async()=>
-        {
-
-            dispatch(setLoading({isLoading: true, loadingMsg:'Loading data...'}))
-
-            try
-            {
-                const response = await memberApprovalService.seeAllReferences(jwt)
-    
-                if(!response.ok)
-                {
-                    const errorObj = await response.json()
-                    throw new Error(errorObj.message)
-                }
-                
-                const memberApprovalRequests = await response.json()
-    
-                dispatch(setAllReferenceRequests(memberApprovalRequests))
-    
-                console.log('Success')
-            }
-            catch(error)
-            {
-                dispatch(setInfo({shouldShow: true, isfoMag: error.message, infoType: 'error'}))
-                navigate('/')
-            }
-            finally
-            {
-                dispatch(setLoading({isLoading: false, loadingMsg: ''}))
-            }
-
-        }   
 
         fetchData()
         
@@ -87,6 +93,7 @@ const ReferenceRequests = ({})=>
                         memberApprovalRequest={request}
                         showAdminApproval
                         showReferrerActions={tab==='unresponded'}
+                        fetchData={fetchData}
                     />
                 )
             }

@@ -4,10 +4,12 @@ import { useDispatch, useSelector } from "react-redux"
 import { MemberApprovalRequestCard, Tab } from "."
 import { memberApprovalService } from "../services"
 import { setAllMemberApprovalRequests, setLoading, setInfo } from "../slices"
+import { useNavigate } from "react-router-dom"
 
 const MemberApprovalRequestForAdmin = ( { } ) =>
 {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const [ tab, setTab ] = useState( 'unresponded' )
 
     const requests = {
@@ -18,43 +20,43 @@ const MemberApprovalRequestForAdmin = ( { } ) =>
     
     const jwt = useSelector( ( state ) => state.auth.token )
 
-    useEffect( () =>
+    const fetchData = async () =>
     {
-        const fetchData = async () =>
-        {
-            dispatch( setLoading( { isLoading: true, loadingMsg: 'Loading data...' } ) )
+        dispatch( setLoading( { isLoading: true, loadingMsg: 'Loading data...' } ) )
 
-            try
+        try
+        {
+            const response = await memberApprovalService.getAllMemberApprovalRequests( jwt )
+            if ( !response.ok )
             {
-                const response = await memberApprovalService.getAllMemberApprovalRequests( jwt )
-                if ( !response.ok )
-                {
-                    const errorObj = await response.json()
-                    throw new Error( errorObj.message )
-                }
-                
-                console.log(response)
-                const memberApprovalRequests = await response.json()
-    
-                dispatch( setAllMemberApprovalRequests( memberApprovalRequests ) )
-    
-                console.log( 'Success' )
-            }
-            catch ( error )
-            {
-                dispatch( setInfo( { shouldShow: true, isfoMag: error.message, infoType: 'error' } ) )
-            }
-            finally
-            {
-                dispatch( setLoading( { isLoading: false, loadingMsg: '' } ) )
+                const errorObj = await response.json()
+                throw new Error( errorObj.message )
             }
             
+            // console.log(response)
+            const memberApprovalRequests = await response.json()
+
+            dispatch( setAllMemberApprovalRequests( memberApprovalRequests ) )
+
+            // console.log( 'Success' )
         }
+        catch ( error )
+        {
+            dispatch( setInfo( { shouldShow: true, isfoMag: error.message, infoType: 'error' } ) )
+        }
+        finally
+        {
+            dispatch( setLoading( { isLoading: false, loadingMsg: '' } ) )
+        }
+        
+    }
+    useEffect( () =>
+    {
         fetchData()
     }, [] )
 
-    console.log( 're-render' )
-    console.log( requests[ tab ] )
+    // console.log( 're-render' )
+    // console.log( requests[ tab ] )
 
     return (
         <>
@@ -84,6 +86,7 @@ const MemberApprovalRequestForAdmin = ( { } ) =>
                             showReferrerInfo
                             showAdminApproval={ tab !== 'unresponded' }
                             showAdminActions={ tab === 'unresponded' }
+                            fetchData={fetchData}
                         />
                     )
                 }
