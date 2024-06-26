@@ -33,6 +33,11 @@ function ReceviedBorrowRequests()
         {
             dispatch(setInfo({shouldShow: true, infoMsg: error.message, infoType: "error"}))
         }
+        finally
+        {
+            dispatch(setLoading({isLoading: false, loadingMsg: ""}))
+        
+        }
     }
    
    
