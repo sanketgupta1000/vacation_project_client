@@ -62,16 +62,16 @@ export const bookBorrowSlice = createSlice( {
     reducers: {
         setAllReceiverBorrowRequests: ( state, action ) =>
         {
-            state.newBorrowRequests = action.payload.newBorrowRequests
-            state.approvedBorrowRequests = action.payload.approvedBorrowRequests
-            state.rejectedBorrowRequests = action.payload.rejectedBorrowRequests
+            state.newBorrowRequests = action.payload.unresponded
+            state.approvedBorrowRequests = action.payload.approved
+            state.rejectedBorrowRequests = action.payload.rejected
         },
 
         setAllSenderBorrowRequests: ( state, action ) =>
         {
             state.currentBorrowRequests = action.payload.currentBorrowRequests
             state.pastBorrowRequests = action.payload.pastBorrowRequests
-        
+
         }
     }
 } )

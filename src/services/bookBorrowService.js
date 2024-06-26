@@ -100,7 +100,6 @@ class BookBorrowService
                 method: "POST",
                 headers: {
                     "Authorization": `Bearer ${jwtToken}`,
-                    "Content-type": "multipart/form-data"
                 },
                 body: formData
             }
