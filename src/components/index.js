@@ -30,7 +30,7 @@ import UserAvatar from "./UserAvatar";
 import ReferenceRequests from "./ReferenceRequests";
 import AllBooks from "./AllBooks";
 import Loader from "./Loader";
-
+import Dropdown from "./Dropdown";
 
 export
 {
@@ -65,5 +65,6 @@ export
     UserAvatar,
     ReferenceRequests,
     AllBooks,
-    Loader
+    Loader,
+    Dropdown
 }
