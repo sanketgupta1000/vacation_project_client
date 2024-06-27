@@ -60,7 +60,7 @@ function ReceviedBorrowRequests()
         {/* remaining: filter by book */}
 
         {/* side nav bar for three states */}
-        <div className="flex overflow-x-auto overflow-y-hidden border-b border-gray-200 whitespace-nowrap">
+        <div className="flex overflow-x-auto overflow-y-hidden border-b border-gray-200 whitespace-nowrap  justify-evenly my-5">
             <Tab active={tab==='unresponded'} onClick={()=>setTab('unresponded')}
             >
                 Unresponded requests
