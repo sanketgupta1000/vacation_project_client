@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit"
 const initialState = {
     newReferenceRequests: [
         {
-            memeberApprovalRequestId: null,
+            memberApprovalRequestId: null,
             requesterId: null,
             requesterFullName: null,
             requesterEmail: null,
@@ -11,7 +11,7 @@ const initialState = {
     ],
     approvedReferenceRequests: [
         {
-            memeberApprovalRequestId: null,
+            memberApprovalRequestId: null,
             requesterId: null,
             requesterFullName: null,
             requesterEmail: null,
@@ -19,7 +19,7 @@ const initialState = {
     ],
     rejectedReferenceRequests: [
         {
-            memeberApprovalRequestId: null,
+            memberApprovalRequestId: null,
             requesterId: null,
             requesterFullName: null,
             requesterEmail: null,

@@ -15,23 +15,28 @@ function ReceviedBorrowRequests()
     async function getdata()
     {
         dispatch(setLoading({isLoading: true, loadingMsg: "Loading data..."}))
-        try{
+        try
+        {
             //getting all borrow requests
             const borrow_requests=await bookBorrowService.getAllBorrowRequests(jwt)
             
             if(!borrow_requests.ok)
             {
-                    throw new Error(await response.json())
-                }
+                throw new Error(await response.json())
+            }
             // we got the object
 
             const borrow_requests_object=await borrow_requests.json();
-            dispatch(setAllReceiverBorrowRequests(borrow_requests_object));
-
+            dispatch(setAllReceiverBorrowRequests(borrow_requests_object))
         }
         catch(error)
         {
             dispatch(setInfo({shouldShow: true, infoMsg: error.message, infoType: "error"}))
+        }
+        finally
+        {
+            dispatch(setLoading({isLoading: false, loadingMsg: ""}))
+        
         }
     }
    
@@ -55,7 +60,7 @@ function ReceviedBorrowRequests()
         {/* remaining: filter by book */}
 
         {/* side nav bar for three states */}
-        <div className="flex overflow-x-auto overflow-y-hidden border-b border-gray-200 whitespace-nowrap">
+        <div className="flex overflow-x-auto overflow-y-hidden border-b border-gray-200 whitespace-nowrap  justify-evenly my-5">
             <Tab active={tab==='unresponded'} onClick={()=>setTab('unresponded')}
             >
                 Unresponded requests

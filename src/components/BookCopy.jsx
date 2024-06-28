@@ -56,7 +56,7 @@ const BookCopy = ()=>
             }
         }
         fetchData()
-    },[])
+    },[bookCopyId])
 
     async function handleRequestBorrow()
     {
@@ -129,8 +129,7 @@ const BookCopy = ()=>
 
         try
         {
-            const response = bookBorrowService.handoverBookCopy(bookCopyId, data.otp, jwt)
-
+            const response = await bookBorrowService.handoverBookCopy(bookCopyId, data.otp, jwt)
             if(!response.ok)
             {
                 throw new Error((await response.json()).message)
@@ -166,12 +165,12 @@ const BookCopy = ()=>
                 </div>
                 <div className="md:w-2/3 flex flex-wrap justify-between mt-4 md:mt-0">
                     <div className="flex items-center mb-2 md:mb-0">
-                        <span className="text-gray-500 mr-2">Holder</span>
+                        <span className="text-gray-500 mr-2">Holder :</span>
                         <span className="text-gray-700">{singleBookCopy.holderName}</span>
                     </div>
                     <div className="flex items-center mb-2 md:mb-0">
                         <span className="text-gray-500 mr-2">Next will be passed to:</span>
-                        <span className="text-gray-700">{singleBookCopy.borrowerName}</span>
+                        <span className="text-gray-700">{ singleBookCopy.borrowerName !== singleBookCopy.holderName ? singleBookCopy.borrowerName : '(No one)'  }</span>
                     </div>
                 </div>
 
@@ -197,10 +196,10 @@ const BookCopy = ()=>
                 )}
 
             </div>
-            {/* all copies of the book */}
+            {/* all transactions of the book */}
             <div>
 
-                {singleBookCopy.bookCopyTransactions.map((transaction)=>
+                {singleBookCopy.bookCopyTransactions?.map((transaction)=>
                 (
                     <BookTransactionRow
                         key={transaction.transactionId}

@@ -1,5 +1,5 @@
 import React from 'react'
-import {Button} from "./"
+import {Button, UserAvatar} from "./"
 import { useDispatch, useSelector } from 'react-redux'
 import { setLoading } from '../slices'
 import { setInfo } from '../slices/infoSlice'
@@ -18,6 +18,8 @@ function MemberApprovalRequestCard({
     showAdminActions = false,
     // should the accept/reject actions for referrer be displayed?
     showReferrerActions = false,
+    // fetch Data function
+    fetchData
 })
 {
 
@@ -51,6 +53,9 @@ function MemberApprovalRequestCard({
 
             // show success message
             dispatch(setInfo({shouldShow: true, infoMsg: await response.text(), infoType: "success"}))
+            
+            // fetch data
+            fetchData()
         }
         catch(error)
         {
@@ -60,8 +65,6 @@ function MemberApprovalRequestCard({
         {
             // stop loading
             dispatch(setLoading({isLoading: false, loadingMsg: ""}))
-            // navigate to the home
-            navigate("/")
         } 
     }
 
@@ -86,6 +89,9 @@ function MemberApprovalRequestCard({
 
             // show success message
             dispatch(setInfo({shouldShow: true, infoMsg: await response.text(), infoType: "success"}))
+
+            // fetch data
+            fetchData()
         }
         catch(error)
         {
@@ -95,8 +101,6 @@ function MemberApprovalRequestCard({
         {
             // stop loading
             dispatch(setLoading({isLoading: false, loadingMsg: ""}))
-            // navigate to the home
-            navigate("/")
         } 
     }
 
@@ -121,6 +125,9 @@ function MemberApprovalRequestCard({
 
             // show success message
             dispatch(setInfo({shouldShow: true, infoMsg: await response.text(), infoType: "success"}))
+
+            // fetch data
+            fetchData()
         }
         catch(error)
         {
@@ -130,8 +137,6 @@ function MemberApprovalRequestCard({
         {
             // stop loading
             dispatch(setLoading({isLoading: false, loadingMsg: ""}))
-            // navigate to the home
-            navigate("/")
         } 
     }
 
@@ -156,6 +161,9 @@ function MemberApprovalRequestCard({
 
             // show success message
             dispatch(setInfo({shouldShow: true, infoMsg: await response.text(), infoType: "success"}))
+
+            // fetch data
+            fetchData()
         }
         catch(error)
         {
@@ -165,8 +173,6 @@ function MemberApprovalRequestCard({
         {
             // stop loading
             dispatch(setLoading({isLoading: false, loadingMsg: ""}))
-            // navigate to the home
-            navigate("/")
         } 
     }
 
@@ -183,13 +189,29 @@ function MemberApprovalRequestCard({
                 {memberApprovalRequest.memberEmail}
                 </p> 
 
+
                 <div class="justify-between mt-4">
         {showReferrerInfo && (
+
+            {/* member info */}
+            <div>
+                <h1 className='text-2xl font-bold mb-2'>{memberApprovalRequest.memberFullName}</h1>
+                <p className='text-gray-500 mb-4'>{memberApprovalRequest.memberEmail}</p>
+            </div>
+
+            {/* referrer info */}
+            {showReferrerInfo && (memberApprovalRequest.memberReferrerId!=null) && (
+
                 <div>
                     <p className='text-gray-500 mb-2'>Referred By</p>
-                    <p className='text-gray-500 mb-2'>{memberApprovalRequest.memberReferrerFullName}</p>
-                    <p className='text-gray-500 mb-2'>{memberApprovalRequest.memberReferrerEmail}</p>
-                    <p className='text-gray-500 mb-4'>Referrer Approval: {memberApprovalRequest.referrerApproval}</p>
+                    <UserAvatar
+                        user={{
+
+                            id: memberApprovalRequest.memberReferrerId,
+                            name: memberApprovalRequest.memberReferrerFullName,
+                            email: memberApprovalRequest.memberReferrerEmail,
+                        }}
+                    />
                 </div>
             )}
 

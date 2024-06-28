@@ -51,8 +51,6 @@ function BookCopyRow({bookCopy})
             <li>{bookCopy.borrowerName}</li>
           </div>
           {eligible && ( <Button handleClick={requestHandler}> Request for Borrow</Button>)}
-
-          {!eligible && ( <Button disabled> Request for Borrow</Button>)}
         </div>
         </Link>
         </>

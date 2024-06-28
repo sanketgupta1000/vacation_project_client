@@ -11,6 +11,8 @@ function Button({
     // optional click handler
     handleClick,
     className="",
+    // should there be no class
+    noClass=false,
     ...props
 
 })
@@ -22,12 +24,14 @@ function Button({
         green: "bg-green-500 hover:bg-green-600 focus:ring-green-400",
     }
 
+    const classNameToApply = noClass?className:`${colorVariants[color]} px-6 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform rounded-lg focus:outline-none focus:ring focus:ring-opacity-80 ${className}`
+
     return (
 
 
         <button
             type={type}
-            className={`${colorVariants[color]} px-6 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform rounded-lg focus:outline-none focus:ring focus:ring-opacity-80 ${className}`}
+            className={classNameToApply}
             onClick={(e) => handleClick && handleClick(e)}
             {...props}
         >

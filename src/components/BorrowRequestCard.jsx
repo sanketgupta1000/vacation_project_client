@@ -96,7 +96,7 @@ function BorrowRequestCard({
                     <p className='text-gray-500 mb-2'>Requested By</p>
                     <p className='text-gray-500 mb-2'>
                         <Link
-                            to={`/members/${borrowRequest.requesterId}`}
+                            to={`/users/${borrowRequest.requesterId}`}
                         >
                             {borrowRequest.requesterName}
                         </Link>

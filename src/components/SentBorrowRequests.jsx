@@ -19,11 +19,11 @@ function SentBorrowRequests() {
         try {
             const response = await bookBorrowService.getMyBorrowRequests(jwt);
             if (!response.ok) {
-                const error = response.json();
+                const error = await response.json();
                 throw new Error(error.message);
             }
 
-            const myRequest = response.json();
+            const myRequest = await response.json();
 
             dispatch(setAllSenderBorrowRequests(myRequest));
         }
@@ -48,16 +48,20 @@ function SentBorrowRequests() {
     return (
         <>
 
-            {/* side nav bar for 2 states */}
-            <Tab active={tab === 'pastHistory'} onClick={() => setTab('pastHistory')}
-            >
-                Past Borrowed History
-            </Tab>
+            <div className="flex overflow-x-auto overflow-y-hidden border-b border-gray-200 whitespace-nowrap justify-evenly my-5">
+            
+                {/* side nav bar for 2 states */}
+                <Tab active={tab === 'pastHistory'} onClick={() => setTab('pastHistory')}
+                >
+                    Past Borrowed History
+                </Tab>
 
-            <Tab active={tab === 'currentRequest'} onClick={() => setTab('currentRequest')}
-            >
-                Current Request Status
-            </Tab>
+                <Tab active={tab === 'currentRequest'} onClick={() => setTab('currentRequest')}
+                >
+                    Current Request Status
+                </Tab>
+
+            </div>
 
             <div>
                 {/* request is the row of past borrowed book request if tab is pastHistory */}
