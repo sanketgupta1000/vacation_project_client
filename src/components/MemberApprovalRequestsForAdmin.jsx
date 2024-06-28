@@ -74,8 +74,8 @@ const MemberApprovalRequestForAdmin = ( { } ) =>
                     Rejected
                 </Tab>
             </div>
-
-            <div>
+            <div class="flex min-h-screen items-center justify-center bg-neutral-800">
+            <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-2">
                 {
                     requests[ tab ].map( ( request ) =>
                         <MemberApprovalRequestCard
@@ -87,6 +87,7 @@ const MemberApprovalRequestForAdmin = ( { } ) =>
                         />
                     )
                 }
+            </div>
             </div>
         </>
     )

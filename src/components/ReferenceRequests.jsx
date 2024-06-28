@@ -79,7 +79,7 @@ const ReferenceRequests = ({})=>
             </Tab>
         </div>
 
-        <div>
+        <div className='grid grid-cols-4 sm:grid-cols-1 md:grid-cols-3 '>
             {
                 requests[tab].map((request)=>
                     <MemberApprovalRequestCard

@@ -64,7 +64,7 @@ function BookApprovalRequestsForMember()
 
 
         <>
-            <div className="flex overflow-x-auto overflow-y-hidden border-b border-gray-200 whitespace-nowrap">
+            <div className="flex overflow-x-auto overflow-y-hidden border-b border-gray-200 whitespace-nowrap mb-5">
                 <Tab active={tab==='unresponded'} onClick={()=>setTab('unresponded')}
                 >
                     Unresponded
@@ -81,7 +81,8 @@ function BookApprovalRequestsForMember()
                 </Tab>
             </div>
 
-            <div className='my-10'>
+            <div class="flex min-h-screen items-center justify-center bg-neutral-800">
+            <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
                 {
                     requests[tab].map((request)=>
                         
@@ -90,10 +91,17 @@ function BookApprovalRequestsForMember()
                             key={request.bookId}
                             isLink={tab==="approved"}
                         />
+                       
+                    
+
+                       
+
 
                     )
                 }
+                </div>
             </div>
+            
         </>
 
 
