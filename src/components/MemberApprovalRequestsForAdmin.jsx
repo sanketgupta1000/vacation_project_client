@@ -60,6 +60,7 @@ const MemberApprovalRequestForAdmin = ( { } ) =>
 
     return (
         <>
+         <div class=" bg-gradient-to-tl from-slate-900 via-black to-slate-500">
             <div className="flex overflow-x-auto overflow-y-hidden border-b border-gray-200 whitespace-nowrap justify-evenly my-5">
                 <Tab active={ tab === 'unresponded' } onClick={ () => setTab( 'unresponded' ) }
                 >
@@ -77,7 +78,7 @@ const MemberApprovalRequestForAdmin = ( { } ) =>
                 </Tab>
             </div>
             <div class="flex min-h-screen items-center justify-center bg-neutral-800">
-            <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-2">
+            <div class="grid grid-cols-1 gap-4 xl:grid-cols-2  sm:grid-cols-1">
                 {
                     requests[ tab ].map( ( request ) =>
                         <MemberApprovalRequestCard
@@ -90,6 +91,7 @@ const MemberApprovalRequestForAdmin = ( { } ) =>
                         />
                     )
                 }
+            </div>
             </div>
             </div>
         </>

@@ -68,6 +68,7 @@ const ReferenceRequests = ({})=>
 
     return(
     <>
+    <div class="h-full bg-gradient-to-tl from-slate-900 via-black to-slate-500">
         <div className="flex overflow-x-auto overflow-y-hidden border-b border-gray-200 whitespace-nowrap justify-evenly my-5">
             <Tab active={tab==='unresponded'} onClick={()=>setTab('unresponded')}
             >
@@ -97,6 +98,7 @@ const ReferenceRequests = ({})=>
                     />
                 )
             }
+        </div>
         </div>
     </>
     )

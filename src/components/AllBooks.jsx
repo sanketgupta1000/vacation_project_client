@@ -3,7 +3,7 @@ import { BookCard } from '.'
 import { useSelector, useDispatch } from 'react-redux'
 import { setInfo, setLoading, setAvailableBooks } from '../slices'
 import { bookService } from '../services'
-
+import  '../styles/backgroud1.css'
 
 function AllBooks()
 {
@@ -47,8 +47,11 @@ function AllBooks()
     }, [])
 
     return (
+        <>
+        <div class=" bg-gradient-to-tl from-slate-900 via-black to-slate-500">
+       
 
-<div className='mx-28 my-3'> 
+        <div className='mx-28 my-3'> 
         <div >
 
             {availableBooks.map((book)=>
@@ -62,10 +65,11 @@ function AllBooks()
             ))}
 
         </div>
-
         </div>
+        </div>
+        </>
     )
-
+   
 
 }
 
