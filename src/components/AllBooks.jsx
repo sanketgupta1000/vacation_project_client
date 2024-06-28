@@ -48,8 +48,8 @@ function AllBooks()
 
     return (
 
-
-        <div>
+<div className='mx-28 my-3'> 
+        <div >
 
             {availableBooks.map((book)=>
             (
@@ -63,7 +63,7 @@ function AllBooks()
 
         </div>
 
-
+        </div>
     )
 
 

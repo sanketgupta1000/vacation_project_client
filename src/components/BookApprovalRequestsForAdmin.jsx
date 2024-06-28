@@ -81,7 +81,8 @@ function BookApprovalRequestsForAdmin()
                 </Tab>
             </div>
 
-            <div>
+            <div class="flex min-h-screen items-center justify-center bg-neutral-800">
+            <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
                 {
                     requests[tab].map((request)=>
                         
@@ -90,9 +91,11 @@ function BookApprovalRequestsForAdmin()
                             key={request.bookId}
                             showAdminActions={tab==='unresponded'}
                         />
+                        
 
                     )
                 }
+                </div>
             </div>
         </>
 
