@@ -150,7 +150,8 @@ function Header()
                                 <NavLink
                                     key={navLink.title}
                                     to={navLink.path}
-                                    className={({isActive})=>`mt-2 transition-colors duration-300 transform lg:mt-0 lg:mx-4 hover:text-gray-900 dark:hover:text-gray-200 ${isActive?"text-gray-900 dark:text-gray-200":""}`}
+                                    className={({isActive})=>`mt-2 transition-colors duration-300 transform lg:mt-0 lg:mx-4 hover:text-blue-700 dark:hover:text-gray-200 ${isActive?"text-blue-700 dark:text-gray-200":""}`}
+                                    end
                                 >
                                     {navLink.title}
                                 </NavLink>
