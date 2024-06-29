@@ -64,8 +64,8 @@ function BookApprovalRequestsForMember()
 
 
         <>
-
-            <div className="flex overflow-x-auto overflow-y-hidden border-b border-gray-200 whitespace-nowrap justify-evenly my-5">
+         <div class=" bg-gradient-to-tl from-slate-900 via-black to-slate-500">
+            <div className="flex overflow-x-auto overflow-y-hidden border-b border-gray-200 whitespace-nowrap justify-evenly ">
 
                 <Tab active={tab==='unresponded'} onClick={()=>setTab('unresponded')}
                 >
@@ -82,7 +82,7 @@ function BookApprovalRequestsForMember()
                     Rejected
                 </Tab>
             </div>
-
+</div>
             <div class="flex min-h-screen items-center justify-center bg-neutral-800">
             <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
                 {
