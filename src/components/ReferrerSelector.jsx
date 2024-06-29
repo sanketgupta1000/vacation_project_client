@@ -1,29 +1,50 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useImperativeHandle } from 'react'
 import { userService } from '../services'
 import { useDispatch } from 'react-redux'
 import { setInfo } from '../slices'
 import {debounce} from "lodash"
+import InputField from './InputField'
+import UserAvatar from './UserAvatar'
+import Button from './Button'
 
 // a component to select a referrer
 const ReferrerSelector = React.forwardRef(
     function ({
         label = "Referrer",
         placeholder = "Search for a referrer by name or email",
+        setValue,
         ...props
     }, ref)
     {
 
+        console.log(props)
+
         // dispatcher
         const dispatch = useDispatch()
+
+        // ref for actual input forwarded
     
         // ref for the search box
         const searchBoxRef = React.useRef(null)
 
+        // state for dropdown to select referrers
+        const [isDropdownOpen, setDropdownOpen] = React.useState(false)
+        
         // state for the select options
         const [options, setOptions] = React.useState([])
+        
+        // state for whether to display the selected referrer
+        const [showSelectedReferrer, setShowSelectedReferrer] = React.useState(false)
+
+        // state for selected referrer
+        const [selectedReferrer, setSelectedReferrer] = React.useState(null)
 
         // id to connect the label with the input
         const id = React.useId()
+
+        console.log("ReferrerSelector rendered")
+        // console.log(searchBoxRef.current)
+        // console.log(ref.current.value)
 
         // callback to fetch the referrers
         const fetchReferrers = useCallback(async ()=>
@@ -49,6 +70,9 @@ const ReferrerSelector = React.forwardRef(
                 // set the options
                 setOptions(referrers)
 
+                // open the dropdown
+                setDropdownOpen(true)
+
             }
             catch(error)
             {
@@ -66,41 +90,143 @@ const ReferrerSelector = React.forwardRef(
     
     
             <div>
-            
+
+                {/* the actual input, in which id of referrer will be set on selection */}
+                <input
+                    hidden
+                    {...props}
+                    ref={ref}
+                    defaultValue={"no-referrer"}
+                />
+
+                {/* label */}
                 {label && 
                     <label htmlFor={id} className="block text-sm text-gray-500 dark:text-gray-300">
                         {label}
                     </label>
                 }
 
-                <input
-                    placeholder={placeholder}
-                    className={`block  mt-2 w-full placeholder-gray-400/70 dark:placeholder-gray-500 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300`}
-                    id={id}
-                    ref={searchBoxRef}
-                    onChange={debouncedFetchReferrers}
-                />
+                {/* will show searchbox only when no referrer is selected, otherwise will show the selected referrer */}
+                {(!showSelectedReferrer)?
+                
+                <div className=' flex flex-row'>
 
-                <select
-                    defaultValue="no-referrer"
-                    ref={ref}
-                    className="mt-2 w-full rounded-lg border-gray-300 text-gray-700 sm:text-sm"
-                    {...props}
-                >
+                    <input
+                        placeholder={placeholder}
+                        id={id}
+                        ref={searchBoxRef}
+                        onChange={debouncedFetchReferrers}
+                        // disabled when showSelectedReferrer
+                        disabled={showSelectedReferrer}
+                        className='block  mt-2 w-full placeholder-gray-400/70 dark:placeholder-gray-500 rounded-l-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300'
+                    />
 
-                    {/* default enpty value */}
-                    <option value="no-referrer">No Referrer</option>
+                    {/* button to toggle dropdown */}
+                    <Button
+                        color='white'
+                        className='mt-2 rounded-l-none'
+                        handleClick={(e)=>{
+                            e.preventDefault()
+                            setDropdownOpen(!isDropdownOpen)
+                        }}
+                    >
+                        <svg className="w-5 h-5 text-gray-800 dark:text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                        </svg>
+                    </Button>
 
-                    {options.map((option)=>
-                    {
-                        return (
-                            <option key={option.id} value={option.id}>
-                                {option.fullName}: {option.email}
-                            </option>
-                        )
-                    })}
 
-                </select>
+                </div>
+
+                :
+
+                <div>
+                    <button
+                    className='bg-white w-full text-left hover:bg-gray-300 p-2 rounded-lg'
+                        onClick={(e)=>
+                            {
+                                e.preventDefault()
+                                // clear everything
+                                setValue("referrerId", "no-referrer")
+                                setShowSelectedReferrer(false)
+                                setSelectedReferrer(null)
+                                setOptions([])
+                                // searchBoxRef.current.value = ""
+                            }
+                        }
+                    >
+                        <UserAvatar
+                            user={{
+                                id: selectedReferrer.id,
+                                name: selectedReferrer.fullName,
+                                email: selectedReferrer.email
+                            }}
+                        />
+                    </button>
+                </div>
+                
+                }
+
+                {/* dropdown for selecting referrer */}
+                {
+                
+                isDropdownOpen &&
+
+                <div className=' relative'>
+
+                    <ul className='absolute max-h-28 overflow-scroll z-10 w-full bg-white rounded-b-lg'>
+
+                        <li className='p-2'>
+                            <button
+                            className='w-full text-left hover:bg-gray-300'
+                                onClick={(e)=>{
+                                    e.preventDefault()
+                                    // set the actual input value
+                                    setValue("referrerId", "no-referrer")
+                                    setDropdownOpen(false)
+                                    // set searchbox value
+                                    searchBoxRef.current.value = "No Referrer"
+                                }}
+                            >
+                                No Referrer
+                            </button>
+                        </li>
+
+                        {options.map((option)=>
+                        (
+                            <li key={option.id}>
+                                <button
+                                className='w-full text-left hover:bg-gray-300'
+                                    onClick={(e)=>
+                                    {
+                                        e.preventDefault()
+                                        // set the actual input value
+                                        setValue("referrerId", option.id)
+                                        // set the selected referrer
+                                        setSelectedReferrer(option)
+                                        // show the selected referrer
+                                        setShowSelectedReferrer(true)
+                                        // close the dropdown
+                                        setDropdownOpen(false)
+                                    }}
+                                >
+                                    <UserAvatar
+                                        user={{
+                                            id: option.id,
+                                            name: option.fullName,
+                                            email: option.email
+                                        }}
+                                    />
+                                </button>
+                            </li>
+                        ))}
+
+                    </ul>
+
+                </div>
+
+                }
+
 
             </div>
     
