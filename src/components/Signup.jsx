@@ -12,7 +12,7 @@ function Signup()
 {
 
     // useForm to include react hook form
-    const { register, handleSubmit, formState: {errors}} = useForm()
+    const { register, handleSubmit, formState: {errors}, setValue} = useForm()
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -26,7 +26,7 @@ function Signup()
         try
         {
 
-            // console.log(Number(data.referrerId))
+            console.log(Number(data.referrerId))
 
             // signup
             const response = await authService.signup(
@@ -179,6 +179,7 @@ function Signup()
 
                         {/* referrer */}
                         <ReferrerSelector
+                            setValue={setValue}
                             {...register("referrerId", {})}
                         />
 

@@ -105,7 +105,7 @@ function Header()
 
     return (
     <>
-       <div class=" bg-gradient-to-tl from-slate-900 via-black to-slate-500 text-white font-serif">
+       <div className=" bg-gradient-to-tl from-slate-900 via-black to-slate-500 text-white font-serif">
         <nav className=" dark:bg-gray-800">
             <div className="container px-6 py-4 mx-auto">
                 <div className="lg:flex lg:items-center">
