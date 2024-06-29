@@ -194,13 +194,13 @@ function MemberApprovalRequestCard({
         {showReferrerInfo && (
 
             {/* member info */}
-            <div>
+            {/* <div>
                 <h1 className='text-2xl font-bold mb-2'>{memberApprovalRequest.memberFullName}</h1>
                 <p className='text-gray-500 mb-4'>{memberApprovalRequest.memberEmail}</p>
             </div>
 
             {/* referrer info */}
-            {showReferrerInfo && (memberApprovalRequest.memberReferrerId!=null) && (
+            {/* {showReferrerInfo && (memberApprovalRequest.memberReferrerId!=null) && (
 
                 <div>
                     <p className='text-gray-500 mb-2'>Referred By</p>
@@ -219,9 +219,9 @@ function MemberApprovalRequestCard({
                 <div>
                     <p className='text-gray-500 mb-4'>Admin Approval: {memberApprovalRequest.adminApproval}</p>
                 </div>
-            )} 
+            )}  */}
 
- {showAdminActions && (
+ {/* {showAdminActions && (
                 <div>
                     <Button
                         color='green'
@@ -256,11 +256,11 @@ function MemberApprovalRequestCard({
                         Reject
                     </Button>
                 </div>
-            )} 
-    </div>
+            )}  */}
+    {/* </div>
   </div>
 </div>
-</div> */}
+</div>  */}
 <div className='bg-black  '>
 <div className='box '>
     <div className='abc'>
@@ -268,7 +268,7 @@ function MemberApprovalRequestCard({
                 {memberApprovalRequest.memberEmail}
                 </p>
 
-                <div class="justify-between mt-4">
+                <div className="justify-between mt-4">
         {showReferrerInfo && (
                 <div >
                     <p className='text-slate-300 mb-2'>Referred By</p>
