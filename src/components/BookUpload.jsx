@@ -92,10 +92,9 @@ function BookUpload()
     }
 
     return (
-        <>
 
-        <div class="h-full bg-gradient-to-tl from-slate-900 via-black to-slate-500">
-        <div className=" mt-0 flex items-center justify-center">
+
+        <div className="flex items-center justify-center">
             <div className={`mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10`}>
 
                 {/* heading */}
@@ -216,8 +215,7 @@ function BookUpload()
             </div>
 
         </div>
-        </div>
-        </>
+
 
     )
 
