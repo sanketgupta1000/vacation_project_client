@@ -22,6 +22,11 @@ function BookApprovalRequestsForMember()
         'rejected': useSelector((state)=>state.bookApproval.rejectedBookApprovalRequests) || [],
     }
 
+    
+    const Size=requests[tab].length;
+    
+    // console.log(requests['unresponded'])
+
     // function to fetch requests
     async function fetchRequests()
     {
@@ -64,7 +69,7 @@ function BookApprovalRequestsForMember()
 
 
         <>
-         <div class=" bg-gradient-to-tl from-slate-900 via-black to-slate-500">
+         {/* <div class=" bg-gradient-to-tl from-slate-900 via-black to-slate-500"> */}
             <div className="flex overflow-x-auto overflow-y-hidden border-b border-gray-200 whitespace-nowrap justify-evenly ">
 
                 <Tab active={tab==='unresponded'} onClick={()=>setTab('unresponded')}
@@ -82,10 +87,22 @@ function BookApprovalRequestsForMember()
                     Rejected
                 </Tab>
             </div>
-</div>
-            <div class="flex min-h-screen items-center justify-center bg-neutral-800">
-            <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+{/* </div> */}
+            
+                {Size===0 ? 
+                <>
+                <h1 className='text-yellow-500 mb-8 text-center mx-auto min-h-screen mt-[10%] font-serif font-bold text-4xl'>
+                    You don't have any
+                    <br ></br>
+                     {tab} requests !!!
+
+                </h1>
+                </>:<>
+                <div class="flex min-h-screen items-center justify-center bg-neutral-800">
+                    <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+                        
                 {
+                    
                     requests[tab].map((request)=>
                         
                         <BookCard
@@ -93,16 +110,18 @@ function BookApprovalRequestsForMember()
                             key={request.bookId}
                             isLink={tab==="approved"}
                         />
-                       
-                    
-
-                       
-
 
                     )
+                      
+              
                 }
-                </div>
-            </div>
+  </div>
+  </div>
+                </>
+                
+                }
+
+             
             
         </>
 
