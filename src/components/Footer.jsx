@@ -3,7 +3,8 @@ import Logo from "./Logo";
 function Footer()
 {
     return(
-    <footer className="bg-white dark:bg-gray-900 ">
+        <div class="h-full sticky mt-auto mx-10  bg-gradient-to-tl from-slate-900 via-black to-slate-500  rounded">
+    <footer className=" dark:bg-gray-900 ">
     <div className="container p-6 mx-auto 
              inset-x-0 
              bottom-0 
@@ -92,6 +93,7 @@ function Footer()
         </div>
     </div>
 </footer>
+</div>
     );
  }
  export default Footer;

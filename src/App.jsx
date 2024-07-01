@@ -5,6 +5,7 @@ import { useEffect, useState } from "react"
 import {Header, Footer, Login, UserProfile, Loader} from "./components"
 import { Outlet } from "react-router-dom"
 import { ToastContainer } from "react-toastify"
+import './styles/backgroud1.css'
 import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -67,6 +68,23 @@ function App()
 
     return (
         <>
+        <div class="area">
+			<ul class="circles">
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+                <li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</div>
             <Header/>
 
             {/* display outlet only when user checked */}

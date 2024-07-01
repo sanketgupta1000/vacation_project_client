@@ -1,7 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
 /* 
 
 Start Animations*/
-/* @-webkit-keyframes animatetop {
+ @-webkit-keyframes animatetop {
 	from {
 		top: -300px;
 		opacity: 0;
@@ -20,8 +25,8 @@ Start Animations*/
 		top: 0;
 		opacity: 1;
 	}
-} */
-/* @-webkit-keyframes zoomIn {
+} 
+ @-webkit-keyframes zoomIn {
 	0% {
 		opacity: 0;
 		-webkit-transform: scale3d(0.3, 0.3, 0.3);
@@ -45,7 +50,7 @@ Start Animations*/
 /*
 -- Start BackGround Animation 
 */
-/* .area {
+ .area {
 	background: #1b1b22;
 	background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);
 	width: 100%;
@@ -94,8 +99,8 @@ Start Animations*/
 	width: 20px;
 	height: 20px;
 	animation-delay: 4s;
-} */
-/* 
+} 
+
 .circles li:nth-child(4) {
 	left: 40%;
 	width: 60px;
@@ -139,8 +144,8 @@ Start Animations*/
 	height: 15px;
 	animation-delay: 2s;
 	animation-duration: 35s;
-}  */
-/* 
+}  
+
 .circles li:nth-child(10) {
 	left: 85%;
 	width: 150px;
@@ -163,4 +168,4 @@ Start Animations*/
 	}
 } 
 
- -- End BackGround Animation  */
+ 
