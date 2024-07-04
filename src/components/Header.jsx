@@ -10,6 +10,7 @@ function Header()
     const isLoggedIn = useSelector(state=>state.auth.authDetails.isLoggedIn)
     const userType = useSelector(state=>state.auth.authDetails.userType)
     const userId = useSelector(state=>state.auth.authDetails.id)
+    const userProfilePhotoURL = useSelector(state=>state.auth.authDetails.userProfilePhotoURL)
     const dispatch = useDispatch()
 
     // navbar open state

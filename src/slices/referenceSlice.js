@@ -4,25 +4,34 @@ const initialState = {
     newReferenceRequests: [
         {
             memberApprovalRequestId: null,
-            requesterId: null,
-            requesterFullName: null,
-            requesterEmail: null,
+            memberId: null,
+            memberFullName: null,
+            memberEmail: null,
+            memberPhoneNumber: null,
+            requestDate: null,
+            requestTime: null,
         }
     ],
     approvedReferenceRequests: [
         {
             memberApprovalRequestId: null,
-            requesterId: null,
-            requesterFullName: null,
-            requesterEmail: null,
+            memberId: null,
+            memberFullName: null,
+            memberEmail: null,
+            memberPhoneNumber: null,
+            requestDate: null,
+            requestTime: null,
         }
     ],
     rejectedReferenceRequests: [
         {
             memberApprovalRequestId: null,
-            requesterId: null,
-            requesterFullName: null,
-            requesterEmail: null,
+            memberId: null,
+            memberFullName: null,
+            memberEmail: null,
+            memberPhoneNumber: null,
+            requestDate: null,
+            requestTime: null,
         }
     ],
     referrers: [
@@ -30,6 +39,7 @@ const initialState = {
             memberId: null,
             memberFullName: null,
             memberEmail: null,
+            memberProfilePhotoURL: null
         }
     ]
 }

@@ -4,7 +4,8 @@ class UserService
 {
 
     // method to let the user complete the profile
-    async completeProfile( jwt, { dateOfBirth,
+    async completeProfile( jwt, { profilePhoto,
+        dateOfBirth,
         houseNo,
         street,
         landmark,
@@ -25,6 +26,7 @@ class UserService
 
         // creating form data
         const profileData = new FormData()
+        profileData.append( "profilePhoto", profileData )
         profileData.append( "dateOfBirth", dateOfBirth )
         profileData.append( "address", JSON.stringify( address ) )
 
@@ -55,7 +57,7 @@ class UserService
     }
 
     // method to update the user details
-    async updateUserDetails( jwt, { fullName, phoneNumber, dateOfBirth,
+    async updateUserDetails( jwt, { profilePhoto, fullName, phoneNumber, dateOfBirth,
         houseNo,
         street,
         landmark,
@@ -75,6 +77,7 @@ class UserService
 
         // creating form data
         const profileData = new FormData()
+        profileData.append( "profilePhoto", profilePhoto )
         profileData.append( "fullName", fullName )
         profileData.append( "phoneNumber", phoneNumber )
         profileData.append( "address", JSON.stringify( address ) )

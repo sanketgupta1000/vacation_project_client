@@ -8,11 +8,18 @@ const initialState = {
             bookAuthor: null,
             bookPageCount: null,
             bookQuantity: null,
+            coverPhotoURL: null,
             bookCategoryId: null,
             bookCategoryName: null,
             bookApprovalStatus: null,
             bookOwnerId: null,
             bookOwnerName: null,
+            bookOwnerEmail: null,
+            bookOwnerProfilePhotoURL: null,
+            bookRequestDate: null,
+            bookRequestTime: null,
+            bookUploadDate: null,
+            bookUploadTime: null
         }
     ],
     approvedBookApprovalRequests: [
@@ -22,11 +29,18 @@ const initialState = {
             bookAuthor: null,
             bookPageCount: null,
             bookQuantity: null,
+            coverPhotoURL: null,
             bookCategoryId: null,
             bookCategoryName: null,
             bookApprovalStatus: null,
             bookOwnerId: null,
             bookOwnerName: null,
+            bookOwnerEmail: null,
+            bookOwnerProfilePhotoURL: null,
+            bookRequestDate: null,
+            bookRequestTime: null,
+            bookUploadDate: null,
+            bookUploadTime: null
         }
     ],
     rejectedBookApprovalRequests: [
@@ -36,11 +50,18 @@ const initialState = {
             bookAuthor: null,
             bookPageCount: null,
             bookQuantity: null,
+            coverPhotoURL: null,
             bookCategoryId: null,
             bookCategoryName: null,
             bookApprovalStatus: null,
             bookOwnerId: null,
             bookOwnerName: null,
+            bookOwnerEmail: null,
+            bookOwnerProfilePhotoURL: null,
+            bookRequestDate: null,
+            bookRequestTime: null,
+            bookUploadDate: null,
+            bookUploadTime: null
         }
     ],
 }

@@ -2,79 +2,79 @@ import config from "../config/config";
 
 class MemberApprovalService 
 {
-    async getAllMemberApprovalRequests(jwt)
+    async getAllMemberApprovalRequests( jwt )
     {
-        return fetch(config.urlPrefix+"/requests/memberApprovalRequests",
+        return fetch( config.urlPrefix + "/requests/memberApprovalRequests",
             {
                 // method
                 method: "GET",
                 headers: {
-                    "Authorization":"Bearer "+jwt
+                    "Authorization": "Bearer " + jwt
                 },
             }
         );
     }
 
-    async approveMemberApprovalRequestFromAdmin(request_id,jwt)
+    async approveMemberApprovalRequestFromAdmin( request_id, jwt )
     {
-        return fetch(config.urlPrefix+"/requests/memberApprovalRequests/"+request_id+"/approveFromAdmin",
+        return fetch( config.urlPrefix + "/requests/memberApprovalRequests/" + request_id + "/approveFromAdmin",
             {
                 //method 
-                method:"POST",
+                method: "POST",
                 headers: {
-                    "Authorization":"Bearer "+jwt
+                    "Authorization": "Bearer " + jwt
                 },
             }
         );
     }
 
-    async rejectMemberApprovalRequestFromAdmin(request_id,jwt)
+    async rejectMemberApprovalRequestFromAdmin( request_id, jwt )
     {
-        return fetch(config.urlPrefix+"/requests/memberApprovalRequests/"+request_id+"/rejectFromAdmin",
+        return fetch( config.urlPrefix + "/requests/memberApprovalRequests/" + request_id + "/rejectFromAdmin",
             {
                 //method 
-                method:"POST",
+                method: "POST",
                 headers: {
-                    "Authorization":"Bearer "+jwt
+                    "Authorization": "Bearer " + jwt
                 },
             }
         )
     }
 
-    async approveMemberApprovalRequestFromReference(request_id,jwt)
+    async approveMemberApprovalRequestFromReference( request_id, jwt )
     {
-        return fetch(config.urlPrefix+"/requests/memberApprovalRequests/"+request_id+"/approveFromReference",
+        return fetch( config.urlPrefix + "/requests/memberApprovalRequests/" + request_id + "/approveFromReference",
             {
                 //method
-                method:"POST",
+                method: "POST",
                 headers: {
-                    "Authorization":"Bearer "+jwt
+                    "Authorization": "Bearer " + jwt
                 },
             }
         );
     }
 
-    async rejectMemberApprovalRequestFromReference(request_id,jwt)
+    async rejectMemberApprovalRequestFromReference( request_id, jwt )
     {
-        return fetch(config.urlPrefix+"/requests/memberApprovalRequests/"+request_id+"/rejectFromReference",
+        return fetch( config.urlPrefix + "/requests/memberApprovalRequests/" + request_id + "/rejectFromReference",
             {
                 //method
-                method:"POST",
+                method: "POST",
                 headers: {
-                    "Authorization":"Bearer "+jwt
+                    "Authorization": "Bearer " + jwt
                 },
             }
         )
     }
 
-    async seeAllReferences(jwt)
+    async seeAllReferences( jwt )
     {
-        return fetch(config.urlPrefix+"/users/referrals",
+        return fetch( config.urlPrefix + "/users/referrals",
             {
                 //method 
-                method:"GET",
+                method: "GET",
                 headers: {
-                    "Authorization":"Bearer "+jwt
+                    "Authorization": "Bearer " + jwt
                 },
             }
         )
