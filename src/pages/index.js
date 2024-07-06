@@ -14,6 +14,7 @@ import MemberApprovalRequestsPage from './MemberApprovalRequestsPage/MemberAppro
 import ReceivedBorrowRequestsPage from './ReceivedBorrowRequestsPage/ReceivedBorrowRequestsPage'
 import ReferenceRequestsPage from './ReferenceRequestsPage/ReferenceRequestsPage'
 import SentBorrowRequestsPage from './SentBorrowRequestsPage/SentBorrowRequestsPage'
+import LandingPage from './LandingPage/LandingPage'
 
 
 export 
@@ -33,6 +34,6 @@ export
     MemberApprovalRequestsPage,
     ReceivedBorrowRequestsPage,
     ReferenceRequestsPage,
-    SentBorrowRequestsPage
-    
+    SentBorrowRequestsPage,
+    LandingPage
 }
