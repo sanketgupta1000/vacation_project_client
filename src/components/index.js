@@ -31,6 +31,7 @@ import ReferenceRequests from "./ReferenceRequests";
 import AllBooks from "./AllBooks";
 import Loader from "./Loader";
 import Dropdown from "./Dropdown";
+import BackGround from "./BackGround";
 
 export
 {
@@ -66,5 +67,6 @@ export
     ReferenceRequests,
     AllBooks,
     Loader,
-    Dropdown
+    Dropdown,
+    BackGround
 }

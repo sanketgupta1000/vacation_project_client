@@ -113,7 +113,7 @@ const ReferrerSelector = React.forwardRef(function (
           {/* button to toggle dropdown */}
           <Button
             color="black"
-            className="mt-2 rounded-lg bg-gray-900 hover:bg-gray-700"
+            className="mt-2 rounded-r-md bg-gray-900 hover:bg-gray-700"
             handleClick={(e) => {
               e.preventDefault();
               setDropdownOpen(!isDropdownOpen);

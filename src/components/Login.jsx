@@ -1,130 +1,141 @@
-import { useForm } from "react-hook-form"
-import { useDispatch } from "react-redux"
-import { Link, useNavigate } from "react-router-dom"
-import {InputField, Button} from "."
-import { authService } from "../services"
-import { setToken, setLoading, setInfo, } from "../slices"
+import React from "react";
+import { useForm } from "react-hook-form";
+import { setToken, setLoading, setInfo } from "../slices";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { authService } from "../services";
+import { InputField, Button, BackGround } from ".";
 
+const Login = ({}) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-const Login = ({})=>
-{
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
-    const {register, handleSubmit, formState: { errors }} = useForm()
+  const handleLogin = async (data) => {
+    dispatch(setLoading({ isLoading: true, loadingMsg: "Logging in..." }));
+    try {
+      const response = await authService.login(data);
 
-    const handleLogin = async(data)=>{
-        dispatch(setLoading({ isLoading: true, loadingMsg: "Logging in..." }))
-        try
-        {
-            const response = await authService.login(data)
+      if (!response.ok) {
+        const errorMsg =
+          response.status == 401
+            ? "Invalid Email or Password"
+            : (await response.json()).message;
+        throw new Error(errorMsg);
+      }
 
-            if(!response.ok){
-                const errorMsg = response.status == 401 ? "Invalid Email or Password" : (await response.json()).message 
-                throw new Error(errorMsg)
-            }
+      const jwt = await response.text();
 
-            const jwt = await response.text()
+      dispatch(setToken(jwt));
+      //             console.log('success')
 
-            dispatch(setToken(jwt))
-//             console.log('success')
-          
-            dispatch(setInfo({shouldShow:true,infoMsg:"Logged in successfully",infoType:"success"}))
-          
-            // navigate to home
-            navigate('/')
-          
-          
-        }
-        catch(error)
-        {
-            dispatch(setInfo({shouldShow: true, infoMsg: error.message, infoType: "error"}))
-        }
-        finally
-        {
-            dispatch(setLoading({isLoading: false, loadingMsg: ""}))
-        }
+      dispatch(
+        setInfo({
+          shouldShow: true,
+          infoMsg: "Logged in successfully",
+          infoType: "success",
+        })
+      );
+
+      // navigate to home
+      navigate("/");
+    } catch (error) {
+      dispatch(
+        setInfo({ shouldShow: true, infoMsg: error.message, infoType: "error" })
+      );
+    } finally {
+      dispatch(setLoading({ isLoading: false, loadingMsg: "" }));
     }
+  };
 
+  return (
+    <BackGround>
+      <div className="bg-white bg-opacity-10 p-8 rounded-lg shadow-2xl shadow-green-400/30 w-full max-w-md">
+        <div className="flex justify-center mb-6">
+          <img
+            src="https://picsum.photos/id/237/200/300"
+            alt="Logo"
+            className="h-20 w-20 object-cover rounded-full"
+          />
+        </div>
+        <h2 className="text-3xl font-bold text-white text-center mb-6">
+          Login
+        </h2>
+        <form onSubmit={handleSubmit(handleLogin)} className="space-y-4">
+          <div>
+            {errors.email && (
+              <span className="flex items-center  tracking-wide text-red-500 mt-1 ml-1">
+                {errors.email.message}
+              </span>
+            )}
 
-    return(
-    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-            <img
-            className="mx-auto h-10 w-auto"
-            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+            <InputField
+              label="Email"
+              type="email"
+              placeholder="Enter your email."
+              className="w-full px-4 py-2 mt-1 bg-gray-900 text-gray-300 border border-gray-700 rounded-md focus:outline-none focus:ring focus:border-blue-500"
+              {...register("email", {
+                required: "Email is required.",
+                pattern: {
+                  value:
+                    /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g,
+                  message: "Invalid Email",
+                },
+              })}
             />
-            <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-            Login to your account
-            </h2>
-        </div>
-
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form onSubmit={handleSubmit(handleLogin)} className="space-y-6">
-                <div>
-                    {
-                        errors.email &&
-                        <span className="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
-                            {errors.email.message}
-                        </span>
-                    }
-                    
-                    <InputField
-                        label='Email'
-                        type='email'
-                        placeholder='Enter your email.'
-                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        {
-                            ...register('email',{
-                                required: "Email is required.",
-                                pattern:{
-                                    value:/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g,
-                                    message: 'Invalid Email'
-                                }
-                            })
-                        }
-                    />
-                </div>
-
-                <div>
-                    {
-                        errors.password &&
-                        <span className="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
-                            {errors.password.message}
-                        </span>
-                    }
-                    <InputField
-                        label='Password'
-                        type='password'
-                        placeholder='Enter password'
-                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        {
-                            ...register('password',{
-                                required: 'Password is Required'
-
-                            })
-                        }
-                    />
-                </div>
-
-                <div>
-                    <Button
-                    type="submit"
-                    className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                    >
-                        Login
-                    </Button>
-                </div>
-            </form>
-
-            <p className="mt-10 text-center text-sm text-gray-500">
-            Not a member?{' '}
-            <Link to="/signup" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
-                Request Membership here
+          </div>
+          <div>
+            {errors.password && (
+              <span className="flex items-center  tracking-wide text-red-500 mt-1 ml-1">
+                {errors.password.message}
+              </span>
+            )}
+            <InputField
+              label="Password"
+              type="password"
+              placeholder="Enter your password"
+              className="w-full px-4 py-2 mt-1 bg-gray-900 text-gray-300 border border-gray-700 rounded-md focus:outline-none focus:ring focus:border-blue-500"
+              {...register("password", {
+                required: "Password is Required",
+              })}
+            />
+          </div>
+          <Button
+            type="submit"
+            className="w-full px-4 py-2 mt-4 bg-blue-600 text-white font-bold rounded-md hover:bg-blue-700 transition duration-200"
+          >
+            Login
+          </Button>
+        </form>
+        <div className="mt-6 text-center">
+          <p className="text-gray-300">
+            Not registered?{" "}
+            <Link
+              to="/login"
+              className="text-blue-400 hover:text-blue-500 transition duration-200"
+            >
+              Register here
             </Link>
-            </p>
+            .
+          </p>
+          <p className="text-gray-300 mt-2">
+            Already signed up, but not verified?{" "}
+            <Link
+              to="/sendOtp"
+              className="text-blue-400 hover:text-blue-500 transition duration-200"
+            >
+              Verify Email
+            </Link>
+            .
+          </p>
         </div>
-    </div>
-    )
-}
+      </div>
+    </BackGround>
+  );
+};
 
-export default Login
+export default Login;

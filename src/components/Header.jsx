@@ -184,7 +184,7 @@ function Header() {
         <ClickAwayListener onClickAway={() => setIsMobileMenuOpen(false)}>
           <div className="md:hidden">
             <button
-              onClick={() => setIsMobileMenuOpen(true)}
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="text-gray-400 hover:text-white focus:outline-none transition duration-200"
             >
               <svg
@@ -203,7 +203,10 @@ function Header() {
               </svg>
             </button>
             {isMobileMenuOpen && (
-              <div className="absolute right-0 mt-2 w-48 bg-gray-800 rounded-md shadow-lg py-2 z-10">
+              <div
+                className="absolute right-0 mt-2 w-48 bg-gray-800 rounded-md shadow-lg py-2 z-10"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
                 {visibleNavLinks.map((navLink) => (
                   <Link
                     key={navLink.title}
@@ -243,6 +246,7 @@ function Header() {
               {isProfileDropdownOpen && (
                 <div
                   className="absolute right-0 mt-2 w-48 bg-gray-800 rounded-md shadow-lg py-2 z-10"
+                  onClick={() => setIsProfileDropdownOpen(false)}
                   onMouseLeave={() => setIsProfileDropdownOpen(false)}
                 >
                   {userType != "NEW_MEMBER" && (
