@@ -52,7 +52,7 @@ function Footer() {
   return (
     <footer className="bg-gradient-to-r from-gray-700 via-black to-blue-800  text-white py-8 border-t-2 border-blue-500">
       <div className="container mx-auto flex flex-wrap items-start justify-between">
-        <div className="w-full md:w-2/5 mb-8 md:mb-0 px-10  ">
+        <div className="w-full md:w-2/4 mb-8 md:mb-0 px-10  ">
           <div className="flex items-center">
             <div className="text-3xl font-bold text-blue-500">Logo</div>
           </div>
@@ -73,7 +73,7 @@ function Footer() {
             </a>
           </div>
         </div>
-        <div className="w-full md:w-1/5">
+        <div className="w-1/2 md:w-1/4 mb-8 md:mb-0 px-10">
           <h3 className="text-lg font-semibold mb-4">Useful Links</h3>
           <ul className="text-sm">
             {visibleNavLinks.map((navLink) => (
@@ -83,8 +83,8 @@ function Footer() {
                   to={navLink.path}
                   end
                   className={({ isActive }) =>
-                    `hover:text-gray-400 transition duration-200 ${
-                      isActive ? "text-blue-500" : ""
+                    `hover:text-white transition duration-200 ${
+                      isActive ? "text-blue-500" : "text-gray-400"
                     }`
                   }
                 >
@@ -94,7 +94,7 @@ function Footer() {
             ))}
           </ul>
         </div>
-        <div className="w-full md:w-1/5">
+        <div className="w-1/2 md:w-1/4 mb-8 md:mb-0 md:px-10">
           <h3 className="text-lg font-semibold mb-4">Contact Info</h3>
           <p className="text-sm text-gray-400 mb-2">
             123 Street Name, City, Country
@@ -102,11 +102,11 @@ function Footer() {
           <p className="text-sm text-gray-400 mb-2">contact@example.com</p>
           <p className="text-sm text-gray-400 mb-2">9999999999</p>
         </div>
-        <div className="w-full md:w-1/5">
-          <p className="text-sm text-gray-400 mb-4">
-            &copy; 2024 [company name]. All Rights Reserved.
-          </p>
-        </div>
+      </div>
+      <div className="h-6 mt-6 border-y-2 border-blue-500/10 text-center">
+        <p className="text-sm text-gray-400 mb-4">
+          &copy; 2024 [company name]. All Rights Reserved.
+        </p>
       </div>
     </footer>
   );

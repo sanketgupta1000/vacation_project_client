@@ -1,9 +1,8 @@
-import React, { useCallback, useImperativeHandle } from "react";
+import React, { useCallback } from "react";
 import { userService } from "../services";
 import { useDispatch } from "react-redux";
 import { setInfo } from "../slices";
 import { debounce } from "lodash";
-import InputField from "./InputField";
 import UserAvatar from "./UserAvatar";
 import Button from "./Button";
 import ClickAwayListener from "react-click-away-listener";
@@ -153,6 +152,7 @@ const ReferrerSelector = React.forwardRef(function (
                 id: selectedReferrer.id,
                 name: selectedReferrer.fullName,
                 email: selectedReferrer.email,
+                profilePhotoURL: selectedReferrer.profilePhotoURL,
               }}
             />
           </button>
@@ -163,10 +163,10 @@ const ReferrerSelector = React.forwardRef(function (
       {isDropdownOpen && (
         <ClickAwayListener onClickAway={() => setDropdownOpen(false)}>
           <div className=" relative">
-            <ul className="absolute max-h-28 overflow-hidden z-10 w-full bg-gray-900 text-white rounded-b-lg">
+            <ul className="absolute max-h-28 overflow-hidden z-10 w-full bg-black text-white rounded-b-lg">
               <li className="p-2">
                 <button
-                  className="w-full text-left hover:bg-gray-700"
+                  className="w-full text-center hover:bg-gray-900"
                   onClick={(e) => {
                     e.preventDefault();
                     // set the actual input value
@@ -176,14 +176,14 @@ const ReferrerSelector = React.forwardRef(function (
                     searchBoxRef.current.value = "No Referrer";
                   }}
                 >
-                  No Referrer
+                  No Referrer (default)
                 </button>
               </li>
 
               {options.map((option) => (
-                <li key={option.id}>
+                <li key={option.id} className="p-2">
                   <button
-                    className="w-full text-left hover:bg-gray-300 "
+                    className="w-full text-left hover:bg-gray-900 "
                     onClick={(e) => {
                       e.preventDefault();
                       // set the actual input value
@@ -201,6 +201,7 @@ const ReferrerSelector = React.forwardRef(function (
                         id: option.id,
                         name: option.fullName,
                         email: option.email,
+                        profilePhotoURL: option.profilePhotoURL,
                       }}
                     />
                   </button>

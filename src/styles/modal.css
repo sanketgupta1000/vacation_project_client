@@ -1,0 +1,14 @@
+/* Add this to your global.css or any imported CSS file */
+.customOverlay {
+  filter: blur(100px);
+    background-color: rgba(0, 0, 0, 0.75); /* semi-transparent black background */
+  }
+  
+.customModal {
+    background-color: rgba(0, 0, 0, 1); /* black background for the modal */
+    color: white; /* white text color for contrast */
+  }
+
+  .customCloseButton{
+    fill: white !important;
+  }

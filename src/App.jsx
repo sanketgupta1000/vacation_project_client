@@ -36,6 +36,7 @@ function App() {
               isLoggedIn: true,
               id: userDetails.id,
               userType: userDetails.userType,
+              profilePhoto: userDetails.profilePhotoURL,
             })
           );
           console.log("Set Auth details");

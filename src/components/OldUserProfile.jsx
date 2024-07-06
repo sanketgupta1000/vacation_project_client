@@ -417,7 +417,7 @@ const UserProfile = () => {
               </Modal>
             </div>
           ) : (
-            <></>
+            ""
           )}
         </div>
       </div>

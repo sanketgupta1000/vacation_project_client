@@ -32,6 +32,7 @@ import AllBooks from "./AllBooks";
 import Loader from "./Loader";
 import Dropdown from "./Dropdown";
 import BackGround from "./BackGround";
+import UpdateProfile from "./UpdateProfile";
 
 export
 {
@@ -68,5 +69,6 @@ export
     AllBooks,
     Loader,
     Dropdown,
-    BackGround
+    BackGround,
+    UpdateProfile
 }
