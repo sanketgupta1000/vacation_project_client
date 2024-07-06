@@ -7,38 +7,50 @@ const initialState = {
             memberId: null,
             memberFullName: null,
             memberEmail: null,
+            memberPhoneNumber: null,
             memberReferrerId: null,
             memberReferrerFullName: null,
             memberReferrerEmail: null,
+            memberReferrerProfilePhotoURL: null,
             referrerApproval: null,
-            adminApproval: null
+            adminApproval: null,
+            requestDate: null,
+            requestTime: null
         }
     ],
     approvedMemberApprovalRequests: [
         {
             memberApprovalRequestId: null,
-            membrrId: null,
+            memberId: null,
             memberFullName: null,
             memberEmail: null,
+            memberPhoneNumber: null,
             memberReferrerId: null,
             memberReferrerFullName: null,
             memberReferrerEmail: null,
+            memberReferrerProfilePhotoURL: null,
             referrerApproval: null,
-            adminApproval: null
+            adminApproval: null,
+            requestDate: null,
+            requestTime: null
         }
     ],
 
     rejectedMemberApprovalRequests: [
         {
             memberApprovalRequestId: null,
-            membrrId: null,
+            memberId: null,
             memberFullName: null,
             memberEmail: null,
+            memberPhoneNumber: null,
             memberReferrerId: null,
             memberReferrerFullName: null,
             memberReferrerEmail: null,
+            memberReferrerProfilePhotoURL: null,
             referrerApproval: null,
-            adminApproval: null
+            adminApproval: null,
+            requestDate: null,
+            requestTime: null
         }
     ],
 }

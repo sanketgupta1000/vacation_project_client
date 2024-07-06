@@ -8,6 +8,7 @@ const initialState = {
         isLoggedIn: false,
         id: null,
         userType: null,
+        profilePhoto: null
     }
 }
 
