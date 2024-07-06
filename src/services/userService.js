@@ -26,7 +26,7 @@ class UserService
 
         // creating form data
         const profileData = new FormData()
-        profileData.append( "profilePhoto", profileData )
+        profileData.append( "profilePhoto", profilePhoto[ 0 ] )
         profileData.append( "dateOfBirth", dateOfBirth )
         profileData.append( "address", JSON.stringify( address ) )
 

@@ -67,7 +67,7 @@ const router = createBrowserRouter([
       {
         path: "/completeProfile",
         element: (
-          <AuthLayout authentication={true} allowedUserTypes={["NEW_MEMBER"]}>
+          <AuthLayout authentication={false} allowedUserTypes={["NEW_MEMBER"]}>
             <ProfileCompletePage />
           </AuthLayout>
         ),

@@ -105,6 +105,7 @@ const ReferrerSelector = React.forwardRef(function (
             id={id}
             ref={searchBoxRef}
             onChange={debouncedFetchReferrers}
+            autoComplete="off"
             // disabled when showSelectedReferrer
             disabled={showSelectedReferrer}
             className={`block  mt-2 w-full px-5 py-2.5 ${className}`}

@@ -186,7 +186,7 @@ const Signup = () => {
               to="/login"
               className="text-blue-400 hover:text-blue-500 transition duration-200"
             >
-              Login
+              Login here
             </Link>
             .
           </p>
@@ -196,7 +196,7 @@ const Signup = () => {
               to="/sendOtp"
               className="text-blue-400 hover:text-blue-500 transition duration-200"
             >
-              Verify Email
+              Verify Email here
             </Link>
             .
           </p>

@@ -115,7 +115,7 @@ const Login = ({}) => {
           <p className="text-gray-300">
             Not registered?{" "}
             <Link
-              to="/login"
+              to="/signup"
               className="text-blue-400 hover:text-blue-500 transition duration-200"
             >
               Register here
@@ -128,7 +128,7 @@ const Login = ({}) => {
               to="/sendOtp"
               className="text-blue-400 hover:text-blue-500 transition duration-200"
             >
-              Verify Email
+              Verify Email here
             </Link>
             .
           </p>
