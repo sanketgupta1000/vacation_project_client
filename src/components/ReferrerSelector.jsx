@@ -105,6 +105,7 @@ const ReferrerSelector = React.forwardRef(function (
             id={id}
             ref={searchBoxRef}
             onChange={debouncedFetchReferrers}
+            autoComplete="off"
             // disabled when showSelectedReferrer
             disabled={showSelectedReferrer}
             className={`block  mt-2 w-full px-5 py-2.5 ${className}`}
@@ -113,7 +114,7 @@ const ReferrerSelector = React.forwardRef(function (
           {/* button to toggle dropdown */}
           <Button
             color="black"
-            className="mt-2 rounded-lg bg-gray-900 hover:bg-gray-700"
+            className="mt-2 rounded-r-md bg-gray-900 hover:bg-gray-700"
             handleClick={(e) => {
               e.preventDefault();
               setDropdownOpen(!isDropdownOpen);

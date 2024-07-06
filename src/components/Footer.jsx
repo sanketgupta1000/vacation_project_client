@@ -50,7 +50,7 @@ function Footer() {
   }
 
   return (
-    <footer className="bg-gradient-to-t from-blue-900 via-gray-900 to-black  text-white py-8">
+    <footer className="bg-gradient-to-r from-gray-700 via-black to-blue-800  text-white py-8 border-t-2 border-blue-500">
       <div className="container mx-auto flex flex-wrap items-start justify-between">
         <div className="w-full md:w-2/5 mb-8 md:mb-0 px-10  ">
           <div className="flex items-center">

@@ -26,9 +26,10 @@ const InputField = React.forwardRef(function (
       <input
         type={type}
         placeholder={placeholder}
-        className={`block  mt-2 w-full px-5 py-2.5 focus:ring-opacity-40  ${className}`}
+        className={`block mt-2 w-full px-5 py-2.5 focus:ring-opacity-40 ${className}`}
         id={id}
         ref={ref}
+        autoComplete="off"
         {...props}
       />
     </div>

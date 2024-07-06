@@ -2,11 +2,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { authService } from "./services";
 import { setAuthDetails, setLoading, setInfo, setUser } from "./slices";
 import { useEffect, useState } from "react";
-import { Header, Footer, Login, UserProfile, Loader } from "./components";
+import { Header, Footer, BackGround, Loader } from "./components";
 import { LandingPage } from "./pages";
 import { Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-// import './styles/backgroud1.css'
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {
@@ -85,7 +84,7 @@ function App() {
       <Header />
 
       {/* display outlet only when user checked */}
-      {isUserChecked ? <Outlet /> : <LandingPage />}
+      {isUserChecked ? <Outlet /> : <BackGround fullScreen />}
 
       <Loader />
 

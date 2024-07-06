@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const LandingPage = () => {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-fit flex flex-col">
       <main
         className="flex-1 bg-fixed bg-cover bg-center"
         style={{

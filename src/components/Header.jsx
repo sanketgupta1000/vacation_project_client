@@ -4,6 +4,7 @@ import { Link, NavLink } from "react-router-dom";
 import { setAuthDetails, setToken } from "../slices";
 import { useState } from "react";
 import ClickAwayListener from "react-click-away-listener";
+import { TiThMenuOutline } from "react-icons/ti";
 
 function Header() {
   const isLoggedIn = useSelector((state) => state.auth.authDetails.isLoggedIn);
@@ -180,30 +181,20 @@ function Header() {
         </div>
       )}
 
-      <div className="relative flex items-end space-x-4">
+      <div className="relative flex  items-center space-x-4">
         <ClickAwayListener onClickAway={() => setIsMobileMenuOpen(false)}>
           <div className="md:hidden">
             <button
-              onClick={() => setIsMobileMenuOpen(true)}
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="text-gray-400 hover:text-white focus:outline-none transition duration-200"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                className="w-6 h-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h16m-7 6h7"
-                />
-              </svg>
+              <TiThMenuOutline className="size-7 text-white/80" />
             </button>
             {isMobileMenuOpen && (
-              <div className="absolute right-0 mt-2 w-48 bg-gray-800 rounded-md shadow-lg py-2 z-10">
+              <div
+                className="absolute right-0 mt-2 w-48 bg-gray-800 rounded-md shadow-lg py-2 z-10"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
                 {visibleNavLinks.map((navLink) => (
                   <Link
                     key={navLink.title}
@@ -233,16 +224,18 @@ function Header() {
             <div className="relative">
               <button
                 onMouseEnter={() => setIsProfileDropdownOpen(true)}
+                onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
                 className="text-gray-400 hover:text-white focus:outline-none transition duration-200"
               >
                 <img
-                  className="object-cover w-16 h-16 rounded-full"
+                  className="object-cover aspect-square w-10 sm:w-16 rounded-full"
                   src="https://picsum.photos/id/237/200/300"
                 />
               </button>
               {isProfileDropdownOpen && (
                 <div
                   className="absolute right-0 mt-2 w-48 bg-gray-800 rounded-md shadow-lg py-2 z-10"
+                  onClick={() => setIsProfileDropdownOpen(false)}
                   onMouseLeave={() => setIsProfileDropdownOpen(false)}
                 >
                   {userType != "NEW_MEMBER" && (
@@ -257,7 +250,7 @@ function Header() {
                   <button
                     noClass
                     className="block px-4 py-2 text-sm text-gray-400 hover:bg-gray-700 hover:text-white transition duration-200"
-                    handleClick={() => {
+                    onClick={() => {
                       dispatch(setToken(null));
                       dispatch(
                         setAuthDetails({

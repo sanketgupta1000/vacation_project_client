@@ -1,208 +1,213 @@
-import { useDispatch, useSelector } from "react-redux"
-import { useNavigate } from "react-router-dom"
-import { useForm } from "react-hook-form"
-import {InputField, Button} from "."
-import { userService } from "../services"
-import { setLoading, setInfo, setToken } from "../slices"
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { InputField, Button, BackGround } from ".";
+import { userService } from "../services";
+import { setLoading, setInfo, setToken } from "../slices";
 
-const ProfileComplete = ()=>{
+const ProfileComplete = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const jwtToken = useSelector((state) => state.auth.token);
 
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
-    const {register, handleSubmit, formState: { errors }} = useForm()
-    const jwtToken = useSelector((state)=>state.auth.token)
+  const handleProfileComplete = async (data) => {
+    dispatch(
+      setLoading({ isLoading: true, loadingMsg: "Completing profile..." })
+    );
+    try {
+      console.log(data);
+      const response = await userService.completeProfile(jwtToken, data);
 
-    const handleProfileComplete = async(data)=>{
-        dispatch(setLoading({isLoading: true, loadingMsg: "Completing profile..."}))
-        try
-        {
-            const response = await userService.completeProfile(jwtToken, data)
+      if (!response.ok) {
+        throw new Error((await response.json()).message);
+      }
 
-            if(!response.ok){
-                throw new Error((await response.json()).message)
-            }
-
-            const jwt = await response.text()
-            dispatch(setToken(jwt))
-            // navigate to home
-            navigate("/")
-        }
-        catch(error)
-        {
-            dispatch(setInfo({shouldShow: true, infoMsg: error.message, infoType: "error"}))
-        }
-        finally
-        {
-            dispatch(setLoading({isLoading: false, loadingMsg: ""}))
-        }
+      const jwt = await response.text();
+      dispatch(setToken(jwt));
+      // navigate to home
+      navigate("/");
+    } catch (error) {
+      dispatch(
+        setInfo({ shouldShow: true, infoMsg: error.message, infoType: "error" })
+      );
+    } finally {
+      dispatch(setLoading({ isLoading: false, loadingMsg: "" }));
     }
+  };
 
-    return(
-    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+  return (
+    <BackGround>
+      <div className="bg-white bg-opacity-10 p-8 rounded-lg shadow-2xl shadow-yellow-400/30 w-full max-w-fit">
+        <div className="flex justify-center mb-6">
           <img
-          className="mx-auto h-10 w-auto"
-          src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+            src="https://picsum.photos/id/237/200/300"
+            alt="Logo"
+            className="h-20 w-20 object-cover rounded-full"
           />
-          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+        </div>
+        <h2 className="text-3xl font-bold text-white text-center mb-6">
           Complete your profile
-          </h2>
-        </div>
-    
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form onSubmit={handleSubmit(handleProfileComplete)} className="space-y-6">
-                <div>
-                    {
-                        errors.dateOfBirth &&
-                        <span className="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
-                            {errors.dateOfBirth.message}
-                        </span>
-                    }
-                            
-                    <InputField
-                        label='Date Of birth'
-                        type='date'
-                        placeholder='Enter your Birth date'
-                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        {
-                        ...register('dateOfBirth',{
-                            required: "Birth date is required.",
-                        })
-                        }
-                    />
-                </div>
-                <div>
-                    {
-                        errors.houseNo &&
-                        <span className="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
-                            {errors.houseNo.message}
-                        </span>
-                    }
-                            
-                    <InputField
-                        label='House No'
-                        type='text'
-                        placeholder='Enter your House No'
-                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        {
-                        ...register('houseNo',{
-                            required: "House No. is required.",
-                        })
-                        }
-                    />
-                </div>
-                <div>
-                    {
-                        errors.street &&
-                        <span className="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
-                            {errors.street.message}
-                        </span>
-                    }
-                            
-                    <InputField
-                        label='Street'
-                        type='text'
-                        placeholder='Enter your street'
-                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        {
-                        ...register('street',{
-                            required: "Street is required.",
-                        })
-                        }
-                    />
-                </div>
-                <div>
-                    {
-                        errors.landmark &&
-                        <span className="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
-                            {errors.landmark.message}
-                        </span>
-                    }
-                            
-                    <InputField
-                        label='Landmark'
-                        type='text'
-                        placeholder='Enter a landmark'
-                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        {
-                        ...register('landmark',{
-                            required: "Landmark is required.",
-                        })
-                        }
-                    />
-                </div>
-                <div>
-                    {
-                        errors.city &&
-                        <span className="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
-                            {errors.city.message}
-                        </span>
-                    }
-                            
-                    <InputField
-                        label='City'
-                        type='text'
-                        placeholder='Enter your city'
-                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        {
-                        ...register('city',{
-                            required: "City is required.",
-                        })
-                        }
-                    />
-                </div>
-                <div>
-                    {
-                        errors.state &&
-                        <span className="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
-                            {errors.state.message}
-                        </span>
-                    }
-                            
-                    <InputField
-                        label='State'
-                        type='text'
-                        placeholder='Enter your state'
-                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        {
-                        ...register('state',{
-                            required: "State is required.",
-                        })
-                        }
-                    />
-                </div>
-                <div>
-                    {
-                        errors.country &&
-                        <span className="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">
-                            {errors.country.message}
-                        </span>
-                    }
-                            
-                    <InputField
-                        label='Country'
-                        type='text'
-                        placeholder='Enter your country'
-                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        {
-                        ...register('country',{
-                            required: "Country is required.",
-                        })
-                        }
-                    />
-                </div>
-                <div>
-                    <Button
-                        type="submit"
-                        className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                    >
-                        Save
-                    </Button>
-                </div>
-            </form>
-        </div>
-    </div>
-    )
-}
+        </h2>
+        <form
+          onSubmit={handleSubmit(handleProfileComplete)}
+          className="space-y-4"
+        >
+          <div className="grid grid-cols-2 gap-x-6 gap-y-4">
+            <div>
+              {errors.dateOfBirth && (
+                <span className="flex items-center  tracking-wide text-red-500 mt-1 ml-1">
+                  {errors.dateOfBirth.message}
+                </span>
+              )}
 
-export default ProfileComplete
+              <InputField
+                label="Profile Photo"
+                type="file"
+                placeholder="Upload your profile photo"
+                className="w-full px-4 py-2 mt-1 bg-gray-900 text-gray-300 border border-gray-700 rounded-md focus:outline-none focus:ring focus:border-blue-500 hover:cursor-pointer file:bg-gray-800 file:text-white file:px-4 file:py-1 file:border-none file:rounded-full"
+                {...register("profilePhoto", {
+                  required: "Profile Photo is required.",
+                })}
+              />
+            </div>
+            <div>
+              {errors.dateOfBirth && (
+                <span className="flex items-center  tracking-wide text-red-500 mt-1 ml-1">
+                  {errors.dateOfBirth.message}
+                </span>
+              )}
+
+              <InputField
+                label="Date Of birth"
+                type="date"
+                onClick={(e) => {
+                  e.currentTarget.showPicker();
+                }}
+                placeholder="Enter your Birth date"
+                className="w-full px-4 py-2 mt-1 bg-gray-900 text-gray-300 border border-gray-700 rounded-md focus:outline-none focus:ring focus:border-blue-500 hover:cursor-pointer"
+                {...register("dateOfBirth", {
+                  required: "Birth date is required.",
+                })}
+              />
+            </div>
+            <div>
+              {errors.houseNo && (
+                <span className="flex items-center  tracking-wide text-red-500 mt-1 ml-1">
+                  {errors.houseNo.message}
+                </span>
+              )}
+
+              <InputField
+                label="House No"
+                type="text"
+                placeholder="Enter your House No"
+                className="w-full px-4 py-2 mt-1 bg-gray-900 text-gray-300 border border-gray-700 rounded-md focus:outline-none focus:ring focus:border-blue-500"
+                {...register("houseNo", {
+                  required: "House No. is required.",
+                })}
+              />
+            </div>
+            <div>
+              {errors.street && (
+                <span className="flex items-center  tracking-wide text-red-500 mt-1 ml-1">
+                  {errors.street.message}
+                </span>
+              )}
+
+              <InputField
+                label="Street"
+                type="text"
+                placeholder="Enter your street"
+                className="w-full px-4 py-2 mt-1 bg-gray-900 text-gray-300 border border-gray-700 rounded-md focus:outline-none focus:ring focus:border-blue-500"
+                {...register("street", {
+                  required: "Street is required.",
+                })}
+              />
+            </div>
+            <div>
+              {errors.landmark && (
+                <span className="flex items-center  tracking-wide text-red-500 mt-1 ml-1">
+                  {errors.landmark.message}
+                </span>
+              )}
+
+              <InputField
+                label="Landmark"
+                type="text"
+                placeholder="Enter a landmark"
+                className="w-full px-4 py-2 mt-1 bg-gray-900 text-gray-300 border border-gray-700 rounded-md focus:outline-none focus:ring focus:border-blue-500"
+                {...register("landmark", {
+                  required: "Landmark is required.",
+                })}
+              />
+            </div>
+            <div>
+              {errors.city && (
+                <span className="flex items-center  tracking-wide text-red-500 mt-1 ml-1">
+                  {errors.city.message}
+                </span>
+              )}
+
+              <InputField
+                label="City"
+                type="text"
+                placeholder="Enter your city"
+                className="w-full px-4 py-2 mt-1 bg-gray-900 text-gray-300 border border-gray-700 rounded-md focus:outline-none focus:ring focus:border-blue-500"
+                {...register("city", {
+                  required: "City is required.",
+                })}
+              />
+            </div>
+            <div>
+              {errors.state && (
+                <span className="flex items-center  tracking-wide text-red-500 mt-1 ml-1">
+                  {errors.state.message}
+                </span>
+              )}
+
+              <InputField
+                label="State"
+                type="text"
+                placeholder="Enter your state"
+                className="w-full px-4 py-2 mt-1 bg-gray-900 text-gray-300 border border-gray-700 rounded-md focus:outline-none focus:ring focus:border-blue-500"
+                {...register("state", {
+                  required: "State is required.",
+                })}
+              />
+            </div>
+            <div>
+              {errors.country && (
+                <span className="flex items-center  tracking-wide text-red-500 mt-1 ml-1">
+                  {errors.country.message}
+                </span>
+              )}
+
+              <InputField
+                label="Country"
+                type="text"
+                placeholder="Enter your country"
+                className="w-full px-4 py-2 mt-1 bg-gray-900 text-gray-300 border border-gray-700 rounded-md focus:outline-none focus:ring focus:border-blue-500"
+                {...register("country", {
+                  required: "Country is required.",
+                })}
+              />
+            </div>
+          </div>
+          <Button
+            type="submit"
+            className="w-full px-4 py-2 mt-4 bg-blue-600 text-white font-bold rounded-md hover:bg-blue-700 transition duration-200"
+          >
+            Save
+          </Button>
+        </form>
+      </div>
+    </BackGround>
+  );
+};
+
+export default ProfileComplete;
