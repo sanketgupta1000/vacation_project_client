@@ -11,7 +11,7 @@ function Header() {
   const userType = useSelector((state) => state.auth.authDetails.userType);
   const userId = useSelector((state) => state.auth.authDetails.id);
   const userProfilePhotoURL = useSelector(
-    (state) => state.auth.authDetails.userProfilePhotoURL
+    (state) => state.auth.authDetails.profilePhoto
   );
   const dispatch = useDispatch();
 
@@ -229,7 +229,7 @@ function Header() {
               >
                 <img
                   className="object-cover aspect-square w-10 sm:w-16 rounded-full"
-                  src="https://picsum.photos/id/237/200/300"
+                  src={userProfilePhotoURL}
                 />
               </button>
               {isProfileDropdownOpen && (
