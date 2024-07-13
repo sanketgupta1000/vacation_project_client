@@ -153,6 +153,7 @@ function Header() {
                 {isDropdownOpen && (
                   <div
                     className="absolute left-0 mt-2 w-48 bg-gray-800 rounded-md shadow-lg py-2 z-10"
+                    onClick={() => setIsDropdownOpen(false)}
                     onMouseLeave={() => setIsDropdownOpen(false)}
                   >
                     {dropdownNavLinks.map((navLink) => (

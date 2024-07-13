@@ -18,8 +18,6 @@ const ReferrerSelector = React.forwardRef(function (
   },
   ref
 ) {
-  console.log(props);
-
   // dispatcher
   const dispatch = useDispatch();
 
@@ -43,16 +41,11 @@ const ReferrerSelector = React.forwardRef(function (
   // id to connect the label with the input
   const id = React.useId();
 
-  console.log("ReferrerSelector rendered");
-  // console.log(searchBoxRef.current)
-  // console.log(ref.current.value)
-
   // callback to fetch the referrers
   const fetchReferrers = useCallback(async () => {
     // get the input value
     const searchValue = searchBoxRef.current.value;
     if (searchValue == "") return;
-    console.log(searchValue);
 
     try {
       // fetch the referrers
@@ -136,7 +129,7 @@ const ReferrerSelector = React.forwardRef(function (
       ) : (
         <div>
           <button
-            className="bg-white w-full text-left hover:bg-gray-300 p-2 rounded-lg"
+            className="bg-gray-900 text-gray-300 border border-gray-700 w-full text-left hover:bg-gray-900 p-2 rounded-lg"
             onClick={(e) => {
               e.preventDefault();
               // clear everything
@@ -154,6 +147,7 @@ const ReferrerSelector = React.forwardRef(function (
                 email: selectedReferrer.email,
                 profilePhotoURL: selectedReferrer.profilePhotoURL,
               }}
+              noLink
             />
           </button>
         </div>
@@ -203,6 +197,7 @@ const ReferrerSelector = React.forwardRef(function (
                         email: option.email,
                         profilePhotoURL: option.profilePhotoURL,
                       }}
+                      noLink
                     />
                   </button>
                 </li>

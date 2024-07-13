@@ -69,7 +69,7 @@ function UpdateProfile({ userData, onUpdate = null }) {
         Update your profile
       </h2>
       <form onSubmit={handleSubmit(handleUpdate)} className="space-y-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-4">
           <div>
             {errors.profilePhoto && (
               <span className="flex items-center  tracking-wide text-red-500 mt-1 ml-1">

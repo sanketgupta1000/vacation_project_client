@@ -1,23 +1,12 @@
-import React from 'react'
-import { MemberApprovalRequestForAdmin } from '../../components'
+import React from "react";
+import { MemberApprovalRequestForAdmin } from "../../components";
 
-
-function MemberApprovalRequestsPage()
-{
-
-
-    return (
-
-
-        <div>
-            <MemberApprovalRequestForAdmin />
-        </div>
-
-
-    )
-
-
+function MemberApprovalRequestsPage() {
+  return (
+    <div>
+      <MemberApprovalRequestForAdmin />
+    </div>
+  );
 }
 
-
-export default MemberApprovalRequestsPage
+export default MemberApprovalRequestsPage;

@@ -119,15 +119,15 @@ const UserProfile = () => {
                     }}
                   />
                 ) : (
-                  <p className="px-4 border-l-0 cursor-default border-gray-300 focus:outline-none  rounded-md rounded-l-none shadow-sm -ml-1 w-4/6">
+                  <span className="px-4 border-l-0 cursor-default border-gray-300 focus:outline-none  rounded-md rounded-l-none shadow-sm -ml-1 w-4/6">
                     ( No reference )
-                  </p>
+                  </span>
                 )}
               </span>
             </p>
             <p className="py-1">
               <strong>Join Date:</strong>
-              <p>{userData.joinDate}</p>
+              <span>{userData.joinDate}</span>
             </p>
           </div>
         </div>

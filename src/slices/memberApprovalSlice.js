@@ -15,7 +15,9 @@ const initialState = {
             referrerApproval: null,
             adminApproval: null,
             requestDate: null,
-            requestTime: null
+            requestTime: null,
+            responseDate: null,
+            responseTime: null,
         }
     ],
     approvedMemberApprovalRequests: [
@@ -32,7 +34,9 @@ const initialState = {
             referrerApproval: null,
             adminApproval: null,
             requestDate: null,
-            requestTime: null
+            requestTime: null,
+            responseDate: null,
+            responseTime: null,
         }
     ],
 
@@ -50,7 +54,9 @@ const initialState = {
             referrerApproval: null,
             adminApproval: null,
             requestDate: null,
-            requestTime: null
+            requestTime: null,
+            responseDate: null,
+            responseTime: null,
         }
     ],
 }
