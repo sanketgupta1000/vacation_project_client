@@ -1,23 +1,12 @@
-import React from 'react'
-import { ReferenceRequests } from '../../components'
+import React from "react";
+import { ReferenceRequests } from "../../components";
 
-
-function ReferenceRequestsPage()
-{
-
-
-    return (
-
-
-        <div>
-            <ReferenceRequests />
-        </div>
-
-
-    )
-
-
+function ReferenceRequestsPage() {
+  return (
+    <div>
+      <ReferenceRequests />
+    </div>
+  );
 }
 
-
-export default ReferenceRequestsPage
+export default ReferenceRequestsPage;
