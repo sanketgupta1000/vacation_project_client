@@ -96,7 +96,7 @@ function BookApprovalRequestCard({
 
   return (
     <div
-      className={`col-span-1 col-start-auto justify-center bg-gradient-to-br from-black via-gray-800 ${
+      className={`w-fit bg-gradient-to-br from-black via-gray-800 ${
         status === "UNRESPONDED"
           ? "to-yellow-800"
           : status === "APPROVED"

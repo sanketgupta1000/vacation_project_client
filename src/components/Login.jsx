@@ -4,7 +4,8 @@ import { setToken, setLoading, setInfo } from "../slices";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { authService } from "../services";
-import { InputField, Button, BackGround } from ".";
+import { InputField, Button, BackGround, Logo } from ".";
+import { SiSimplelogin } from "react-icons/si";
 
 const Login = ({}) => {
   const dispatch = useDispatch();
@@ -56,11 +57,7 @@ const Login = ({}) => {
     <BackGround>
       <div className="bg-white bg-opacity-10 p-8 rounded-lg shadow-2xl shadow-green-400/30 w-full max-w-md">
         <div className="flex justify-center mb-6">
-          <img
-            src="https://picsum.photos/id/237/200/300"
-            alt="Logo"
-            className="h-20 w-20 object-cover rounded-full"
-          />
+          <SiSimplelogin size={100} className="text-white" />
         </div>
         <h2 className="text-3xl font-bold text-white text-center mb-6">
           Login

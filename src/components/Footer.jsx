@@ -1,4 +1,4 @@
-import Logo from "./Logo";
+import { Logo } from "./";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
@@ -54,7 +54,9 @@ function Footer() {
       <div className="container mx-auto flex flex-wrap items-start justify-between">
         <div className="w-full md:w-2/4 mb-8 md:mb-0 px-10  ">
           <div className="flex items-center">
-            <div className="text-3xl font-bold text-blue-500">Logo</div>
+            <div className="text-3xl font-bold text-blue-500">
+              <Logo />
+            </div>
           </div>
           <p className="mt-4 text-sm">
             Share your books with others. Knoledge increases by sharing. Trade
