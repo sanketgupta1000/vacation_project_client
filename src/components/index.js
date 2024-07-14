@@ -34,6 +34,7 @@ import Dropdown from "./Dropdown";
 import BackGround from "./BackGround";
 import UpdateProfile from "./UpdateProfile";
 import FormErrorMessage from "./FormErrorMessage"
+import BookApprovalRequestCard from "./BookApprovalRequestCard";
 
 export
 {
@@ -73,4 +74,5 @@ export
     BackGround,
     UpdateProfile,
     FormErrorMessage,
+    BookApprovalRequestCard
 }
