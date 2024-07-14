@@ -12,6 +12,7 @@ import { FcApproval, FcCancel } from "react-icons/fc";
 // will be used on MemberApprovalRequestsPage, as well as ReferralsPage
 function MemberApprovalRequestCard({
   memberApprovalRequest,
+  status = "unresponded",
   // should the referrer info be displayed?
   showReferrerInfo = false,
   // should the admin approval status be displayed?
@@ -211,9 +212,9 @@ function MemberApprovalRequestCard({
   return (
     <div
       className={`bg-gradient-to-br from-black via-gray-800 ${
-        memberApprovalRequest.adminApproval === "UNRESPONDED"
+        status === "UNRESPONDED"
           ? "to-yellow-800"
-          : memberApprovalRequest.adminApproval == "APPROVED"
+          : status === "APPROVED"
           ? "to-green-900"
           : "to-red-800"
       } text-white p-4 rounded-lg shadow-lg transition-transform transform hover:scale-110`}

@@ -86,8 +86,9 @@ const MemberApprovalRequestForAdmin = ({}) => {
               <MemberApprovalRequestCard
                 key={request.memberApprovalRequestId}
                 memberApprovalRequest={request}
+                status={request.adminApproval}
                 showReferrerInfo
-                showAdminApproval={tab !== "unresponded"}
+                showAdminApproval={request.adminApproval !== "UNRESPONDED"}
                 showAdminActions={tab === "unresponded"}
                 fetchData={fetchData}
               />

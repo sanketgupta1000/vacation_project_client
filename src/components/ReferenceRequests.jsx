@@ -1,107 +1,105 @@
-import { useEffect, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { BackGround, MemberApprovalRequestCard, Tab } from ".";
+import { memberApprovalService } from "../services";
+import { setAllReferenceRequests, setInfo, setLoading } from "../slices";
+import { useNavigate } from "react-router-dom";
 
-import {MemberApprovalRequestCard, Tab} from "."
-import { memberApprovalService } from "../services"
-import { setAllReferenceRequests, setInfo, setLoading } from "../slices"
-import { useNavigate } from "react-router-dom"
+const ReferenceRequests = ({}) => {
+  const dispatch = useDispatch();
+  const [tab, setTab] = useState("unresponded");
 
-const ReferenceRequests = ({})=>
-{
-    const dispatch = useDispatch()
-    const [tab, setTab] = useState('unresponded')
+  const navigate = useNavigate();
 
-    const navigate = useNavigate()
+  const requests = {
+    unresponded:
+      useSelector((state) => state.reference.newReferenceRequests) || [],
+    approved:
+      useSelector((state) => state.reference.approvedReferenceRequests) || [],
+    rejected:
+      useSelector((state) => state.reference.rejectedReferenceRequests) || [],
+  };
 
-    const requests = {
-        'unresponded' : useSelector((state)=>state.reference.newReferenceRequests) || [],
-        'approved' : useSelector((state)=>state.reference.approvedReferenceRequests) || [],
-        'rejected': useSelector((state)=>state.reference.rejectedReferenceRequests) || [],
-    } 
+  const jwt = useSelector((state) => state.auth.token);
 
-    const jwt = useSelector((state)=>state.auth.token)
+  const fetchData = async () => {
+    dispatch(setLoading({ isLoading: true, loadingMsg: "Loading data..." }));
 
-    const fetchData = async()=>
-    {
+    try {
+      const response = await memberApprovalService.seeAllReferences(jwt);
 
-        dispatch(setLoading({isLoading: true, loadingMsg:'Loading data...'}))
+      if (!response.ok) {
+        const errorObj = await response.json();
+        throw new Error(errorObj.message);
+      }
 
-        try
-        {
-            const response = await memberApprovalService.seeAllReferences(jwt)
+      const memberApprovalRequests = await response.json();
 
-            if(!response.ok)
-            {
-                const errorObj = await response.json()
-                throw new Error(errorObj.message)
-            }
-            
-            const memberApprovalRequests = await response.json()
+      dispatch(
+        setAllReferenceRequests({
+          newRequests: memberApprovalRequests.unresponded,
+          approvedRequests: memberApprovalRequests.approved,
+          rejectedRequests: memberApprovalRequests.rejected,
+        })
+      );
+    } catch (error) {
+      dispatch(
+        setInfo({ shouldShow: true, isfoMag: error.message, infoType: "error" })
+      );
+      navigate("/");
+    } finally {
+      dispatch(setLoading({ isLoading: false, loadingMsg: "" }));
+    }
+  };
 
-            dispatch(setAllReferenceRequests(
-                {
-                    newRequests: memberApprovalRequests.unresponded,
-                    approvedRequests: memberApprovalRequests.approved,
-                    rejectedRequests: memberApprovalRequests.rejected
-                }
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  return (
+    <BackGround>
+      <div className="flex flex-col items-center min-h-96 mx-h-screen">
+        <h1 className="text-2xl md:text-4xl font-bold mb-8 text-white text-center">
+          Reference Requests
+        </h1>
+
+        <div className="flex space-x-4 mb-8">
+          <Tab
+            active={tab === "unresponded"}
+            onClick={() => setTab("unresponded")}
+          >
+            Unresponded
+          </Tab>
+
+          <Tab active={tab === "approved"} onClick={() => setTab("approved")}>
+            Approved
+          </Tab>
+
+          <Tab active={tab === "rejected"} onClick={() => setTab("rejected")}>
+            Rejected
+          </Tab>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {requests[tab].length === 0 ? (
+            <div className="col-span-3 text-white">Nothing here.</div>
+          ) : (
+            requests[tab].map((request) => (
+              <MemberApprovalRequestCard
+                key={request.memberApprovalRequestId}
+                memberApprovalRequest={request}
+                status={request.adminApproval}
+                showReferrerInfo
+                showAdminApproval={request.adminApproval !== "UNRESPONDED"}
+                showAdminActions={tab === "unresponded"}
+                fetchData={fetchData}
+              />
             ))
-
-            console.log('Success')
-        }
-        catch(error)
-        {
-            dispatch(setInfo({shouldShow: true, isfoMag: error.message, infoType: 'error'}))
-            navigate('/')
-        }
-        finally
-        {
-            dispatch(setLoading({isLoading: false, loadingMsg: ''}))
-        }
-
-    }   
-    useEffect(()=>
-    {
-
-        fetchData()
-        
-    },[])
-
-    return(
-    <>
-    <div class="h-full bg-gradient-to-tl from-slate-900 via-black to-slate-500">
-        <div className="flex overflow-x-auto overflow-y-hidden border-b border-gray-200 whitespace-nowrap justify-evenly my-5">
-            <Tab active={tab==='unresponded'} onClick={()=>setTab('unresponded')}
-            >
-                Unresponded
-            </Tab>
-
-            <Tab active={tab==='approved'} onClick={()=>setTab('approved')}
-            >
-                Approved
-            </Tab>
-
-            <Tab active={tab==='rejected'} onClick={()=>setTab('rejected')}
-            >
-                Rejected
-            </Tab>
+          )}
         </div>
+      </div>
+    </BackGround>
+  );
+};
 
-        <div className='grid grid-cols-4 sm:grid-cols-1 md:grid-cols-3 '>
-            {
-                requests[tab].map((request)=>
-                    <MemberApprovalRequestCard
-                        key={request.memberApprovalRequestId}
-                        memberApprovalRequest={request}
-                        showAdminApproval
-                        showReferrerActions={tab==='unresponded'}
-                        fetchData={fetchData}
-                    />
-                )
-            }
-        </div>
-        </div>
-    </>
-    )
-}
-
-export default ReferenceRequests
+export default ReferenceRequests;
