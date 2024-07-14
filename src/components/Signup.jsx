@@ -4,8 +4,9 @@ import { setLoading, setInfo, setEmail } from "../slices";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { authService } from "../services";
-import { InputField, Button, Logo, BackGround } from "./";
+import { InputField, Button, BackGround } from "./";
 import ReferrerSelector from "./ReferrerSelector";
+import { MdSupervisorAccount } from "react-icons/md";
 
 const Signup = () => {
   // useForm to include react hook form
@@ -71,11 +72,7 @@ const Signup = () => {
     <BackGround>
       <div className="bg-white bg-opacity-10 p-8 rounded-lg shadow-2xl shadow-yellow-400/30 w-full max-w-md">
         <div className="flex justify-center mb-6">
-          <img
-            src="https://picsum.photos/id/237/200/300"
-            alt="Logo"
-            className="h-20 w-20 object-cover rounded-full"
-          />
+          <MdSupervisorAccount size={100} className="text-white" />
         </div>
         <h2 className="text-3xl font-bold text-white text-center mb-6">
           Sign Up

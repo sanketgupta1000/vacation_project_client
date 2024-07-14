@@ -108,7 +108,7 @@ function Header() {
       <div className="flex items-center space-x-4">
         <Link to="/">
           <div className="text-2xl font-bold tracking-wide mr-4 lg:mr-10">
-            Logo
+            <Logo />
           </div>
         </Link>
         <nav className="hidden md:flex space-x-9 mx-10">
@@ -189,7 +189,7 @@ function Header() {
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="text-gray-400 hover:text-white focus:outline-none transition duration-200"
             >
-              <TiThMenuOutline className="size-7 text-white/80" />
+              <TiThMenuOutline size={35} className="text-white/80" />
             </button>
             {isMobileMenuOpen && (
               <div

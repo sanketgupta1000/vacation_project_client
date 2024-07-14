@@ -64,7 +64,7 @@ function BookApprovalRequestsForAdmin() {
 
   return (
     <BackGround>
-      <div className="flex flex-col items-center min-h-96 mx-h-screen max-w-full">
+      <div className="flex flex-col items-center min-h-96 mx-h-screen">
         <h1 className="text-2xl md:text-4xl font-bold mb-8 text-white text-center">
           Book approval requests
         </h1>
@@ -86,7 +86,7 @@ function BookApprovalRequestsForAdmin() {
           </Tab>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-20 px-0 lg:px-20">
           {requests[tab].length === 0 ? (
             <div className="col-span-3 text-white">Nothing here.</div>
           ) : (
