@@ -33,6 +33,8 @@ import Loader from "./Loader";
 import Dropdown from "./Dropdown";
 import BackGround from "./BackGround";
 import UpdateProfile from "./UpdateProfile";
+import FormErrorMessage from "./FormErrorMessage"
+import BookApprovalRequestCard from "./BookApprovalRequestCard";
 
 export
 {
@@ -70,5 +72,7 @@ export
     Loader,
     Dropdown,
     BackGround,
-    UpdateProfile
+    UpdateProfile,
+    FormErrorMessage,
+    BookApprovalRequestCard
 }

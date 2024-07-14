@@ -3,7 +3,7 @@ import config from "../config/config";
 class BookUploadService
 {
     //parameter book and user
-    async uploadBook( coverPhoto, bookTitle, authorName, pageCount, quantity, categoryId, jwt )
+    async uploadBook( jwt, { coverPhoto, bookTitle, authorName, pageCount, quantity, categoryId } )
     {
         const book = {
             bookTitle,
@@ -16,7 +16,7 @@ class BookUploadService
         }
 
         const formData = new FormData()
-        formData.append( 'coverPhoto', coverPhoto )
+        formData.append( 'coverPhoto', coverPhoto[ 0 ] )
         formData.append( 'bookJSON', JSON.stringify( book ) )
 
         return fetch( config.urlPrefix + "/books",

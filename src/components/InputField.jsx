@@ -15,20 +15,17 @@ const InputField = React.forwardRef(function (
     <div>
       {/* display the label if it is provided */}
       {label && (
-        <label
-          className="block text-sm text-gray-500 dark:text-gray-300"
-          htmlFor={id}
-        >
+        <label className="block text-sm text-gray-400" htmlFor={id}>
           {label}
         </label>
       )}
 
       <input
+        id={id}
         type={type}
+        ref={ref}
         placeholder={placeholder}
         className={`block mt-2 w-full px-5 py-2.5 focus:ring-opacity-40 ${className}`}
-        id={id}
-        ref={ref}
         autoComplete="off"
         {...props}
       />

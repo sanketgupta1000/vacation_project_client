@@ -15,7 +15,7 @@ const UserAvatar = ({
         <div className="space-y-6">
           <div className="flex items-center gap-x-2">
             <img
-              className="object-cover w-10 h-10 rounded-full"
+              className="object-cover aspect-square w-16 rounded-full"
               src={user.profilePhotoURL}
               alt=""
             />
