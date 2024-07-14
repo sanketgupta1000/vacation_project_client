@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  InputField,
-  Button,
-  SelectInput,
-  BackGround,
-  FormErrorMessage,
-} from "./";
+import { InputField, Button, SelectInput } from "./";
 import { useForm } from "react-hook-form";
 import { categoryService, bookUploadService } from "../services";
 import { useNavigate } from "react-router-dom";
@@ -19,9 +13,6 @@ function BookUpload() {
   const jwt = useSelector((state) => state.auth.token);
 
   const [categories, setCategories] = useState([]);
-  const [imageSrc, setImageSrc] = useState(
-    "https://res.cloudinary.com/ddy7jnszi/image/upload/v1720937865/Assets/xy0ged8jwzredsknbpwi.jpg"
-  );
 
   const {
     register,
@@ -64,7 +55,14 @@ function BookUpload() {
     dispatch(setLoading({ isLoading: true, loadingMsg: "Uploading book..." }));
 
     try {
-      const response = await bookUploadService.uploadBook(jwt, data);
+      const response = await bookUploadService.uploadBook(
+        data.bookTitle,
+        data.authorName,
+        data.pageCount,
+        data.quantity,
+        data.categoryId,
+        jwt
+      );
 
       if (!response.ok) {
         throw new Error((await response.json()).message);
@@ -72,6 +70,7 @@ function BookUpload() {
 
       // all good
       // set info
+      // console.log(await response.text())
       dispatch(
         setInfo({
           shouldShow: true,
@@ -91,49 +90,29 @@ function BookUpload() {
   }
 
   return (
-    <BackGround>
-      <div className="bg-white bg-opacity-10 rounded-lg shadow-2xl shadow-purple-700/50 w-full max-w-screen-xl">
-        <div className="grid grid-cols-1 md:grid-cols-4">
-          <div className="col-span-1 flex justify-center w-full p-8 md:p-0">
-            <div className="flex justify-center items-center w-3/4 md:w-full border-4 rounded-lg border-red-500/50 shadow-xl shadow-yellow-200/50">
-              <img
-                src={imageSrc}
-                alt="Cover Photo"
-                className="aspect-[5/8] w-60 object-cover"
-              />
-            </div>
-          </div>
-          <div className="col-span-1 md:col-span-3 m-8">
-            <h2 className="text-3xl font-bold text-white text-center mb-6">
-              Upload your book
+    <>
+      <div class="h-full ">
+        <div className=" mt-0 flex items-center justify-center">
+          <div
+            className={`mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10`}
+          >
+            {/* heading */}
+            <h2 className="text-center text-2xl font-bold leading-tight">
+              Upload Book
             </h2>
-            <form
-              onSubmit={handleSubmit(handleBookUpload)}
-              className="space-y-4"
-            >
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-4">
+
+            {/* form */}
+            <form onSubmit={handleSubmit(handleBookUpload)}>
+              <div className="space-y-5">
                 <div>
-                  <FormErrorMessage error={errors.coverPhoto} />
-                  <InputField
-                    label="Cover Image"
-                    type="file"
-                    placeholder="Upload book's cover photo"
-                    onInput={(e) => {
-                      console.log(e.target.files);
-                      setImageSrc(URL.createObjectURL(e.target.files[0]));
-                    }}
-                    className="w-full px-4 py-2 mt-1 bg-gray-900 text-gray-300 border border-gray-700 rounded-md focus:outline-none focus:ring focus:border-blue-500 hover:cursor-pointer file:bg-gray-800 file:text-white file:px-4 file:py-1 file:border-none file:rounded-full"
-                    {...register("coverPhoto", {
-                      required: "Cover Photo is required.",
-                    })}
-                  />
-                </div>
-                <div>
-                  <FormErrorMessage error={errors.bookTitle} />
+                  {errors.bookTitle && (
+                    <span className="flex items-center  tracking-wide text-red-500 mt-1 ml-1">
+                      {errors.bookTitle.message}
+                    </span>
+                  )}
                   <InputField
                     label="Book Title"
                     placeholder="Enter book title"
-                    className="w-full px-4 py-2 mt-1 bg-gray-900 text-gray-300 border border-gray-700 rounded-md focus:outline-none focus:ring focus:border-blue-500"
                     // integrating react-hook-form
                     {...register("bookTitle", {
                       // validation rules
@@ -143,12 +122,15 @@ function BookUpload() {
                 </div>
 
                 <div>
-                  <FormErrorMessage error={errors.authorName} />
+                  {errors.authorName && (
+                    <span className="flex items-center  tracking-wide text-red-500 mt-1 ml-1">
+                      {errors.authorName.message}
+                    </span>
+                  )}
 
                   <InputField
                     label="Author Name"
                     placeholder="Enter book author name"
-                    className="w-full px-4 py-2 mt-1 bg-gray-900 text-gray-300 border border-gray-700 rounded-md focus:outline-none focus:ring focus:border-blue-500"
                     {...register("authorName", {
                       required: "Author name is required.",
                     })}
@@ -156,12 +138,15 @@ function BookUpload() {
                 </div>
 
                 <div>
-                  <FormErrorMessage error={errors.pageCount} />
+                  {errors.pageCount && (
+                    <span className="flex items-center  tracking-wide text-red-500 mt-1 ml-1">
+                      {errors.pageCount.message}
+                    </span>
+                  )}
                   <InputField
                     label="Page Count"
                     type="number"
                     placeholder="Enter page count of book"
-                    className="w-full px-4 py-2 mt-1 bg-gray-900 text-gray-300 border border-gray-700 rounded-md focus:outline-none focus:ring focus:border-blue-500"
                     {...register("pageCount", {
                       min: {
                         value: 1,
@@ -173,12 +158,15 @@ function BookUpload() {
                 </div>
 
                 <div>
-                  <FormErrorMessage error={errors.quantity} />
+                  {errors.quantity && (
+                    <span className="flex items-center  tracking-wide text-red-500 mt-1 ml-1">
+                      {errors.quantity.message}
+                    </span>
+                  )}
                   <InputField
                     label="Quantity"
                     placeholder="Enter number of books"
                     type="number"
-                    className="w-full px-4 py-2 mt-1 bg-gray-900 text-gray-300 border border-gray-700 rounded-md focus:outline-none focus:ring focus:border-blue-500"
                     {...register("quantity", {
                       min: {
                         value: 1,
@@ -190,11 +178,8 @@ function BookUpload() {
                 </div>
 
                 <div>
-                  <FormErrorMessage error={errors.categoryId} />
                   <SelectInput
                     label="Category"
-                    placeholder="Select a category"
-                    className="w-full px-4 py-2 mt-1 bg-gray-900 text-gray-300 border border-gray-700 rounded-md focus:outline-none focus:ring focus:border-blue-500"
                     options={categories.map((category) => ({
                       value: category.categoryId,
                       name: category.categoryName,
@@ -204,18 +189,16 @@ function BookUpload() {
                     })}
                   />
                 </div>
+
+                <Button type="submit" className="w-full">
+                  Upload
+                </Button>
               </div>
-              <Button
-                type="submit"
-                className="w-full px-4 py-2 mt-4 bg-blue-600 text-white font-bold rounded-md hover:bg-blue-700 transition duration-200"
-              >
-                Send for Approval
-              </Button>
             </form>
           </div>
         </div>
       </div>
-    </BackGround>
+    </>
   );
 }
 

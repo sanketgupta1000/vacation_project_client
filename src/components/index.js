@@ -33,6 +33,7 @@ import Loader from "./Loader";
 import Dropdown from "./Dropdown";
 import BackGround from "./BackGround";
 import UpdateProfile from "./UpdateProfile";
+import FormErrorMessage from "./FormErrorMessage"
 
 export
 {
@@ -70,5 +71,6 @@ export
     Loader,
     Dropdown,
     BackGround,
-    UpdateProfile
+    UpdateProfile,
+    FormErrorMessage,
 }
