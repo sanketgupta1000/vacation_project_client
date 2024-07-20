@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setAllBookApprovalRequests, setInfo, setLoading } from "../slices";
 import { bookUploadService } from "../services";
-import { BookApprovalRequestCard, Tab, BackGround } from "./";
+import { BookCard, Tab, BackGround } from "./";
 
 function BookApprovalRequestsForAdmin() {
   const dispatch = useDispatch();
@@ -91,11 +91,14 @@ function BookApprovalRequestsForAdmin() {
             <div className="col-span-3 text-white">Nothing here.</div>
           ) : (
             requests[tab].map((request) => (
-              <BookApprovalRequestCard
+              <BookCard
                 key={request.bookId}
                 request={request}
                 status={request.bookApprovalStatus}
+                showOwner={true}
+                showRequestStatus={true}
                 showAdminActions={tab === "unresponded"}
+                showResponseDate={tab !== "unresponded"}
                 fetchData={fetchRequests}
               />
             ))

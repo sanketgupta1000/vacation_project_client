@@ -1,23 +1,12 @@
-import React from 'react'
-import { AllBooks } from '../../components'
+import React from "react";
+import { AllBooks } from "../../components";
 
-
-function AllBooksPage()
-{
-
-
-    return (
-
-
-        <div>
-            <AllBooks />
-        </div>
-
-
-    )
-
-
+function AllBooksPage() {
+  return (
+    <div>
+      <AllBooks />
+    </div>
+  );
 }
 
-
-export default AllBooksPage
+export default AllBooksPage;
