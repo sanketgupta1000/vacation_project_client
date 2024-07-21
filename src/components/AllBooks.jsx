@@ -1,77 +1,140 @@
-import React, {useEffect} from 'react'
-import { BookCard } from '.'
-import { useSelector, useDispatch } from 'react-redux'
-import { setInfo, setLoading, setAvailableBooks } from '../slices'
-import { bookService } from '../services'
+import React, { useEffect, useState } from "react";
+import { BookCard, BookSearchBar, BackGround, PaginationIndexer } from ".";
+import { useSelector, useDispatch } from "react-redux";
+import { setInfo, setLoading, setAvailableBooks } from "../slices";
+import { bookService } from "../services";
+import { useSearchParams, useNavigate } from "react-router-dom";
 
+function AllBooks() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const jwt = useSelector((state) => state.auth.token);
+  const availableBooks = useSelector((state) => state.book.availableBooks);
 
-function AllBooks()
-{
+  const [searchParams, setSearchParams] = useSearchParams();
+  const pageNumber = Number(searchParams.get("page")) || 1;
 
-    const dispatch = useDispatch()
-    const jwt = useSelector(state => state.auth.token)
-    const availableBooks = useSelector(state => state.book.availableBooks)
+  const [totalPages, setTotalPages] = useState();
+  const [title, setTitle] = useState(null);
+  const [author, setAuthor] = useState(null);
+  const [owner, setOwner] = useState(null);
+  const [city, setCity] = useState(null);
+  const [categories, setCategories] = useState([]);
+  const [minPageCount, setMinPageCount] = useState(0);
+  const [maxPageCount, setMaxPageCount] = useState(0);
 
-    // fetch all available books
-    async function fetchAvailableBooks()
-    {
-        dispatch(setLoading({ isLoading: true, loadingMsg: "Loading books..." }))
-
-        try
-        {
-            const response = await bookService.getBooks(jwt)
-
-            if (!response.ok)
-            {
-                throw new Error((await response.json()).message)
-            }
-
-            const data = await response.json()
-            dispatch(setAvailableBooks({ availableBooks: data }))
-        }
-        catch (error)
-        {
-            dispatch(setInfo({ shouldShow: true, infoMsg: error.message, infoType: "error" }))
-            navigate("/")
-        }
-        finally
-        {
-            dispatch(setLoading({ isLoading: false, loadingMsg: "" }))
-        }
+  const setFilterState = function (
+    text,
+    criteria,
+    categories,
+    minPageCount,
+    maxPageCount
+  ) {
+    setTitle(null);
+    setAuthor(null);
+    setOwner(null);
+    setCity(null);
+    switch (criteria) {
+      case "title":
+        setTitle(text);
+        break;
+      case "author":
+        setAuthor(text);
+        break;
+      case "owner":
+        setOwner(text);
+        break;
+      case "city":
+        setCity(text);
+        break;
     }
 
-    // fetch available books only after initial render
-    useEffect(() =>
-    {
-        fetchAvailableBooks()
-    }, [])
+    setCategories(categories);
+    setMinPageCount(minPageCount);
+    setMaxPageCount(maxPageCount);
+  };
 
-    return (
-        <>
-        <div class="bg-gray-800 mx-20 rounded">
-       
+  // fetch all available books
+  async function fetchAvailableBooks() {
+    dispatch(setLoading({ isLoading: true, loadingMsg: "Loading books..." }));
 
-        <div className='mx-4 my-3'> 
-        <div >
+    try {
+      const response = await bookService.getBooks(
+        jwt,
+        pageNumber,
+        title,
+        author,
+        owner,
+        city,
+        categories,
+        minPageCount,
+        maxPageCount
+      );
 
-            {availableBooks.map((book)=>
-            (
-                <BookCard
-                    key={book.bookId}
-                    book={book}
-                    isLink
-                    showBorrowButton
-                />
-            ))}
+      if (!response.ok) {
+        throw new Error((await response.json()).message);
+      }
 
+      const data = await response.json();
+      setTotalPages(data.totalPages);
+
+      dispatch(setAvailableBooks({ availableBooks: data.content }));
+    } catch (error) {
+      dispatch(
+        setInfo({ shouldShow: true, infoMsg: error.message, infoType: "error" })
+      );
+      navigate("/");
+    } finally {
+      dispatch(setLoading({ isLoading: false, loadingMsg: "" }));
+    }
+  }
+
+  // fetch available books only after initial render
+  useEffect(() => {
+    fetchAvailableBooks();
+  }, [
+    pageNumber,
+    title,
+    author,
+    owner,
+    city,
+    categories,
+    minPageCount,
+    maxPageCount,
+  ]);
+
+  console.log(availableBooks);
+  return (
+    <BackGround fullScreen>
+      <div className="w-full p-4">
+        <div className="w-full mb-10">
+          <BookSearchBar setFilterState={setFilterState} />
         </div>
+        <div className="w-full grid grid-cols-3 gap-16">
+          {availableBooks.length !== 0 ? (
+            <>
+              {availableBooks.map((book) => (
+                <BookCard key={book.id} book={book} />
+              ))}
+            </>
+          ) : (
+            <div className="text-center text-2xl col-span-3 text-white">
+              No content found.
+            </div>
+          )}
         </div>
-        </div>
-        </>
-    )
-   
-
+        {availableBooks.length !== 0 && (
+          <div className="w-full mt-16">
+            <PaginationIndexer
+              pageNumber={pageNumber}
+              totalPages={totalPages}
+              url={"/books"}
+            />
+          </div>
+        )}
+      </div>
+    </BackGround>
+  );
 }
 
-
-export default AllBooks
+export default AllBooks;

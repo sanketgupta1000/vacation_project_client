@@ -89,7 +89,6 @@ const ReferenceRequests = ({}) => {
                 key={request.memberApprovalRequestId}
                 memberApprovalRequest={request}
                 status={request.adminApproval}
-                showReferrerInfo
                 showAdminApproval={request.adminApproval !== "UNRESPONDED"}
                 showAdminActions={tab === "unresponded"}
                 fetchData={fetchData}

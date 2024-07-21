@@ -9,22 +9,12 @@ import { FcApproval, FcCancel } from "react-icons/fc";
 function BookApprovalRequestCard({
   request,
   status,
-  showOwner = false,
-  showRequestStatus = false,
   showAdminActions = false,
-  showResponseDate = false,
   fetchData,
 }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const jwt = useSelector((state) => state.auth.token);
-
-  const dynamicTexts = {
-    responseDate: {
-      APPROVED: "Approved on",
-      REJECTED: "Rejected on",
-    },
-  };
 
   // handle admin approve
   async function handleAdminApprove() {
@@ -114,7 +104,7 @@ function BookApprovalRequestCard({
           : "to-red-800"
       } text-white p-4 rounded-lg shadow-xl shadow-violet-500/50 transition-transform transform hover:scale-105`}
     >
-      <div className="grid grid-cols-1 md:grid-cols-3 h-full mb-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 h-full">
         <div className="col-span-1 flex justify-center items-start m-2">
           <img
             src={request.coverPhotoURL}
@@ -141,51 +131,44 @@ function BookApprovalRequestCard({
             </p>
           </div>
         </div>
-        {showOwner && (
-          <div className="col-span-1 md:col-span-3 my-4">
-            <p className="py-1">
-              <strong>Requester:</strong>
-              <span>
-                <UserAvatar
-                  user={{
-                    id: request.bookOwnerId,
-                    name: request.bookOwnerName,
-                    email: request.bookOwnerEmail,
-                    profilePhotoURL: request.bookOwnerProfilePhotoURL,
-                  }}
-                />
-              </span>
-            </p>
-          </div>
-        )}
-
+        <div className="col-span-1 md:col-span-3 my-4">
+          <p className="py-1">
+            <strong>Requester:</strong>
+            <span>
+              <UserAvatar
+                user={{
+                  id: request.bookOwnerId,
+                  name: request.bookOwnerName,
+                  email: request.bookOwnerEmail,
+                  profilePhotoURL: request.bookOwnerProfilePhotoURL,
+                }}
+              />
+            </span>
+          </p>
+        </div>
         <div className="col-span-1 md:col-span-3 h-full">
-          {showRequestStatus && (
-            <div>
-              <p className="text-sm text-gray-400 mb-2">
-                <strong>Request Date:</strong> {request.bookRequestDate}
-              </p>
-              <p className="mt-4">
-                <strong>Admin Response:</strong>{" "}
-                {status === "UNRESPONDED" && (
-                  <span>
-                    <MdPending className="inline-block mx-1" /> {"pending..."}
-                  </span>
-                )}
-                {status === "APPROVED" && (
-                  <span>
-                    <FcApproval className="inline-block mx-1" /> {"Approved"}
-                  </span>
-                )}
-                {status === "REJECTED" && (
-                  <>
-                    <FcCancel className="inline-block mx-1" /> {"Rejected"}
-                  </>
-                )}
-              </p>
-            </div>
-          )}
-          {showAdminActions && (
+          <p className="text-sm text-gray-400 mb-2">
+            <strong>Request Date:</strong> {request.bookRequestDate}
+          </p>
+          <p className="mt-4">
+            <strong>Admin Response:</strong>{" "}
+            {status === "UNRESPONDED" && (
+              <span>
+                <MdPending className="inline-block mx-1" /> {"pending..."}
+              </span>
+            )}
+            {status === "APPROVED" && (
+              <span>
+                <FcApproval className="inline-block mx-1" /> {"Approved"}
+              </span>
+            )}
+            {status === "REJECTED" && (
+              <>
+                <FcCancel className="inline-block mx-1" /> {"Rejected"}
+              </>
+            )}
+          </p>
+          {request.bookApprovalStatus === "UNRESPONDED" ? (
             <div className="flex justify-between items-end mt-4">
               <button
                 className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition duration-200"
@@ -200,11 +183,9 @@ function BookApprovalRequestCard({
                 Reject
               </button>
             </div>
-          )}
-          {showResponseDate && (
+          ) : (
             <p className="text-sm text-gray-400">
-              <strong>{dynamicTexts.responseDate[status]}:</strong>{" "}
-              {request.bookUploadDate}
+              <strong>Response Date:</strong> {request.bookUploadDate}
             </p>
           )}
         </div>
