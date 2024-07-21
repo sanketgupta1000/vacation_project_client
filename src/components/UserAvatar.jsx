@@ -15,19 +15,17 @@ const UserAvatar = ({
         <div className="space-y-6">
           <div className="flex items-center gap-x-2">
             <img
-              className="object-cover aspect-square w-16 rounded-full"
+              className="object-cover aspect-square w-10 md:w-16 rounded-full"
               src={user.profilePhotoURL}
               alt=""
             />
 
             <div>
-              <h1 className="text-lg font-semibold text-gray-200 capitalize dark:text-white">
+              <h1 className="text-lg font-semibold text-gray-200 capitalize">
                 {user.name}
               </h1>
 
-              <p className="text-sm text-gray-300 dark:text-gray-400">
-                {user.email}
-              </p>
+              <p className="text-sm text-gray-300">{user.email}</p>
             </div>
           </div>
         </div>

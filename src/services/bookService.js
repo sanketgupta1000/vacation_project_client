@@ -6,7 +6,7 @@ class BookService
     // method to get all books
     async getBooks( jwt, pageNumber = 1, title = null, author = null, owner = null, city = null, categories = [], minPageCount = 0, maxPageCount = 0 ) 
     {
-        const params = {}
+        const params = { pageNumber }
         if ( title != null ) params.title = title;
         if ( author != null ) params.author = author;
         if ( owner != null ) params.owner = owner;

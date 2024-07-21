@@ -3,7 +3,7 @@ import { BookCard, BookSearchBar, BackGround, PaginationIndexer } from ".";
 import { useSelector, useDispatch } from "react-redux";
 import { setInfo, setLoading, setAvailableBooks } from "../slices";
 import { bookService } from "../services";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function AllBooks() {
   const dispatch = useDispatch();
@@ -11,8 +11,7 @@ function AllBooks() {
   const jwt = useSelector((state) => state.auth.token);
   const availableBooks = useSelector((state) => state.book.availableBooks);
 
-  const [searchParams, setSearchParams] = useSearchParams();
-  const pageNumber = Number(searchParams.get("page")) || 1;
+  const [pageNumber, setPageNumber] = useState(1);
 
   const [totalPages, setTotalPages] = useState();
   const [title, setTitle] = useState(null);
@@ -52,6 +51,7 @@ function AllBooks() {
     setCategories(categories);
     setMinPageCount(minPageCount);
     setMaxPageCount(maxPageCount);
+    setPageNumber(1);
   };
 
   // fetch all available books
@@ -76,7 +76,7 @@ function AllBooks() {
       }
 
       const data = await response.json();
-      setTotalPages(data.totalPages);
+      setTotalPages(data.page.totalPages);
 
       dispatch(setAvailableBooks({ availableBooks: data.content }));
     } catch (error) {
@@ -110,7 +110,7 @@ function AllBooks() {
         <div className="w-full mb-10">
           <BookSearchBar setFilterState={setFilterState} />
         </div>
-        <div className="w-full grid grid-cols-3 gap-16">
+        <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-16">
           {availableBooks.length !== 0 ? (
             <>
               {availableBooks.map((book) => (
@@ -128,7 +128,7 @@ function AllBooks() {
             <PaginationIndexer
               pageNumber={pageNumber}
               totalPages={totalPages}
-              url={"/books"}
+              setPageNumber={setPageNumber}
             />
           </div>
         )}

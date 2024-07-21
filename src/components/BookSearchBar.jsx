@@ -94,114 +94,127 @@ function BookSearchBar({ setFilterState }) {
   };
 
   return (
-    <div className="bg-gray-800 p-4 rounded-lg shadow-lg text-white ">
+    <div className="bg-gray-800 p-4 rounded-lg shadow-lg text-white">
       <div className="flex items-center space-x-4 mb-4">
-        <input
-          type="text"
-          placeholder="Search for books..."
-          className="flex-grow px-4 py-2 bg-gray-700 text-gray-300 border border-gray-600 rounded-md focus:outline-none focus:ring focus:border-blue-500"
-          value={filterText}
-          onChange={(e) => setFilterText(e.target.value)}
-        />
-        <button
-          onClick={handleFilterApply}
-          className="px-4 py-2 bg-green-600 text-white rounded-md focus:outline-none focus:ring"
-        >
-          Filter
-        </button>
-        <button
-          onClick={handleFilterClear}
-          className="px-4 py-2 bg-red-600 text-white rounded-md focus:outline-none focus:ring"
-        >
-          Clear
-        </button>
-        <button
-          onClick={() => setShowFilters(!showFilters)}
-          className="px-4 py-2 bg-blue-600 text-white rounded-md focus:outline-none focus:ring"
-        >
-          {showCategories ? "Hide Filters" : "Show Filters"}
-        </button>
+        <div className="grid grid-cols-2 md:grid-cols-6 lg:grid-cols-8 gap-3 w-full">
+          <input
+            type="text"
+            placeholder="Search for books..."
+            className="col-span-2 md:col-span-3 lg:col-span-5 px-4 py-2 bg-gray-700 text-gray-300 border border-gray-600 rounded-md focus:outline-none focus:ring focus:border-blue-500"
+            value={filterText}
+            onChange={(e) => setFilterText(e.target.value)}
+          />
+          <button
+            onClick={handleFilterApply}
+            className="px-4 py-2 bg-green-600 text-white rounded-md focus:outline-none focus:ring"
+          >
+            Filter
+          </button>
+          <button
+            onClick={handleFilterClear}
+            className="px-4 py-2 bg-red-600 text-white rounded-md focus:outline-none focus:ring"
+          >
+            Clear
+          </button>
+          <button
+            onClick={() => setShowFilters(!showFilters)}
+            className="col-span-2 md:col-span-1 px-4 py-2 bg-blue-600 text-white rounded-md focus:outline-none focus:ring"
+          >
+            {showFilters ? "Hide Filters" : "Show Filters"}
+          </button>
+        </div>
       </div>
       {showFilters && (
         <div className="bg-gray-700 p-4 rounded-lg shadow-inner">
-          <div className="mb-4">
-            <label htmlFor="filterBy" className="block mb-2 text-gray-400">
-              Filter by
-            </label>
-            <select
-              id="filterBy"
-              className="w-full px-4 py-2 bg-gray-800 text-gray-300 border border-gray-600 rounded-md focus:outline-none focus:ring focus:border-blue-500"
-              onChange={(e) => setFilterCriteria(e.target.value)}
-            >
-              {criteriaOptions.map((option) => (
-                <option
-                  key={option.id}
-                  value={option.value}
-                  selected={filterCriteria === option.value}
-                >
-                  {option.displayText}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="mb-4">
-            <button
-              onClick={() => setShowCategories(!showCategories)}
-              className="w-full px-4 py-2 bg-gray-600 text-white rounded-md focus:outline-none focus:ring"
-            >
-              {showCategories ? "Hide Categories" : "Show Categories"}
-            </button>
-            {showCategories && (
-              <div className="mt-2">
-                <label className="block mb-2 text-gray-400">Categories</label>
-                <div className="flex flex-col space-y-2">
-                  {allCategories.map((category) => (
-                    <label
-                      key={category.categoryId}
-                      className="inline-flex items-center"
-                    >
-                      <input
-                        type="checkbox"
-                        checked={categories.includes(category.categoryId)}
-                        onChange={() =>
-                          handleCategoryChange(category.categoryId)
-                        }
-                        className="form-checkbox h-5 w-5 text-blue-600"
-                      />
-                      <span className="ml-2">{category.categoryName}</span>
-                    </label>
-                  ))}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 items-start">
+            <div className="mb-4">
+              <label htmlFor="filterBy" className="block mb-2 text-gray-400">
+                Filter by
+              </label>
+              <select
+                id="filterBy"
+                className="w-full px-4 py-2 bg-gray-800 text-gray-300 border border-gray-600 rounded-md focus:outline-none focus:ring focus:border-blue-500"
+                onChange={(e) => setFilterCriteria(e.target.value)}
+              >
+                {criteriaOptions.map((option) => (
+                  <option
+                    key={option.id}
+                    value={option.value}
+                    selected={filterCriteria === option.value}
+                  >
+                    {option.displayText}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="mb-4">
+              <label htmlFor="filterBy" className="block mb-2 text-gray-400">
+                Choose categories
+              </label>
+              <button
+                onClick={() => setShowCategories(!showCategories)}
+                className="w-full px-4 py-2 bg-gray-600 text-white rounded-md focus:outline-none focus:ring"
+              >
+                {showCategories ? "Hide Categories" : "Show Categories"}
+              </button>
+              {showCategories && (
+                <div className="mt-2">
+                  <label className="block mb-2 text-gray-400">Categories</label>
+                  <div className="flex flex-col space-y-2">
+                    {allCategories.map((category) => (
+                      <label
+                        key={category.categoryId}
+                        className="inline-flex items-center"
+                      >
+                        <input
+                          type="checkbox"
+                          checked={categories.includes(category.categoryId)}
+                          onChange={() =>
+                            handleCategoryChange(category.categoryId)
+                          }
+                          className="form-checkbox h-5 w-5 text-blue-600"
+                        />
+                        <span className="ml-2">{category.categoryName}</span>
+                      </label>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            )}
-          </div>
-          <div className="mb-4">
-            <button
-              onClick={() => setShowPageCount(!showPageCount)}
-              className="w-full px-4 py-2 bg-gray-600 text-white rounded-md focus:outline-none focus:ring"
-            >
-              {showPageCount ? "Hide Page Count" : "Show Page Count"}
-            </button>
-            {showPageCount && (
-              <div className="mt-2">
-                <label className="block mb-2 text-gray-400">Page Count</label>
-                <div className="flex flex-col space-y-2">
-                  {pageCountOptions.map((option) => (
-                    <label key={option.id} className="inline-flex items-center">
-                      <input
-                        type="radio"
-                        name="pageCount"
-                        className="form-radio h-5 w-5 text-blue-600"
-                        onChange={() => handlePageCountSelection(option)}
-                      />
-                      <span className="ml-2">{`${option.lowerLimit}${
-                        option.upperLimit ? " - " + option.upperLimit : "+"
-                      } pages`}</span>
-                    </label>
-                  ))}
+              )}
+            </div>
+            <div className="mb-4 sm:col-span-2 lg:col-span-1">
+              <label htmlFor="filterBy" className="block mb-2 text-gray-400">
+                Choose Page count
+              </label>
+              <button
+                onClick={() => setShowPageCount(!showPageCount)}
+                className="w-full px-4 py-2 bg-gray-600 text-white rounded-md focus:outline-none focus:ring"
+              >
+                {showPageCount ? "Hide Page Count" : "Show Page Count"}
+              </button>
+              {showPageCount && (
+                <div className="mt-2">
+                  <label className="block mb-2 text-gray-400">Page Count</label>
+                  <div className="flex flex-col space-y-2">
+                    {pageCountOptions.map((option) => (
+                      <label
+                        key={option.id}
+                        className="inline-flex items-center"
+                      >
+                        <input
+                          type="radio"
+                          name="pageCount"
+                          className="form-radio h-5 w-5 text-blue-600"
+                          onChange={() => handlePageCountSelection(option)}
+                        />
+                        <span className="ml-2">{`${option.lowerLimit}${
+                          option.upperLimit ? " - " + option.upperLimit : "+"
+                        } pages`}</span>
+                      </label>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </div>
       )}

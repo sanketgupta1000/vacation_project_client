@@ -1,16 +1,16 @@
 import { useNavigate } from "react-router-dom";
 
-function PaginationIndexer({ pageNumber = 1, totalPages, url }) {
+function PaginationIndexer({ pageNumber = 1, totalPages, setPageNumber }) {
   const navigate = useNavigate();
   const handlePrevPage = () => {
     if (pageNumber > 1) {
-      navigate(`${url}?page=${pageNumber - 1}`);
+      setPageNumber(pageNumber - 1);
     }
   };
 
   const handleNextPage = () => {
     if (pageNumber < totalPages) {
-      navigate(`${url}?page=${pageNumber + 1}`);
+      setPageNumber(pageNumber + 1);
     }
   };
 

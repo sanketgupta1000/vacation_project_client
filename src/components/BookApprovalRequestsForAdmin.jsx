@@ -3,12 +3,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setAllBookApprovalRequests, setInfo, setLoading } from "../slices";
 import { bookUploadService } from "../services";
-import { BookApprovalRequestCard, Tab, BackGround } from "./";
+import {
+  BookApprovalRequestCard,
+  Tab,
+  BackGround,
+  PaginationIndexer,
+} from "./";
+import { BiTable } from "react-icons/bi";
 
 function BookApprovalRequestsForAdmin() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [tab, setTab] = useState("unresponded");
+
+  const [pageNumber, setPageNumber] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   // jwt token
   const jwt = useSelector((state) => state.auth.token);
@@ -37,15 +46,22 @@ function BookApprovalRequestsForAdmin() {
 
     // fetch requests
     try {
-      const response = await bookUploadService.getAllBookUploadRequests(jwt);
+      const response = await bookUploadService.getAllBookUploadRequests(
+        jwt,
+        pageNumber
+      );
 
       // check if request was successful
       if (!response.ok) {
         throw new Error((await response.json()).message);
       }
 
+      const pages = await response.json();
+
+      setTotalPages(pages[tab].page.totalPages);
+
       // set the requests
-      dispatch(setAllBookApprovalRequests(await response.json()));
+      dispatch(setAllBookApprovalRequests(pages));
     } catch (error) {
       dispatch(
         setInfo({ shouldShow: true, infoMsg: error.message, infoType: "error" })
@@ -60,7 +76,7 @@ function BookApprovalRequestsForAdmin() {
 
   useEffect(() => {
     fetchRequests();
-  }, []);
+  }, [pageNumber, tab]);
 
   return (
     <BackGround>
@@ -72,23 +88,40 @@ function BookApprovalRequestsForAdmin() {
         <div className="flex space-x-4 mb-8">
           <Tab
             active={tab === "unresponded"}
-            onClick={() => setTab("unresponded")}
+            onClick={() => {
+              setTab("unresponded");
+              setPageNumber(1);
+            }}
           >
             Unresponded
           </Tab>
 
-          <Tab active={tab === "approved"} onClick={() => setTab("approved")}>
+          <Tab
+            active={tab === "approved"}
+            onClick={() => {
+              setTab("approved");
+              setPageNumber(1);
+            }}
+          >
             Approved
           </Tab>
 
-          <Tab active={tab === "rejected"} onClick={() => setTab("rejected")}>
+          <Tab
+            active={tab === "rejected"}
+            onClick={() => {
+              setTab("rejected");
+              setPageNumber(1);
+            }}
+          >
             Rejected
           </Tab>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-20 px-0 lg:px-20">
           {requests[tab].length === 0 ? (
-            <div className="col-span-3 text-white">Nothing here.</div>
+            <div className="text-2xl col-span-3 text-white">
+              No content found.
+            </div>
           ) : (
             requests[tab].map((request) => (
               <BookApprovalRequestCard
@@ -104,6 +137,16 @@ function BookApprovalRequestsForAdmin() {
             ))
           )}
         </div>
+
+        {requests[tab].length !== 0 && (
+          <div className="w-full mt-8">
+            <PaginationIndexer
+              pageNumber={pageNumber}
+              totalPages={totalPages}
+              setPageNumber={setPageNumber}
+            />
+          </div>
+        )}
       </div>
     </BackGround>
   );
