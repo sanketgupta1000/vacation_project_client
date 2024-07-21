@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { BackGround, MemberApprovalRequestCard, Tab } from ".";
+import {
+  BackGround,
+  MemberApprovalRequestCard,
+  Tab,
+  PaginationIndexer,
+} from ".";
 import { memberApprovalService } from "../services";
 import { setAllReferenceRequests, setInfo, setLoading } from "../slices";
 import { useNavigate } from "react-router-dom";
@@ -8,6 +13,9 @@ import { useNavigate } from "react-router-dom";
 const ReferenceRequests = ({}) => {
   const dispatch = useDispatch();
   const [tab, setTab] = useState("unresponded");
+
+  const [pageNumber, setPageNumber] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   const navigate = useNavigate();
 
@@ -26,20 +34,24 @@ const ReferenceRequests = ({}) => {
     dispatch(setLoading({ isLoading: true, loadingMsg: "Loading data..." }));
 
     try {
-      const response = await memberApprovalService.seeAllReferences(jwt);
+      const response = await memberApprovalService.seeAllReferences(
+        jwt,
+        pageNumber
+      );
 
       if (!response.ok) {
         const errorObj = await response.json();
         throw new Error(errorObj.message);
       }
 
-      const memberApprovalRequests = await response.json();
+      const pages = await response.json();
+      setTotalPages(pages[tab].page.totalPages);
 
       dispatch(
         setAllReferenceRequests({
-          newRequests: memberApprovalRequests.unresponded,
-          approvedRequests: memberApprovalRequests.approved,
-          rejectedRequests: memberApprovalRequests.rejected,
+          newRequests: pages.unresponded,
+          approvedRequests: pages.approved,
+          rejectedRequests: pages.rejected,
         })
       );
     } catch (error) {
@@ -54,7 +66,7 @@ const ReferenceRequests = ({}) => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [pageNumber, tab]);
 
   return (
     <BackGround>
@@ -66,30 +78,46 @@ const ReferenceRequests = ({}) => {
         <div className="flex space-x-4 mb-8">
           <Tab
             active={tab === "unresponded"}
-            onClick={() => setTab("unresponded")}
+            onClick={() => {
+              setTab("unresponded");
+              setPageNumber(1);
+            }}
           >
             Unresponded
           </Tab>
 
-          <Tab active={tab === "approved"} onClick={() => setTab("approved")}>
+          <Tab
+            active={tab === "approved"}
+            onClick={() => {
+              setTab("approved");
+              setPageNumber(1);
+            }}
+          >
             Approved
           </Tab>
 
-          <Tab active={tab === "rejected"} onClick={() => setTab("rejected")}>
+          <Tab
+            active={tab === "rejected"}
+            onClick={() => {
+              setTab("rejected");
+              setPageNumber(1);
+            }}
+          >
             Rejected
           </Tab>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {requests[tab].length === 0 ? (
-            <div className="col-span-3 text-white">Nothing here.</div>
+            <div className="text-2xl col-span-3 text-white">
+              No content found.
+            </div>
           ) : (
             requests[tab].map((request) => (
               <MemberApprovalRequestCard
                 key={request.memberApprovalRequestId}
                 memberApprovalRequest={request}
                 status={request.adminApproval}
-                showReferrerInfo
                 showAdminApproval={request.adminApproval !== "UNRESPONDED"}
                 showAdminActions={tab === "unresponded"}
                 fetchData={fetchData}
@@ -97,6 +125,15 @@ const ReferenceRequests = ({}) => {
             ))
           )}
         </div>
+        {requests[tab].length !== 0 && (
+          <div className="w-full mt-8">
+            <PaginationIndexer
+              pageNumber={pageNumber}
+              totalPages={totalPages}
+              setPageNumber={setPageNumber}
+            />
+          </div>
+        )}
       </div>
     </BackGround>
   );

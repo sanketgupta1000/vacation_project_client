@@ -74,9 +74,9 @@ export const bookApprovalSlice = createSlice( {
         // method to set all requests
         setAllBookApprovalRequests: ( state, action ) => 
         {
-            state.newBookApprovalRequests = action.payload.unresponded
-            state.approvedBookApprovalRequests = action.payload.approved
-            state.rejectedBookApprovalRequests = action.payload.rejected
+            state.newBookApprovalRequests = action.payload.unresponded.content
+            state.approvedBookApprovalRequests = action.payload.approved.content
+            state.rejectedBookApprovalRequests = action.payload.rejected.content
         }
 
     }

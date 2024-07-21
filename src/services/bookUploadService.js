@@ -59,9 +59,10 @@ class BookUploadService
 
     }
 
-    async getAllBookUploadRequests( jwt )
+    async getAllBookUploadRequests( jwt, pageNumber )
     {
-        return fetch( config.urlPrefix + "/requests/bookUploadRequests",
+        const queryParams = new URLSearchParams( { pageNumber } )
+        return fetch( config.urlPrefix + `/requests/bookUploadRequests?${queryParams}`,
             {
                 //method 
                 method: "GET",
@@ -73,9 +74,10 @@ class BookUploadService
     }
 
     // to get all the upload requests of the current user
-    async getMyUploadRequests( jwt )
+    async getMyUploadRequests( jwt, pageNumber )
     {
-        return fetch( config.urlPrefix + "/requests/myUploadRequests",
+        const queryParams = new URLSearchParams( { pageNumber } )
+        return fetch( config.urlPrefix + `/requests/myUploadRequests?${queryParams}`,
             {
                 //method
                 method: "GET",

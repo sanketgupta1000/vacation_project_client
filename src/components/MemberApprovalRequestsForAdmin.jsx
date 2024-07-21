@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { MemberApprovalRequestCard, Tab, BackGround } from ".";
+import {
+  MemberApprovalRequestCard,
+  Tab,
+  BackGround,
+  PaginationIndexer,
+} from ".";
 import { memberApprovalService } from "../services";
 import { setAllMemberApprovalRequests, setLoading, setInfo } from "../slices";
 import { useNavigate } from "react-router-dom";
@@ -10,6 +15,9 @@ const MemberApprovalRequestForAdmin = ({}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [tab, setTab] = useState("unresponded");
+
+  const [pageNumber, setPageNumber] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   const requests = {
     unresponded:
@@ -32,16 +40,18 @@ const MemberApprovalRequestForAdmin = ({}) => {
 
     try {
       const response = await memberApprovalService.getAllMemberApprovalRequests(
-        jwt
+        jwt,
+        pageNumber
       );
       if (!response.ok) {
         const errorObj = await response.json();
         throw new Error(errorObj.message);
       }
 
-      const memberApprovalRequests = await response.json();
+      const pages = await response.json();
+      setTotalPages(pages[tab].page.totalPages);
 
-      dispatch(setAllMemberApprovalRequests(memberApprovalRequests));
+      dispatch(setAllMemberApprovalRequests(pages));
     } catch (error) {
       dispatch(
         setInfo({ shouldShow: true, isfoMag: error.message, infoType: "error" })
@@ -52,7 +62,7 @@ const MemberApprovalRequestForAdmin = ({}) => {
   };
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [pageNumber, tab]);
 
   return (
     <BackGround>
@@ -64,23 +74,40 @@ const MemberApprovalRequestForAdmin = ({}) => {
         <div className="flex space-x-4 mb-8">
           <Tab
             active={tab === "unresponded"}
-            onClick={() => setTab("unresponded")}
+            onClick={() => {
+              setTab("unresponded");
+              setPageNumber(1);
+            }}
           >
             Unresponded
           </Tab>
 
-          <Tab active={tab === "approved"} onClick={() => setTab("approved")}>
+          <Tab
+            active={tab === "approved"}
+            onClick={() => {
+              setTab("approved");
+              setPageNumber(1);
+            }}
+          >
             Approved
           </Tab>
 
-          <Tab active={tab === "rejected"} onClick={() => setTab("rejected")}>
+          <Tab
+            active={tab === "rejected"}
+            onClick={() => {
+              setTab("rejected");
+              setPageNumber(1);
+            }}
+          >
             Rejected
           </Tab>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16">
           {requests[tab].length === 0 ? (
-            <div className="col-span-3 text-white">Nothing here.</div>
+            <div className="text-2xl col-span-3 text-white">
+              No content found.
+            </div>
           ) : (
             requests[tab].map((request) => (
               <MemberApprovalRequestCard
@@ -95,6 +122,15 @@ const MemberApprovalRequestForAdmin = ({}) => {
             ))
           )}
         </div>
+        {requests[tab].length !== 0 && (
+          <div className="w-full mt-8">
+            <PaginationIndexer
+              pageNumber={pageNumber}
+              totalPages={totalPages}
+              setPageNumber={setPageNumber}
+            />
+          </div>
+        )}
       </div>
     </BackGround>
   );

@@ -35,6 +35,8 @@ import BackGround from "./BackGround";
 import UpdateProfile from "./UpdateProfile";
 import FormErrorMessage from "./FormErrorMessage"
 import BookApprovalRequestCard from "./BookApprovalRequestCard";
+import BookSearchBar from "./BookSearchBar";
+import PaginationIndexer from "./PaginationIndexer";
 
 export
 {
@@ -74,5 +76,7 @@ export
     BackGround,
     UpdateProfile,
     FormErrorMessage,
-    BookApprovalRequestCard
+    BookApprovalRequestCard,
+    BookSearchBar,
+    PaginationIndexer,
 }

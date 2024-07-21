@@ -2,9 +2,10 @@ import config from "../config/config";
 
 class MemberApprovalService 
 {
-    async getAllMemberApprovalRequests( jwt )
+    async getAllMemberApprovalRequests( jwt, pageNumber )
     {
-        return fetch( config.urlPrefix + "/requests/memberApprovalRequests",
+        const queryParams = new URLSearchParams( { pageNumber } )
+        return fetch( config.urlPrefix + `/requests/memberApprovalRequests?${queryParams}`,
             {
                 // method
                 method: "GET",
@@ -67,9 +68,10 @@ class MemberApprovalService
         )
     }
 
-    async seeAllReferences( jwt )
+    async seeAllReferences( jwt, pageNumber )
     {
-        return fetch( config.urlPrefix + "/users/referrals",
+        const queryParams = new URLSearchParams( { pageNumber } )
+        return fetch( config.urlPrefix + `/users/referrals?${queryParams}`,
             {
                 //method 
                 method: "GET",

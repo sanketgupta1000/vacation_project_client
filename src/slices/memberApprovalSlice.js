@@ -71,9 +71,9 @@ export const memberApprovalSlice = createSlice( {
         // method to set all requests
         setAllMemberApprovalRequests: ( state, action ) => 
         {
-            state.newMemberApprovalRequests = action.payload.unresponded;
-            state.approvedMemberApprovalRequests = action.payload.approved;
-            state.rejectedMemberApprovalRequests = action.payload.rejected;
+            state.newMemberApprovalRequests = action.payload.unresponded.content;
+            state.approvedMemberApprovalRequests = action.payload.approved.content;
+            state.rejectedMemberApprovalRequests = action.payload.rejected.content;
         }
 
     }

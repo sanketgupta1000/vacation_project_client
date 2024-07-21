@@ -4,15 +4,24 @@ class BookService
 {
 
     // method to get all books
-    async getBooks( jwt )
+    async getBooks( jwt, pageNumber = 1, title = null, author = null, owner = null, city = null, categories = [], minPageCount = 0, maxPageCount = 0 ) 
     {
+        const params = { pageNumber }
+        if ( title != null ) params.title = title;
+        if ( author != null ) params.author = author;
+        if ( owner != null ) params.owner = owner;
+        if ( city != null ) params.city = city;
+        if ( categories.length != 0 ) params.categories = categories;
+        if ( minPageCount != 0 ) params.minPageCount = minPageCount;
+        if ( maxPageCount != 0 ) params.maxPageCount = maxPageCount;
+        const queryParam = new URLSearchParams( params )
         return fetch(
-            config.urlPrefix + "/books",
+            config.urlPrefix + `/books?${queryParam}`,
             {
                 method: "GET",
                 headers: {
                     "Authorization": "Bearer " + jwt
-                }
+                },
             }
         )
     }

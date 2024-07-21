@@ -52,9 +52,9 @@ export const referenceSlice = createSlice( {
         //set all requests
         setAllReferenceRequests: ( state, action ) =>
         {
-            state.newReferenceRequests = action.payload.newRequests
-            state.approvedReferenceRequests = action.payload.approvedRequests
-            state.rejectedReferenceRequests = action.payload.rejectedRequests
+            state.newReferenceRequests = action.payload.newRequests.content
+            state.approvedReferenceRequests = action.payload.approvedRequests.content
+            state.rejectedReferenceRequests = action.payload.rejectedRequests.content
         },
 
         //set all referrers of current user
